@@ -1,5 +1,9 @@
 import { initializeApp } from "firebase/app";
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
@@ -19,4 +23,8 @@ const auth = getAuth(app);
 
 export const signUpUser = async (email: string, password: string) => {
   await createUserWithEmailAndPassword(auth, email, password);
+};
+
+export const signInUser = async (email: string, password: string) => {
+  await signInWithEmailAndPassword(auth, email, password);
 };

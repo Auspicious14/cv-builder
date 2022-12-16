@@ -2,7 +2,7 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { ApButton, ApTextInput } from "../../../components";
 import * as Yup from "yup";
-import { signUpUser } from "../../../library/firebase";
+import { signInUser } from "../../../library/firebase";
 import { toastSvc } from "../../../services/toast";
 import { useRouter } from "next/router";
 const FormSchema = Yup.object().shape({
@@ -11,15 +11,15 @@ const FormSchema = Yup.object().shape({
   email: Yup.string().required("Email is required"),
   password: Yup.string().required("Password is required"),
 });
-export const SignUpPage = () => {
+export const SignInPage = () => {
   const router = useRouter();
   const handleSubmit = (values: any) => {
     if (values) {
-      signUpUser(values?.email, values?.password)
+      signInUser(values?.email, values?.password)
         .then((res) => {
           console.log(res);
-          // toastSvc.success("signed up successfully");
-          router.push("/auth/signin");
+          // toastSvc.success("signed in successfully");
+          router.push("/");
         })
         .catch((err) => console.log(err));
     }
@@ -57,7 +57,7 @@ export const SignUpPage = () => {
             className="p-4 w-full"
           />
 
-          <ApButton name="sign up" type="submit" />
+          <ApButton name="sign in" type="submit" />
         </Form>
       </Formik>
     </div>
