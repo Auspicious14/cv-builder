@@ -5,45 +5,38 @@ import * as Yup from "yup";
 import { signUpUser } from "../../../library/firebase";
 import { toastSvc } from "../../../services/toast";
 import { useRouter } from "next/router";
+
 const FormSchema = Yup.object().shape({
-  //   firstName: Yup.string().required("First Name is required"),
-  //   lastName: Yup.string().required("Last Name is required"),
+  firstName: Yup.string().required("First Name is required"),
   email: Yup.string().required("Email is required"),
   password: Yup.string().required("Password is required"),
 });
+
 export const SignUpPage = () => {
   const router = useRouter();
+
   const handleSubmit = (values: any) => {
-    if (values) {
-      signUpUser(values?.email, values?.password)
-        .then((res) => {
-          console.log(res);
-          // toastSvc.success("signed up successfully");
-          router.push("/auth/signin");
-        })
-        .catch((err) => console.log(err));
-    }
+    const response = signUpUser(values.email, values.password, {
+      displayName: values.firstName,
+    });
+    response.then((res) => router.push("/auth/signin"));
   };
+
   return (
     <div className="w-72 m-auto my-12">
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ firstName: "", email: "", password: "" }}
         onSubmit={handleSubmit}
         validationSchema={FormSchema}
       >
         <Form>
-          {/* <ApTextInput
-            label="First Name"
+          <ApTextInput
+            label="Display Name"
             type="text"
             name="firstName"
             className="p-4 w-full"
           />
-          <ApTextInput
-            label="Last Name"
-            type="text"
-            name="lastName"
-            className="p-4 w-full"
-          /> */}
+
           <ApTextInput
             label="Email"
             type="email"
@@ -57,7 +50,7 @@ export const SignUpPage = () => {
             className="p-4 w-full"
           />
 
-          <ApButton name="sign up" type="submit" />
+          <ApButton name="sign up" type="submit" className="bg-sky-400 p-2" />
         </Form>
       </Formik>
     </div>

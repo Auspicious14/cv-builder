@@ -3,8 +3,10 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from "firebase/auth";
-import { getAnalytics } from "firebase/analytics";
+import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC1_77_OpnV3SXb0UJe2PYZGLpPyjE4HwM",
@@ -16,15 +18,57 @@ const firebaseConfig = {
   measurementId: "G-TYGSPJ1ZWF",
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 const auth = getAuth(app);
-
-export const signUpUser = async (email: string, password: string) => {
-  await createUserWithEmailAndPassword(auth, email, password);
+const db = getFirestore();
+const provider = new GoogleAuthProvider();
+provider.setCustomParameters({
+  prompt: "select_account",
+});
+export const signUpUser = async (
+  email: string,
+  password: string,
+  additionalInfo?: any
+) => {
+  const response = await (
+    await createUserWithEmailAndPassword(auth, email, password)
+  ).user;
+  console.log(response);
+  const user = await createUserDocument(response, additionalInfo);
+  console.log(user);
 };
 
+export const signInWithGooglePopUp = () => signInWithPopup(auth, provider);
+
 export const signInUser = async (email: string, password: string) => {
-  await signInWithEmailAndPassword(auth, email, password);
+  const response = await signInWithEmailAndPassword(auth, email, password);
+  const user = await createUserDocument(response);
+  console.log(user);
+};
+
+export const createUserDocument = async (
+  userAuth: any,
+  additionalInfo?: any
+) => {
+  const userDocRef = doc(db, "users", userAuth.uid);
+  console.log(userAuth);
+  const userSnapShot = await getDoc(userDocRef);
+  console.log(userSnapShot);
+
+  if (!userSnapShot.exists()) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+    try {
+      await setDoc(userDocRef, {
+        displayName,
+        email,
+        createdAt,
+        ...additionalInfo,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  return userDocRef;
 };
