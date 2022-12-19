@@ -72,3 +72,13 @@ export const createUserDocument = async (
   }
   return userDocRef;
 };
+
+export const userProfile = (response: any) => {
+  const user = getAuth().currentUser;
+  if (user) {
+    (response = user?.displayName), user?.email, user?.phoneNumber;
+    user?.providerData;
+  }
+
+  return { user, response };
+};
