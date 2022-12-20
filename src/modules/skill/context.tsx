@@ -2,17 +2,17 @@ import { collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import React, { createContext, useContext } from "react";
 import { auth, db } from "../../library";
 
-interface IAcademyState {
+interface ISkillState {
   createCVDocument: (response: any) => void;
 }
-const AcademyContext = createContext<IAcademyState>({
+const SkillContext = createContext<ISkillState>({
   createCVDocument(response) {
     return {} as any;
   },
 });
 
-export const useAcademyState = () => {
-  const context = useContext(AcademyContext);
+export const useSkillState = () => {
+  const context = useContext(SkillContext);
   if (context === undefined) {
     throw new Error("app dispatch must be used within app global provider");
   }
@@ -23,7 +23,7 @@ interface IProps {
   children: React.ReactNode;
 }
 
-export const AcademyContextProvider: React.FC<IProps> = ({ children }) => {
+export const SkillContextProvider: React.FC<IProps> = ({ children }) => {
   const createCVDocument = async (response: any) => {
     const user: any = auth.currentUser;
     const cvDocRef = doc(db, "cv", user.uid);
@@ -34,8 +34,8 @@ export const AcademyContextProvider: React.FC<IProps> = ({ children }) => {
     }
   };
   return (
-    <AcademyContext.Provider value={{ createCVDocument }}>
+    <SkillContext.Provider value={{ createCVDocument }}>
       {children}
-    </AcademyContext.Provider>
+    </SkillContext.Provider>
   );
 };

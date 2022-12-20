@@ -28,8 +28,6 @@ export const PersonalInfoContextProvider: React.FC<IProps> = ({ children }) => {
     const user: any = auth.currentUser;
     const cvDocRef = doc(db, "cv", user.uid);
     const cvSnapShot = await getDoc(cvDocRef);
-    console.log(cvDocRef);
-    console.log(cvSnapShot);
     if (!cvSnapShot.exists()) {
       try {
         await setDoc(cvDocRef, response);
