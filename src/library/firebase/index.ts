@@ -31,20 +31,14 @@ export const signUpUser = async (
   password: string,
   additionalInfo?: any
 ) => {
-  const response = await (
-    await createUserWithEmailAndPassword(auth, email, password)
-  ).user;
-  console.log(response);
-  const user = await createUserDocument(response, additionalInfo);
-  console.log(user);
+  const { user } = await createUserWithEmailAndPassword(auth, email, password);
+  await createUserDocument(user, additionalInfo);
 };
 
 export const signInWithGooglePopUp = () => signInWithPopup(auth, provider);
 
 export const signInUser = async (email: string, password: string) => {
-  const response = await signInWithEmailAndPassword(auth, email, password);
-  const user = await createUserDocument(response);
-  console.log(user);
+  await signInWithEmailAndPassword(auth, email, password);
 };
 
 export const createUserDocument = async (
@@ -52,9 +46,7 @@ export const createUserDocument = async (
   additionalInfo?: any
 ) => {
   const userDocRef = doc(db, "users", userAuth.uid);
-  console.log(userAuth);
   const userSnapShot = await getDoc(userDocRef);
-  console.log(userSnapShot);
 
   if (!userSnapShot.exists()) {
     const { displayName, email } = userAuth;

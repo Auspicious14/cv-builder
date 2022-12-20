@@ -2,9 +2,10 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { ApButton, ApTextInput } from "../../../components";
 import * as Yup from "yup";
-import { signUpUser } from "../../../library/firebase";
+import { auth, signUpUser } from "../../../library/firebase";
 import { toastSvc } from "../../../services/toast";
 import { useRouter } from "next/router";
+import { updateProfile } from "firebase/auth";
 
 const FormSchema = Yup.object().shape({
   firstName: Yup.string().required("First Name is required"),
@@ -18,14 +19,23 @@ export const SignUpPage = () => {
   const handleSubmit = (values: any) => {
     const response = signUpUser(values.email, values.password, {
       displayName: values.firstName,
+      lastName: values.lastName,
     });
-    response.then((res) => router.push("/auth/signin"));
+    response.then((user) => {
+      // console.log("signed up", user);
+    });
+    // response.then(async (res) => {
+    //   const user = auth.currentUser;
+    //   await updateProfile(user as any, {
+    //     displayName: values.name,
+    //   }).then((res) => console.log(res, "signed up!!!"));
+    // });
   };
 
   return (
     <div className="w-72 m-auto my-12">
       <Formik
-        initialValues={{ firstName: "", email: "", password: "" }}
+        initialValues={{ firstName: "", lastName: "", email: "", password: "" }}
         onSubmit={handleSubmit}
         validationSchema={FormSchema}
       >
@@ -34,6 +44,12 @@ export const SignUpPage = () => {
             label="Display Name"
             type="text"
             name="firstName"
+            className="p-4 w-full"
+          />
+          <ApTextInput
+            label="Last Name"
+            type="text"
+            name="lastName"
             className="p-4 w-full"
           />
 
