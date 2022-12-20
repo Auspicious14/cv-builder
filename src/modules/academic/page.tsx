@@ -1,41 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { ApTextInput } from "../../components";
+import { AcademyDetail } from "./detail";
+import { IAcademy } from "./model";
 
+interface IProps {
+  academy: IAcademy;
+}
 export const AcademyPage = () => {
+  const [academy, setAcademy] = useState<IAcademy>();
   return (
     <>
-      <div>
-        <ApTextInput
-          label="Secondary School"
-          type="text"
-          name="secondarySchool"
-          placeHolder=""
-        />
-        <ApTextInput
-          label="University/Polytechnic/College"
-          type="text"
-          name="university"
-          placeHolder=""
-        />
-        <ApTextInput
-          label="State Located"
-          type="text"
-          name="stateofSchool"
-          placeHolder="state of school attended"
-        />
-        <ApTextInput
-          label="Date Started"
-          type="text"
-          name="createdAt"
-          placeHolder=""
-        />
-        <ApTextInput
-          label="Date Ended"
-          type="text"
-          name="graduatedAt"
-          placeHolder=""
-        />
-      </div>
+      <AcademyDetail academy={academy as any} />
     </>
   );
 };

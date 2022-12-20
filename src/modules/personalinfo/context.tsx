@@ -1,6 +1,6 @@
 import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import React, { createContext, useContext } from "react";
-import { db } from "../../library";
+import { auth, db } from "../../library";
 
 interface IPersonalInfoState {
   createCVDocument: (response: any) => void;
@@ -25,13 +25,14 @@ interface IProps {
 
 export const PersonalInfoContextProvider: React.FC<IProps> = ({ children }) => {
   const createCVDocument = async (response: any) => {
-    const cvDocRef = doc(collection(db, "cv"));
+    const user: any = auth.currentUser;
+    const cvDocRef = doc(db, "cv", user.uid);
     const cvSnapShot = await getDoc(cvDocRef);
     console.log(cvDocRef);
     console.log(cvSnapShot);
     if (!cvSnapShot.exists()) {
       try {
-        await setDoc(cvDocRef, { response });
+        await setDoc(cvDocRef, response);
       } catch (err) {
         console.log(err);
       }
