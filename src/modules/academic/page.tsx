@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { ApTextInput } from "../../components";
 import { AcademyDetail } from "./detail";
 import { IAcademy } from "./model";
 

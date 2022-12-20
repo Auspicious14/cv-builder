@@ -1,10 +1,6 @@
-import { Form, Formik, FormikProps } from "formik";
+import { Form, Formik } from "formik";
 import React from "react";
 import { ApButton, ApTextInput } from "../../components";
-import { AcademyPage } from "../academic/page";
-import { useCvState } from "../buildcv/context";
-import { PersonalInformationPage } from "../personalinfo/page";
-import { SkillPage } from "../skill/page";
 import { usePersonalInfoState } from "./context";
 import { IPersonalInfo } from "./model";
 interface IProps {
@@ -32,7 +28,6 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
           }}
           onSubmit={handleSubmit}
         >
-          {/* {(props: FormikProps<any>) => ( */}
           <Form>
             <ApTextInput
               type="text"
@@ -50,7 +45,6 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
 
             <ApButton type="submit" name="create" />
           </Form>
-          {/* )} */}
         </Formik>
       </div>
     </>

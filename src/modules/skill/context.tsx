@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import React, { createContext, useContext } from "react";
 import { auth, db } from "../../library";
 
@@ -28,7 +28,7 @@ export const SkillContextProvider: React.FC<IProps> = ({ children }) => {
     const user: any = auth.currentUser;
     const cvDocRef = doc(db, "cv", user.uid);
     try {
-      await updateDoc(cvDocRef, response);
+      await updateDoc(cvDocRef, response).then((res) => console.log(res));
     } catch (err) {
       console.log(err);
     }

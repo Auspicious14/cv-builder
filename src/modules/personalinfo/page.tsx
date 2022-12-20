@@ -1,7 +1,5 @@
-import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
-import { ApButton, ApTextInput } from "../../components";
 import { PersonalInformationDetail } from "./detail";
 import { IPersonalInfo } from "./model";
 interface IProps {

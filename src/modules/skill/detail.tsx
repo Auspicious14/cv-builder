@@ -1,4 +1,4 @@
-import { Form, Formik, FormikProps } from "formik";
+import { Form, Formik } from "formik";
 import React from "react";
 import { ApButton, ApTextInput } from "../../components";
 import { useSkillState } from "./context";
@@ -9,9 +9,7 @@ interface IProps {
 export const SkillDetail: React.FC<IProps> = ({ skill }) => {
   const { createCVDocument } = useSkillState();
   const handleSubmit = (values: any) => {
-    console.log(values);
     const response = createCVDocument(values);
-    console.log(response);
   };
   return (
     <>
@@ -26,7 +24,6 @@ export const SkillDetail: React.FC<IProps> = ({ skill }) => {
           }}
           onSubmit={handleSubmit}
         >
-          {/* {(props: FormikProps<any>) => ( */}
           <Form>
             <ApTextInput
               label="skill 1"
@@ -61,7 +58,6 @@ export const SkillDetail: React.FC<IProps> = ({ skill }) => {
 
             <ApButton type="submit" name="create" />
           </Form>
-          {/* )} */}
         </Formik>
       </div>
     </>

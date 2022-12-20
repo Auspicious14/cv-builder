@@ -11,11 +11,9 @@ export const ProfilePage = () => {
   const getProfile = () => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
-        console.log(user.uid);
         const getUser = doc(db, "users", user.uid);
         const userSnapShot = await getDoc(getUser);
         if (userSnapShot.exists()) {
-          console.log(userSnapShot.data(), "Userrrrrrrrr");
           setProfile(userSnapShot.data() as any);
         }
       }

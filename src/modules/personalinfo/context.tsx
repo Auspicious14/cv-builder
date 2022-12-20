@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import React, { createContext, useContext } from "react";
 import { auth, db } from "../../library";
 
@@ -30,7 +30,7 @@ export const PersonalInfoContextProvider: React.FC<IProps> = ({ children }) => {
     const cvSnapShot = await getDoc(cvDocRef);
     if (!cvSnapShot.exists()) {
       try {
-        await setDoc(cvDocRef, response);
+        await setDoc(cvDocRef, response).then((res) => console.log(res));
       } catch (err) {
         console.log(err);
       }

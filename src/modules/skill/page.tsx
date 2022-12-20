@@ -1,6 +1,5 @@
-import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { ApButton, ApTextInput } from "../../components";
+
 import { SkillDetail } from "./detail";
 import { ISkill } from "./model";
 
