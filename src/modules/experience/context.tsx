@@ -2,17 +2,17 @@ import { doc, updateDoc } from "firebase/firestore";
 import React, { createContext, useContext } from "react";
 import { auth, db } from "../../library";
 
-interface IAcademyState {
+interface ExperienceState {
   updateCVDocument: (response: any) => Promise<any>;
 }
-const AcademyContext = createContext<IAcademyState>({
+const ExperienceContext = createContext<ExperienceState>({
   updateCVDocument(response) {
     return {} as any;
   },
 });
 
-export const useAcademyState = () => {
-  const context = useContext(AcademyContext);
+export const useExperienceState = () => {
+  const context = useContext(ExperienceContext);
   if (context === undefined) {
     throw new Error("app dispatch must be used within app global provider");
   }
@@ -23,7 +23,7 @@ interface IProps {
   children: React.ReactNode;
 }
 
-export const AcademyContextProvider: React.FC<IProps> = ({ children }) => {
+export const ExperienceContextProvider: React.FC<IProps> = ({ children }) => {
   const updateCVDocument = async (response: any) => {
     const user: any = auth.currentUser;
     const cvDocRef = doc(db, "cv", user.uid);
@@ -34,8 +34,8 @@ export const AcademyContextProvider: React.FC<IProps> = ({ children }) => {
     }
   };
   return (
-    <AcademyContext.Provider value={{ updateCVDocument }}>
+    <ExperienceContext.Provider value={{ updateCVDocument }}>
       {children}
-    </AcademyContext.Provider>
+    </ExperienceContext.Provider>
   );
 };

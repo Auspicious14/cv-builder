@@ -2,28 +2,27 @@ import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../../library";
-import { useCvState } from "./context";
 import { ICV } from "./model";
 
 export const BuildPage = () => {
   const [cvState, setCvState] = useState<ICV>();
+
   const getCVDocument = () => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         const cvDocRef = doc(db, "cv", user.uid);
         const cvSnapShot = await getDoc(cvDocRef);
         if (cvSnapShot.exists()) {
-          console.log(cvSnapShot.data(), "cv dataaaaaa");
           setCvState(cvSnapShot.data() as any);
-          // console.log(cvState?.personalInfo?.firstName);
         }
       }
     });
   };
-  // console.log(cvState);
+
   useEffect(() => {
     getCVDocument();
   }, []);
+
   return (
     <>
       {cvState && (
@@ -56,6 +55,34 @@ export const BuildPage = () => {
               <div>{cvState?.stateofSchool}</div>
               <div>{`From: ${cvState?.createdAt}`}</div>
               <div>{`To: ${cvState?.graduatedAt}`}</div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {cvState && (
+        <div className=" m-auto my-2 border-8 border-blue-700 w-[80%] h-auto">
+          <div className="pt-8 pb-4 text-4xl">
+            {`${cvState?.firstName
+              .charAt(0)
+              .toLocaleUpperCase()}${cvState.firstName.slice(
+              1
+            )} ${cvState?.lastName
+              .charAt(0)
+              .toLocaleUpperCase()}${cvState.lastName.slice(1)}`}
+          </div>
+          <div className="flex justify-between w-full h-auto p-4">
+            <div>
+              <p>{cvState.email}</p>
+              <p>{cvState.phoneNumber}</p>
+            </div>
+            <div>{cvState.address}</div>
+          </div>
+          <div className="flex justify-between">
+            <div>
+              <h1 className="font-bold">Work History</h1>
+              <p>{`From ${cvState.createdAt} to ${cvState.graduatedAt}`}</p>
+              <p>{"Software Engineering"}</p>
             </div>
           </div>
         </div>

@@ -7,20 +7,30 @@ interface IProps {
   skill: ISkill;
 }
 export const SkillDetail: React.FC<IProps> = ({ skill }) => {
-  const { createCVDocument } = useSkillState();
-  const handleSubmit = (values: any) => {
-    const response = createCVDocument(values);
+  const { updateCVDocument } = useSkillState();
+  const handleSubmit = (values: any, actions: any) => {
+    const response = updateCVDocument(values).finally(() => {
+      actions.resetForm({
+        values: {
+          skill1: "",
+          skill2: "",
+          skill3: "",
+          skill4: "",
+          skill5: "",
+        },
+      });
+    });
   };
   return (
     <>
       <div>
         <Formik
           initialValues={{
-            secondarySchool: skill?.skill1 || "",
-            university: skill?.skill2 || "",
-            stateofSchool: skill?.skill3 || "",
-            createdAt: skill?.skill4 || "",
-            graduatedAt: skill?.skill5 || "",
+            skill1: skill?.skill1 || "",
+            skill2: skill?.skill2 || "",
+            skill3: skill?.skill3 || "",
+            skill4: skill?.skill4 || "",
+            skill5: skill?.skill5 || "",
           }}
           onSubmit={handleSubmit}
         >

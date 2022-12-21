@@ -3,10 +3,10 @@ import React, { createContext, useContext } from "react";
 import { auth, db } from "../../library";
 
 interface ISkillState {
-  createCVDocument: (response: any) => void;
+  updateCVDocument: (response: any) => Promise<any>;
 }
 const SkillContext = createContext<ISkillState>({
-  createCVDocument(response) {
+  updateCVDocument(response) {
     return {} as any;
   },
 });
@@ -24,7 +24,7 @@ interface IProps {
 }
 
 export const SkillContextProvider: React.FC<IProps> = ({ children }) => {
-  const createCVDocument = async (response: any) => {
+  const updateCVDocument = async (response: any) => {
     const user: any = auth.currentUser;
     const cvDocRef = doc(db, "cv", user.uid);
     try {
@@ -34,7 +34,7 @@ export const SkillContextProvider: React.FC<IProps> = ({ children }) => {
     }
   };
   return (
-    <SkillContext.Provider value={{ createCVDocument }}>
+    <SkillContext.Provider value={{ updateCVDocument }}>
       {children}
     </SkillContext.Provider>
   );

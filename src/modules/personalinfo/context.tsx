@@ -1,12 +1,16 @@
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import React, { createContext, useContext } from "react";
 import { auth, db } from "../../library";
 
 interface IPersonalInfoState {
-  createCVDocument: (response: any) => void;
+  createCVDocument: (response: any) => Promise<any>;
+  updateCVDocument: (response: any) => Promise<any>;
 }
 const PersonalInfoContext = createContext<IPersonalInfoState>({
   createCVDocument(response) {
+    return {} as any;
+  },
+  updateCVDocument(response) {
     return {} as any;
   },
 });
@@ -37,8 +41,19 @@ export const PersonalInfoContextProvider: React.FC<IProps> = ({ children }) => {
     }
     return cvDocRef;
   };
+
+  const updateCVDocument = async (response: any) => {
+    const user: any = auth.currentUser;
+    const cvDocRef = doc(db, "cv", user.uid);
+    const cvSnapShot = await updateDoc(cvDocRef, { response }).then((res) => {
+      console.log(res);
+    });
+    console.log(cvSnapShot);
+  };
   return (
-    <PersonalInfoContext.Provider value={{ createCVDocument }}>
+    <PersonalInfoContext.Provider
+      value={{ createCVDocument, updateCVDocument }}
+    >
       {children}
     </PersonalInfoContext.Provider>
   );

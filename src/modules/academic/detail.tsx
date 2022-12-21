@@ -7,9 +7,19 @@ interface IProps {
   academy: IAcademy;
 }
 export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
-  const { createCVDocument } = useAcademyState();
-  const handleSubmit = (values: any) => {
-    const response = createCVDocument(values);
+  const { updateCVDocument } = useAcademyState();
+  const handleSubmit = (values: any, actions: any) => {
+    const response = updateCVDocument(values).finally(() => {
+      actions.resetForm({
+        values: {
+          secondarySchool: "",
+          university: "",
+          createdAt: "",
+          graduatedAt: "",
+          stateofSchool: "",
+        },
+      });
+    });
   };
   return (
     <>
