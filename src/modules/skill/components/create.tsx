@@ -11,12 +11,17 @@ export const SkillListItem: React.FC<IProps> = ({ index, onDelete, skill }) => {
   return (
     <>
       <ApTextInput
-        label="skill"
+        label="Skill"
         type="text"
         name={`skill[${index}].skillName`}
-        placeHolder=""
+        className="p-3 outline-blue-400"
       />
-      <ApButton name="delete" type="button" onClick={onDelete} />
+      <ApButton
+        name="Delete"
+        type="button"
+        onClick={onDelete}
+        className="bg-red-400 mb-4 px-4 text-white border-none rounded-md outline-none "
+      />
     </>
   );
 };
@@ -28,7 +33,15 @@ interface ISKillProps {
 export const Skill: React.FC<ISKillProps> = ({ skills, onAdd, onDelete }) => {
   return (
     <>
-      <ApButton name="Add" type="button" onClick={onAdd} />
+      <div className="mt-4 border-t flex justify-between items-center">
+        <p className="py-3 font-bold">SKILL</p>
+        <ApButton
+          name="Add"
+          type="button"
+          onClick={onAdd}
+          className="bg-blue-400 px-4 py-2 text-white border-none rounded-md outline-none "
+        />
+      </div>
       {skills?.map((skill, i) => (
         <SkillListItem
           skill={skill}

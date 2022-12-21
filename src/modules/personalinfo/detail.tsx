@@ -48,30 +48,68 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
           onSubmit={handleSubmit}
         >
           <Form>
+            <p className="py-3 font-bold">PERSONAL INFORMATION</p>
             <ApTextInput
+              label="First Name"
               type="text"
               name="firstName"
-              placeHolder="first name"
+              className="p-3 outline-blue-400"
             />
-            <ApTextInput type="text" name="lastName" placeHolder="last name" />
-            <ApTextInput type="email" name="email" placeHolder="email" />
+            <ApTextInput
+              label="Last Name"
+              type="text"
+              name="lastName"
+              className="p-3 outline-blue-400"
+            />
+            <ApTextInput
+              label="Email"
+              type="email"
+              name="email"
+              className="p-3 outline-blue-400"
+            />
 
             <ApTextInput
+              label="Phone Number"
               type="text"
               name="phoneNumber"
-              placeHolder="phone number"
+              className="p-3 outline-blue-400"
             />
             <ApTextInput
+              label="Description"
               type="textarea"
               name="description"
-              placeHolder="Description"
+              className="p-3 outline-blue-400"
             />
-            <ApTextInput type="text" name="address" placeHolder="address" />
-            <ApTextInput type="text" name="state" placeHolder="state" />
-            <ApTextInput type="text" name="city" placeHolder="city" />
-            <ApTextInput type="text" name="country" placeHolder="country" />
+            <ApTextInput
+              label="Address"
+              type="text"
+              name="address"
+              className="p-3 outline-blue-400"
+            />
+            <ApTextInput
+              label="State"
+              type="text"
+              name="state"
+              className="p-3 outline-blue-400"
+            />
+            <ApTextInput
+              label="City"
+              type="text"
+              name="city"
+              className="p-3 outline-blue-400"
+            />
+            <ApTextInput
+              label="Country"
+              type="text"
+              name="country"
+              className="p-3 outline-blue-400"
+            />
 
-            <ApButton type="submit" name="create" />
+            <ApButton
+              type="submit"
+              name="create"
+              className="px-4 py-2 uppercase bg-blue-400 rounded-md border-none outline-none text-white font-bold"
+            />
           </Form>
         </Formik>
       </div>

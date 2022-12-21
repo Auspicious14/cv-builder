@@ -66,7 +66,11 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
                   )
                 }
               />
-              <ApButton type="submit" name="create" />
+              <ApButton
+                type="submit"
+                name="create"
+                className="px-4 py-2 uppercase bg-blue-400 rounded-md border-none outline-none text-white font-bold"
+              />
             </Form>
           )}
         </Formik>

@@ -7,10 +7,15 @@ import { ICV } from "./model";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { SkillList } from "../skill/components/listitem";
 import { AcademyList } from "../academic/components/listitem";
+import { ApButton, ApModal } from "../../components";
+import { UpdateCVModal } from "./modal";
 
 export const BuildPage = () => {
   const [cvState, setCvState] = useState<ICV>();
-
+  const [modal, setModal] = useState<{ show: boolean; data?: any }>({
+    show: false,
+  });
+  const data = auth.currentUser?.uid;
   const getCVDocument = () => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -22,7 +27,6 @@ export const BuildPage = () => {
       }
     });
   };
-  console.log(cvState?.academy);
   useEffect(() => {
     getCVDocument();
   }, []);
@@ -30,7 +34,7 @@ export const BuildPage = () => {
   return (
     <>
       {cvState && (
-        <div className=" m-auto my-2 border-[2rem] border-blue-700 w-[80%] h-auto">
+        <div className=" m-auto my-2 border-[2rem] border-blue-500 w-[80%] h-auto">
           <div className="p-4">
             <div className="pt-8 pb-4 text-4xl">
               {`${cvState?.firstName
@@ -79,6 +83,22 @@ export const BuildPage = () => {
           </div>
         </div>
       )}
+      <ApButton
+        name="edit"
+        type="button"
+        onClick={() => {
+          setModal({ show: true, data }), console.log(data);
+        }}
+        className="bg-blue-400 px-4 py-2 text-white border-none rounded-md outline-none "
+      />
+      <ApModal
+        title={"Update CV"}
+        show={modal.show}
+        onDimiss={() => setModal({ show: false })}
+        containerClassName={"w-[70%] m-auto"}
+      >
+        {modal.show && <UpdateCVModal update={modal.data} />}
+      </ApModal>
     </>
   );
 };
