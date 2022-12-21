@@ -1,6 +1,7 @@
 import { Form, Formik } from "formik";
 import React from "react";
 import { ApButton, ApTextInput } from "../../components";
+import { Academy } from "./components/create";
 import { useAcademyState } from "./context";
 import { IAcademy } from "./model";
 interface IProps {
@@ -26,48 +27,42 @@ export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
       <div>
         <Formik
           initialValues={{
-            secondarySchool: academy?.secondarySchool || "",
-            university: academy?.university || "",
-            stateofSchool: academy?.stateofSchool || "",
-            createdAt: academy?.createdAt || "",
-            graduatedAt: academy?.graduatedAt || "",
+            academy: [
+              {
+                name: academy?.name || "",
+                course: academy?.course || "",
+                fromDate: academy?.fromDate || "",
+                toDate: academy?.toDate || "",
+              },
+            ],
           }}
           onSubmit={handleSubmit}
         >
-          <Form>
-            <ApTextInput
-              label="Secondary School"
-              type="text"
-              name="secondarySchool"
-              placeHolder=""
-            />
-            <ApTextInput
-              label="University/Polytechnic/College"
-              type="text"
-              name="university"
-              placeHolder=""
-            />
-            <ApTextInput
-              label="State Located"
-              type="text"
-              name="stateofSchool"
-              placeHolder="state of school attended"
-            />
-            <ApTextInput
-              label="Date Started"
-              type="text"
-              name="createdAt"
-              placeHolder=""
-            />
-            <ApTextInput
-              label="Date Ended"
-              type="text"
-              name="graduatedAt"
-              placeHolder=""
-            />
-
-            <ApButton type="submit" name="create" />
-          </Form>
+          {({ values, setFieldValue }) => (
+            <Form>
+              <Academy
+                academy={values.academy}
+                onAdd={() =>
+                  setFieldValue("academy", [
+                    ...values.academy,
+                    {
+                      name: "",
+                      course: "",
+                      fromDate: "",
+                      toDate: "",
+                    },
+                  ])
+                }
+                onDelete={(index: number) =>
+                  setFieldValue(
+                    "academy",
+                    values.academy.filter((a, i) => i !== index)
+                  )
+                }
+              />
+              <ApButton type="submit" name="create" />
+            </Form>
+          )}
         </Formik>
       </div>
     </>

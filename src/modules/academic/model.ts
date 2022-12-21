@@ -1,7 +1,6 @@
 export interface IAcademy {
-  secondarySchool: string;
-  university: string;
-  stateofSchool: string;
-  createdAt: string;
-  graduatedAt: string;
+  name: string;
+  course: string;
+  fromDate: string;
+  toDate: string;
 }
