@@ -54,6 +54,7 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
               placeHolder="first name"
             />
             <ApTextInput type="text" name="lastName" placeHolder="last name" />
+            <ApTextInput type="email" name="email" placeHolder="email" />
 
             <ApTextInput
               type="text"

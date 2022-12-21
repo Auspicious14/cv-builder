@@ -2,7 +2,11 @@ import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../../library";
+import { ExperienceList } from "../experience/components/listitem";
 import { ICV } from "./model";
+import { HiOutlineLocationMarker } from "react-icons/hi";
+import { SkillList } from "../skill/components/listitem";
+import { AcademyList } from "../academic/components/listitem";
 
 export const BuildPage = () => {
   const [cvState, setCvState] = useState<ICV>();
@@ -18,7 +22,7 @@ export const BuildPage = () => {
       }
     });
   };
-
+  console.log(cvState?.academy);
   useEffect(() => {
     getCVDocument();
   }, []);
@@ -26,63 +30,51 @@ export const BuildPage = () => {
   return (
     <>
       {cvState && (
-        <div>
-          <div className="text-center w-full h-40 bg-cyan-400 border rounded-sm">
-            <h1>Personal Info</h1>
-            <div>
-              <div>{cvState?.firstName}</div>
-              <div>{cvState?.lastName}</div>
-              <div>{cvState?.email}</div>
-              <div>{cvState?.phoneNumber}</div>
-              <div>{cvState?.city}</div>
+        <div className=" m-auto my-2 border-[2rem] border-blue-700 w-[80%] h-auto">
+          <div className="p-4">
+            <div className="pt-8 pb-4 text-4xl">
+              {`${cvState?.firstName
+                .charAt(0)
+                .toLocaleUpperCase()}${cvState.firstName.slice(
+                1
+              )} ${cvState?.lastName
+                .charAt(0)
+                .toLocaleUpperCase()}${cvState.lastName.slice(1)}`}
             </div>
+            <p className="text-justify">{cvState?.description}</p>
           </div>
-          <div className="text-center w-full h-40 bg-blue-400 border rounded-sm">
-            <h1>Skills</h1>
-            <div>
-              <div>{cvState?.skill1}</div>
-              <div>{cvState?.skill2}</div>
-              <div>{cvState?.skill3}</div>
-              <div>{cvState?.skill4}</div>
-              <div>{cvState?.skill5}</div>
-            </div>
-          </div>
-          <div className="text-center w-full h-40 bg-green-300 border rounded-sm">
-            <h1>Academy</h1>
-            <div>
-              <div>{cvState?.secondarySchool}</div>
-              <div>{cvState?.university}</div>
-              <div>{cvState?.stateofSchool}</div>
-              <div>{`From: ${cvState?.createdAt}`}</div>
-              <div>{`To: ${cvState?.graduatedAt}`}</div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {cvState && (
-        <div className=" m-auto my-2 border-8 border-blue-700 w-[80%] h-auto">
-          <div className="pt-8 pb-4 text-4xl">
-            {`${cvState?.firstName
-              .charAt(0)
-              .toLocaleUpperCase()}${cvState.firstName.slice(
-              1
-            )} ${cvState?.lastName
-              .charAt(0)
-              .toLocaleUpperCase()}${cvState.lastName.slice(1)}`}
-          </div>
-          <div className="flex justify-between w-full h-auto p-4">
+          <div className="ml-4 flex text-white justify-between  h-auto p-4 bg-blue-500">
             <div>
               <p>{cvState.email}</p>
               <p>{cvState.phoneNumber}</p>
             </div>
-            <div>{cvState.address}</div>
+            <div className="flex  items-center">
+              <HiOutlineLocationMarker size={20} />
+              <p>{cvState?.address}</p>
+            </div>
           </div>
-          <div className="flex justify-between">
-            <div>
-              <h1 className="font-bold">Work History</h1>
-              <p>{`From ${cvState.createdAt} to ${cvState.graduatedAt}`}</p>
-              <p>{"Software Engineering"}</p>
+          <div className="w-full flex gap-4 justify-between p-4">
+            <div className="w-[50%]">
+              <h1 className="font-bold text-lg">Work History</h1>
+              <div>
+                {cvState?.experience?.map((e, i) => (
+                  <ExperienceList experience={e} key={i} />
+                ))}
+              </div>
+            </div>
+            <div className="w-[50%] pl-12">
+              <h1 className="font-bold text-lg">Skills</h1>
+              <div className="my-4">
+                {cvState?.skill?.map((s, i) => (
+                  <SkillList skill={s} key={i} />
+                ))}
+              </div>
+              <h1 className="font-bold text-lg">Education</h1>
+              <div className="my-4">
+                {cvState?.academy?.map((a, i) => (
+                  <AcademyList academy={a} key={i} />
+                ))}
+              </div>
             </div>
           </div>
         </div>

@@ -1,7 +1,3 @@
-import { IAcademy } from "../academic/model";
-import { IPersonalInfo } from "../personalinfo/model";
-import { ISkill } from "../skill/model";
-
 export interface ICV {
   firstName: string;
   lastName: string;
@@ -12,14 +8,26 @@ export interface ICV {
   city: string;
   state: string;
   email: string;
-  skill1: string;
-  skill2: string;
-  skill3: string;
-  skill4: string;
-  skill5: string;
-  secondarySchool: string;
-  university: string;
-  stateofSchool: string;
-  createdAt: string;
-  graduatedAt: string;
+  academy: IAcademy[];
+  experience: IExperience[];
+  skill: ISkill[];
+}
+
+interface IAcademy {
+  course: string;
+  name: string;
+  fromDate: string;
+  toDate: string;
+}
+
+interface IExperience {
+  jobTitle: string;
+  organization: string;
+  fromDate: string;
+  toDate: string;
+  description: string;
+}
+
+interface ISkill {
+  skillName: string;
 }
