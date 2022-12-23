@@ -5,11 +5,9 @@ import { usePersonalInfoState } from "./context";
 import { IPersonalInfo } from "./model";
 interface IProps {
   personalInfo: IPersonalInfo;
-  onShow?: () => void;
 }
 export const PersonalInformationDetail: React.FC<IProps> = ({
   personalInfo,
-  onShow,
 }) => {
   const { createCVDocument } = usePersonalInfoState();
 
@@ -48,7 +46,9 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
           onSubmit={handleSubmit}
         >
           <Form>
-            <p className="py-3 font-bold">PERSONAL INFORMATION</p>
+            <p className="py-3 text-lg text-white text-center font-bold">
+              PERSONAL INFORMATION
+            </p>
             <ApTextInput
               label="First Name"
               type="text"

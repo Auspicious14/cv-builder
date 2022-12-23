@@ -10,7 +10,9 @@ export const PersonalInformationPage = () => {
   return (
     <>
       <div>
-        <PersonalInformationDetail personalInfo={personalInfo} />
+        <div className="">
+          <PersonalInformationDetail personalInfo={personalInfo} />
+        </div>
       </div>
     </>
   );

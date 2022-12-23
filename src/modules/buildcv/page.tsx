@@ -8,14 +8,13 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import { SkillList } from "../skill/components/listitem";
 import { AcademyList } from "../academic/components/listitem";
 import { ApButton, ApModal } from "../../components";
-import { UpdateCVModal } from "./modal";
+import { UpdateCVModal } from "./update/modal";
 
 export const BuildPage = () => {
-  const [cvState, setCvState] = useState<ICV>();
+  const [cvState, setCvState] = useState<ICV>({} as any);
   const [modal, setModal] = useState<{ show: boolean; data?: any }>({
     show: false,
   });
-  const data = auth.currentUser?.uid;
   const getCVDocument = () => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -27,6 +26,7 @@ export const BuildPage = () => {
       }
     });
   };
+  console.log(cvState);
   useEffect(() => {
     getCVDocument();
   }, []);
@@ -38,19 +38,19 @@ export const BuildPage = () => {
           <div className="p-4">
             <div className="pt-8 pb-4 text-4xl">
               {`${cvState?.firstName
-                .charAt(0)
-                .toLocaleUpperCase()}${cvState.firstName.slice(
+                ?.charAt(0)
+                ?.toLocaleUpperCase()}${cvState?.firstName?.slice(
                 1
               )} ${cvState?.lastName
-                .charAt(0)
-                .toLocaleUpperCase()}${cvState.lastName.slice(1)}`}
+                ?.charAt(0)
+                ?.toLocaleUpperCase()}${cvState?.lastName?.slice(1)}`}
             </div>
             <p className="text-justify">{cvState?.description}</p>
           </div>
           <div className="ml-4 flex text-white justify-between  h-auto p-4 bg-blue-500">
             <div>
-              <p>{cvState.email}</p>
-              <p>{cvState.phoneNumber}</p>
+              <p>{cvState?.email}</p>
+              <p>{cvState?.phoneNumber}</p>
             </div>
             <div className="flex  items-center">
               <HiOutlineLocationMarker size={20} />
@@ -84,11 +84,9 @@ export const BuildPage = () => {
         </div>
       )}
       <ApButton
-        name="edit"
+        name="Edit"
         type="button"
-        onClick={() => {
-          setModal({ show: true, data }), console.log(data);
-        }}
+        onClick={() => setModal({ show: true, data: cvState })}
         className="bg-blue-400 px-4 py-2 text-white border-none rounded-md outline-none "
       />
       <ApModal
@@ -97,7 +95,12 @@ export const BuildPage = () => {
         onDimiss={() => setModal({ show: false })}
         containerClassName={"w-[70%] m-auto"}
       >
-        {modal.show && <UpdateCVModal update={modal.data} />}
+        {modal.show && (
+          <UpdateCVModal
+            update={cvState}
+            onDissmiss={() => setModal({ show: false })}
+          />
+        )}
       </ApModal>
     </>
   );

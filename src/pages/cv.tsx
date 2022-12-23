@@ -3,7 +3,13 @@ import { CVContetxProvider } from "../modules/buildcv/context";
 import { BuildPage } from "../modules/buildcv/page";
 
 const CV = () => {
-  return <BuildPage />;
+  return (
+    <>
+      <CVContetxProvider>
+        <BuildPage />
+      </CVContetxProvider>
+    </>
+  );
 };
 
 export default CV;
