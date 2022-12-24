@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { ApButton, ApTextInput } from "../../../components";
 import { Academy } from "../../academic/components/create";
 import { Experience } from "../../experience/components/creat";
@@ -12,9 +12,9 @@ interface IProps {
   onDissmiss: () => void;
 }
 export const UpdateCVModal: React.FC<IProps> = ({ update, onDissmiss }) => {
-  const { updateCVDocument } = useCvState();
+  const { updateCVDocument, uploadImageDocument } = useCvState();
+  const [imageUpload, setImageUpload] = useState<any>();
   const handleSubmit = (values: any, actions: any) => {
-    console.log(values);
     updateCVDocument(values).then((res) => {
       if (res && onDissmiss) {
         onDissmiss();
@@ -37,6 +37,12 @@ export const UpdateCVModal: React.FC<IProps> = ({ update, onDissmiss }) => {
       });
     });
   };
+
+  const handleChange = (e: any) => {
+    if (e.target.files[0] === null) return;
+    setImageUpload(e.target.files[0]);
+  };
+
   return (
     <>
       <Formik
@@ -58,6 +64,18 @@ export const UpdateCVModal: React.FC<IProps> = ({ update, onDissmiss }) => {
       >
         {({ values, setFieldValue }) => (
           <Form>
+            <input
+              type="file"
+              id=""
+              accept="image/*"
+              onChange={(event) => handleChange(event)}
+            />
+            <ApButton
+              name="create image"
+              type="button"
+              onClick={() => uploadImageDocument(imageUpload)}
+              className="px-4 py-2 uppercase bg-blue-400 rounded-md border-none outline-none text-white font-bold"
+            />
             <ApTextInput
               label="First Name"
               type="text"

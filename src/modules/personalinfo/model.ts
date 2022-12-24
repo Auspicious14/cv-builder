@@ -3,6 +3,7 @@ export interface IPersonalInfo {
   lastName: string;
   description: string;
   address: string;
+  file: string;
   phoneNumber: string;
   country: string;
   city: string;

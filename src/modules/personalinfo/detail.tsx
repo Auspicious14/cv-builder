@@ -12,7 +12,6 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
   const { createCVDocument } = usePersonalInfoState();
 
   const handleSubmit = async (values: any, actions: any) => {
-    console.log(values);
     const response = await createCVDocument(values).finally(() => {
       actions.resetForm({
         values: {
@@ -42,6 +41,7 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
             state: personalInfo?.state || "",
             city: personalInfo?.city || "",
             country: personalInfo?.country || "",
+            file: personalInfo?.file || "",
           }}
           onSubmit={handleSubmit}
         >

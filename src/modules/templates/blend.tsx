@@ -3,16 +3,16 @@ import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../../library";
 import { ExperienceList } from "../experience/components/listitem";
-import { ICV } from "./model";
+import { ICV } from "../buildcv/model";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { SkillList } from "../skill/components/listitem";
 import { AcademyList } from "../academic/components/listitem";
 import { ApButton, ApModal } from "../../components";
-import { UpdateCVModal } from "./update/modal";
+import { UpdateCVModal } from "../buildcv/update/modal";
 import { getDownloadURL } from "firebase/storage";
-import { useCvState } from "./context";
+import { useCvState } from "../buildcv/context";
 
-export const BuildPage = () => {
+export const BlendTemplate = () => {
   const { getImageFile, imageFile } = useCvState();
   const [cvState, setCvState] = useState<ICV>({} as any);
   const [modal, setModal] = useState<{ show: boolean; data?: any }>({
@@ -39,14 +39,14 @@ export const BuildPage = () => {
   return (
     <>
       {cvState && (
-        <div className=" m-auto my-2 border-[2rem] border-blue-500 w-[80%] h-auto">
-          <div className=" flex p-4 gap-8">
+        <div className="m-auto flex w-[80%] h-auto">
+          <div className="w-[40%] px-2 bg-blend-darken bg-red-900 text-white">
             <img
               src={imageFile}
               alt="name"
-              className="w-[15%] h-[15%] border rounded-full"
+              className=" border text-center m-auto rounded-full"
             />
-            <div className="pt-8 pb-4 text-4xl">
+            <div className="pt-8 pb-4 text-2xl uppercase font-bold">
               {`${cvState?.firstName
                 ?.charAt(0)
                 ?.toLocaleUpperCase()}${cvState?.firstName?.slice(
@@ -55,39 +55,48 @@ export const BuildPage = () => {
                 ?.charAt(0)
                 ?.toLocaleUpperCase()}${cvState?.lastName?.slice(1)}`}
             </div>
-          </div>
-          <p className="p-4 text-justify">{cvState?.description}</p>
-          <div className="ml-4 flex text-white justify-between  h-auto p-4 bg-blue-500">
             <div>
-              <p>{cvState?.email}</p>
-              <p>{cvState?.phoneNumber}</p>
-            </div>
-            <div className="flex  items-center">
-              <HiOutlineLocationMarker size={20} />
-              <p>{cvState?.address}</p>
+              <p className="py-2">{cvState?.email}</p>
+              <p className="py-2">{cvState?.phoneNumber}</p>
+              <div className="">
+                {/* <HiOutlineLocationMarker size={20} /> */}
+                <p className="">{cvState?.address}</p>
+              </div>
             </div>
           </div>
-          <div className="w-full flex gap-4 justify-between p-4">
-            <div className="w-[50%]">
-              <h1 className="font-bold text-lg">Work History</h1>
-              <div>
-                {cvState?.experience?.map((e, i) => (
-                  <ExperienceList experience={e} key={i} />
-                ))}
+          <div className=" bg-gray-200 h-auto">
+            <p className="mx-4 font-bold text-lg border border-b-gray-300">
+              DESCRIPTION
+            </p>
+            <p className="p-2 px-4 text-justify">{cvState?.description}</p>
+            <div className="w-full  p-4">
+              <div className="">
+                <h1 className="uppercase font-bold mb-2 text-lg border border-b-gray-300">
+                  Work History
+                </h1>
+                <div>
+                  {cvState?.experience?.map((e, i) => (
+                    <ExperienceList experience={e} key={i} />
+                  ))}
+                </div>
               </div>
-            </div>
-            <div className="w-[50%] pl-12">
-              <h1 className="font-bold text-lg">Skills</h1>
-              <div className="my-4">
-                {cvState?.skill?.map((s, i) => (
-                  <SkillList skill={s} key={i} />
-                ))}
-              </div>
-              <h1 className="font-bold text-lg">Education</h1>
-              <div className="my-4">
-                {cvState?.academy?.map((a, i) => (
-                  <AcademyList academy={a} key={i} />
-                ))}
+              <div className=" ">
+                <h1 className="uppercase font-bold text-lg border border-b-gray-300 mb-2">
+                  Skills
+                </h1>
+                <div className="my-2">
+                  {cvState?.skill?.map((s, i) => (
+                    <SkillList skill={s} key={i} />
+                  ))}
+                </div>
+                <h1 className="font-bold text-lg uppercase border  border-b-gray-300 mb-2">
+                  Education
+                </h1>
+                <div className="my-4">
+                  {cvState?.academy?.map((a, i) => (
+                    <AcademyList academy={a} key={i} />
+                  ))}
+                </div>
               </div>
             </div>
           </div>

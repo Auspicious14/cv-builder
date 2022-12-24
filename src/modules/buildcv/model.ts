@@ -2,6 +2,7 @@ export interface ICV {
   firstName: string;
   lastName: string;
   phoneNumber: string;
+  file: string;
   address: string;
   description: string;
   country: string;

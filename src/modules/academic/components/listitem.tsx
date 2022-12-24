@@ -8,9 +8,9 @@ export const AcademyList: React.FC<IProps> = ({ academy }) => {
   return (
     <div>
       <div className="mb-4">
-        <p>{`From: ${academy?.fromDate} To: ${academy?.toDate}`}</p>
-        <p className="font-bold">{academy?.name}</p>
-        <p className="font-bold">{academy?.course}</p>
+        <p className="font-bold uppercase">{academy?.name}</p>
+        <p className="text-sm mb-2">{`From: ${academy?.fromDate} To: ${academy?.toDate}`}</p>
+        <p className="font-bold uppercase">{academy?.course}</p>
       </div>
     </div>
   );

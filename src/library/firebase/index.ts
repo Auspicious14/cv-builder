@@ -7,7 +7,7 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
-
+import { getStorage, ref } from "firebase/storage";
 const firebaseConfig = {
   apiKey: "AIzaSyC1_77_OpnV3SXb0UJe2PYZGLpPyjE4HwM",
   authDomain: "cv-builder-c7420.firebaseapp.com",
@@ -22,6 +22,7 @@ const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 export const db = getFirestore();
+export const storage = getStorage();
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
   prompt: "select_account",
