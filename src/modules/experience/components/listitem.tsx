@@ -13,7 +13,8 @@ export const ExperienceList: React.FC<IProps> = ({ experience }) => {
           <span> - </span>
           <p className="font-bold">{experience?.organization}</p>
         </div>
-        <p className="text-sm pb-2">{`From: ${experience?.fromDate} To: ${experience?.toDate}`}</p>
+        <p className="font-bold">{experience?.location}</p>
+        <p className="text-sm pb-2 text-gray-400">{`${experience?.fromDate} - ${experience?.toDate}`}</p>
         <p className="text-justify">{experience?.description}</p>
       </div>
     </div>

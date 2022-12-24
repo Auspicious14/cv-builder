@@ -12,6 +12,7 @@ import { useCvState } from "../../buildcv/context";
 import { BlackTemplateExperienceListItem } from "./components/listitems";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { MdOutlineMarkEmailUnread } from "react-icons/md";
+import { CertificateList } from "../../certificate/components/listitem";
 
 export const BlackTemplate = () => {
   const { getImageFile, imageFile } = useCvState();
@@ -102,6 +103,14 @@ export const BlackTemplate = () => {
                 <div className="my-4">
                   {cvState?.academy?.map((a, i) => (
                     <AcademyList academy={a} key={i} />
+                  ))}
+                </div>
+              </div>
+              <div className="mb-8">
+                <h1 className="font-bold text-lg uppercase mb-2">Education</h1>
+                <div className="my-4">
+                  {cvState?.certificate?.map((c, i) => (
+                    <CertificateList certificate={c} key={i} />
                   ))}
                 </div>
               </div>

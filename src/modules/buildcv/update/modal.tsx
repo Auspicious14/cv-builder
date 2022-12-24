@@ -162,6 +162,7 @@ export const UpdateCVModal: React.FC<IProps> = ({ update, onDissmiss }) => {
                     description: "",
                     fromDate: "",
                     toDate: "",
+                    location: "",
                   },
                 ])
               }

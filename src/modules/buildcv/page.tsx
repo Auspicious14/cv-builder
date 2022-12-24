@@ -11,6 +11,7 @@ import { ApButton, ApModal } from "../../components";
 import { UpdateCVModal } from "./update/modal";
 import { getDownloadURL } from "firebase/storage";
 import { useCvState } from "./context";
+import { CertificateList } from "../certificate/components/listitem";
 
 export const BuildPage = () => {
   const { getImageFile, imageFile } = useCvState();
@@ -87,6 +88,12 @@ export const BuildPage = () => {
               <div className="my-4">
                 {cvState?.academy?.map((a, i) => (
                   <AcademyList academy={a} key={i} />
+                ))}
+              </div>
+              <h1 className="font-bold text-lg">Certification</h1>
+              <div className="my-4">
+                {cvState?.certificate?.map((c, i) => (
+                  <CertificateList certificate={c} key={i} />
                 ))}
               </div>
             </div>

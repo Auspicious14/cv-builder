@@ -14,6 +14,7 @@ export const BlockTemplateExperienceListItem = ({ experience }: IProps) => {
             <div className="w-[2px] h-[1rem] bg-black "></div>
             <p className="font-bold">{experience?.organization}</p>
           </div>
+          <p className="font-bold">{experience?.location}</p>
           <p className="text-sm pb-2 text-gray-400">{` ${experience?.fromDate} - ${experience?.toDate}`}</p>
           <p className="text-justify">{experience?.description}</p>
         </div>

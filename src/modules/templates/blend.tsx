@@ -11,6 +11,7 @@ import { ApButton, ApModal } from "../../components";
 import { UpdateCVModal } from "../buildcv/update/modal";
 import { getDownloadURL } from "firebase/storage";
 import { useCvState } from "../buildcv/context";
+import { CertificateList } from "../certificate/components/listitem";
 
 export const BlendTemplate = () => {
   const { getImageFile, imageFile } = useCvState();
@@ -89,12 +90,20 @@ export const BlendTemplate = () => {
                     <SkillList skill={s} key={i} />
                   ))}
                 </div>
-                <h1 className="font-bold text-lg uppercase border  border-b-gray-300 mb-2">
+                <h1 className="font-bold text-lg uppercase border border-b-gray-300 mb-2">
                   Education
                 </h1>
                 <div className="my-4">
                   {cvState?.academy?.map((a, i) => (
                     <AcademyList academy={a} key={i} />
+                  ))}
+                </div>
+                <h1 className="font-bold text-lg uppercase border border-b-gray-300 mb-2">
+                  Certification
+                </h1>
+                <div className="my-4">
+                  {cvState?.certificate?.map((c, i) => (
+                    <CertificateList certificate={c} key={i} />
                   ))}
                 </div>
               </div>

@@ -4,4 +4,5 @@ export interface IExperience {
   fromDate: string;
   toDate: string;
   description: string;
+  location: string;
 }

@@ -28,6 +28,12 @@ export const ExperienceListItem: React.FC<IProps> = ({
           className="p-3 outline-blue-400"
         />
         <ApTextInput
+          label="Location"
+          name={`experience[${index}].location`}
+          type="text"
+          className="p-3 outline-blue-400"
+        />
+        <ApTextInput
           name={`experience[${index}].description`}
           type="textarea"
           className="p-3 outline-blue-400"

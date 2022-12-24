@@ -12,6 +12,7 @@ export interface ICV {
   academy: IAcademy[];
   experience: IExperience[];
   skill: ISkill[];
+  certificate: ICertificate[];
 }
 
 interface IAcademy {
@@ -27,8 +28,12 @@ interface IExperience {
   fromDate: string;
   toDate: string;
   description: string;
+  location: string;
 }
 
 interface ISkill {
   skillName: string;
+}
+interface ICertificate {
+  name: string;
 }

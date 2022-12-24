@@ -20,6 +20,7 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
               organization: "",
               fromDate: "",
               toDate: "",
+              location: "",
             },
           ],
         },
@@ -38,6 +39,7 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
                 description: experience?.description || "",
                 fromDate: experience?.fromDate || "",
                 toDate: experience?.toDate || "",
+                location: experience?.location || "",
               },
             ],
           }}
@@ -56,6 +58,7 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
                       description: "",
                       fromDate: "",
                       toDate: "",
+                      location: "",
                     },
                   ])
                 }
