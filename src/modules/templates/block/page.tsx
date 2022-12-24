@@ -9,11 +9,11 @@ import { AcademyList } from "../../academic/components/listitem";
 import { ApButton, ApModal } from "../../../components";
 import { UpdateCVModal } from "../../buildcv/update/modal";
 import { useCvState } from "../../buildcv/context";
-import { BlackTemplateExperienceListItem } from "./components/listitems";
+import { BlockTemplateExperienceListItem } from "./components/listitems";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { MdOutlineMarkEmailUnread } from "react-icons/md";
 
-export const BlackTemplate = () => {
+export const BlockTemplate = () => {
   const { getImageFile, imageFile } = useCvState();
   const [cvState, setCvState] = useState<ICV>({} as any);
   const [modal, setModal] = useState<{ show: boolean; data?: any }>({
@@ -40,56 +40,48 @@ export const BlackTemplate = () => {
   return (
     <>
       {cvState && (
-        <div className="px-6 text-white m-auto w-[80%] h-auto bg-neutral-800">
-          <div className="flex gap-8 mb-12 pt-8 justify-between items-center w-[50%] px-2 text-white">
-            {/* <img
+        <div className="p-4 m-auto  w-[80%] h-auto bg-gray-200">
+          <div className="w-full flex gap-8 mb-2 py-4 justify-between items-center border rounded-md px-2 bg-white">
+            <img
               src={imageFile}
               alt="name"
-              className=" border text-center m-auto rounded-full"
-            /> */}
-            <div className=" text-2xl uppercase font-bold">
-              <div>
-                {`${cvState?.firstName
-                  ?.charAt(0)
-                  ?.toLocaleUpperCase()}${cvState?.firstName?.slice(1)}`}
+              className="w-[5rem] border text-center m-auto rounded-full"
+            />
+            <div className="">
+              <div className="mb-2 flex text-xl uppercase font-bold">
+                <div>{`${cvState?.firstName} ${cvState?.lastName}`}</div>
               </div>
-              <div>{cvState?.lastName}</div>
-            </div>
-            <div className="bg-white w-[1px] h-28"></div>
-            <div>
-              <div className="py-2 flex gap-2 items-center">
-                <MdOutlineMarkEmailUnread size={20} />
-                <p>{cvState?.email}</p>
-              </div>
-              <div className="flex gap-2 items-center">
-                <BsFillTelephoneFill size={20} />
-                <p>{cvState?.phoneNumber}</p>
-              </div>
-              <div className="py-2 flex gap-2 items-center">
-                <HiOutlineLocationMarker size={20} />
-                <p>{cvState?.address}</p>
-              </div>
+              <p className=" text-justify">{cvState?.description}</p>
             </div>
           </div>
           <div className=" flex justify-between h-auto">
-            <div className="w-[40%]">
-              <div className="mb-8">
-                <p className=" font-bold text-lg uppercase pb-2">profile</p>
-                <p className=" text-justify">{cvState?.description}</p>
-              </div>
-              <div className="mb-8">
-                <h1 className="uppercase font-bold pb-2 text-lg">
-                  Work experience
-                </h1>
-                <div>
-                  {cvState?.experience?.map((e, i) => (
-                    <BlackTemplateExperienceListItem experience={e} key={i} />
-                  ))}
-                </div>
+            <div className="w-[50%]">
+              <div className="bg-white border rounded-md p-4 px-2">
+                <h1 className="uppercase font-bold pb-2 text-lg">experience</h1>
+                {cvState?.experience?.map((e, i) => (
+                  <div className="border-b last:border-b-0">
+                    <BlockTemplateExperienceListItem experience={e} key={i} />
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="w-[40%] ">
-              <div className="mb-8">
+            <div className="w-[45%] h-auto">
+              <div className="bg-white p-4 border rounded-md mb-3">
+                <p className="uppercase font-bold pb-2 text-lg">contact</p>
+                <div className="py-2 flex gap-2 items-center">
+                  <MdOutlineMarkEmailUnread size={20} />
+                  <p>{cvState?.email}</p>
+                </div>
+                <div className="flex gap-2 items-center">
+                  <BsFillTelephoneFill size={20} />
+                  <p>{cvState?.phoneNumber}</p>
+                </div>
+                <div className="py-2 flex gap-2 items-center">
+                  <HiOutlineLocationMarker size={20} />
+                  <p>{cvState?.address}</p>
+                </div>
+              </div>
+              <div className="bg-white border rounded-md p-4 mb-3">
                 <h1 className="uppercase font-bold text-lg mb-2">Skills</h1>
                 <div className="">
                   {cvState?.skill?.map((s, i) => (
@@ -97,7 +89,7 @@ export const BlackTemplate = () => {
                   ))}
                 </div>
               </div>
-              <div className="mb-8">
+              <div className="bg-white p-4 border rounded-md">
                 <h1 className="font-bold text-lg uppercase mb-2">Education</h1>
                 <div className="my-4">
                   {cvState?.academy?.map((a, i) => (
