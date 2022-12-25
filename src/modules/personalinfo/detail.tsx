@@ -37,6 +37,7 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
             lastName: personalInfo?.lastName || "",
             description: personalInfo?.description || "",
             address: personalInfo?.address || "",
+            profession: personalInfo?.profession || "",
             phoneNumber: personalInfo?.phoneNumber || "",
             state: personalInfo?.state || "",
             city: personalInfo?.city || "",
@@ -78,6 +79,12 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
               label="Description"
               type="textarea"
               name="description"
+              className="p-3 outline-blue-400"
+            />
+            <ApTextInput
+              label="Profession"
+              type="text"
+              name="profession"
               className="p-3 outline-blue-400"
             />
             <ApTextInput

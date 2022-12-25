@@ -40,7 +40,7 @@ export const BuildPage = () => {
   return (
     <>
       {cvState && (
-        <div className=" m-auto my-2 border-[2rem] border-blue-500 w-[80%] h-auto">
+        <div className=" m-auto my-2 border-[2rem] border-blue-500 w-[70%] h-auto">
           <div className=" flex p-4 gap-8">
             <img
               src={imageFile}

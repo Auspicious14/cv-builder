@@ -5,6 +5,7 @@ export interface ICV {
   file: string;
   address: string;
   description: string;
+  profession: string;
   country: string;
   city: string;
   state: string;

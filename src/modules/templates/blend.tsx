@@ -40,7 +40,7 @@ export const BlendTemplate = () => {
   return (
     <>
       {cvState && (
-        <div className="m-auto flex w-[80%] h-auto">
+        <div className="m-auto flex w-[70%] h-auto">
           <div className="w-[40%] px-2 bg-blend-darken bg-red-900 text-white">
             <img
               src={imageFile}
@@ -56,6 +56,8 @@ export const BlendTemplate = () => {
                 ?.charAt(0)
                 ?.toLocaleUpperCase()}${cvState?.lastName?.slice(1)}`}
             </div>
+            <p className="">{cvState?.profession}</p>
+
             <div>
               <p className="py-2">{cvState?.email}</p>
               <p className="py-2">{cvState?.phoneNumber}</p>

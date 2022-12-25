@@ -41,7 +41,7 @@ export const BlackTemplate = () => {
   return (
     <>
       {cvState && (
-        <div className="px-6 text-white m-auto w-[80%] h-auto bg-neutral-800">
+        <div className="px-6 text-white m-auto w-[70%] h-auto bg-neutral-800">
           <div className="flex gap-8 mb-12 pt-8 justify-between items-center w-[50%] px-2 text-white">
             {/* <img
               src={imageFile}
@@ -53,8 +53,11 @@ export const BlackTemplate = () => {
                 {`${cvState?.firstName
                   ?.charAt(0)
                   ?.toLocaleUpperCase()}${cvState?.firstName?.slice(1)}`}
+                <div>{cvState?.lastName}</div>
               </div>
-              <div>{cvState?.lastName}</div>
+              <p className="text-sm font-normal py-2 normal-case">
+                {cvState?.profession}
+              </p>
             </div>
             <div className="bg-white w-[1px] h-28"></div>
             <div>
@@ -107,7 +110,9 @@ export const BlackTemplate = () => {
                 </div>
               </div>
               <div className="mb-8">
-                <h1 className="font-bold text-lg uppercase mb-2">Education</h1>
+                <h1 className="font-bold text-lg uppercase mb-2">
+                  Certification
+                </h1>
                 <div className="my-4">
                   {cvState?.certificate?.map((c, i) => (
                     <CertificateList certificate={c} key={i} />

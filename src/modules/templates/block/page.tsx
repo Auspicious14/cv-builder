@@ -12,6 +12,7 @@ import { useCvState } from "../../buildcv/context";
 import { BlockTemplateExperienceListItem } from "./components/listitems";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { MdOutlineMarkEmailUnread } from "react-icons/md";
+import { CertificateList } from "../../certificate/components/listitem";
 
 export const BlockTemplate = () => {
   const { getImageFile, imageFile } = useCvState();
@@ -40,7 +41,7 @@ export const BlockTemplate = () => {
   return (
     <>
       {cvState && (
-        <div className="p-4 m-auto  w-[80%] h-auto bg-gray-200">
+        <div className="p-4 m-auto  w-[70%] h-auto bg-gray-200">
           <div className="w-full flex gap-8 mb-2 py-4 justify-between items-center border rounded-md px-2 bg-white">
             <img
               src={imageFile}
@@ -89,11 +90,21 @@ export const BlockTemplate = () => {
                   ))}
                 </div>
               </div>
-              <div className="bg-white p-4 border rounded-md">
+              <div className="bg-white p-4 border rounded-md mb-3">
                 <h1 className="font-bold text-lg uppercase mb-2">Education</h1>
                 <div className="my-4">
                   {cvState?.academy?.map((a, i) => (
                     <AcademyList academy={a} key={i} />
+                  ))}
+                </div>
+              </div>
+              <div className="bg-white p-4 border rounded-md">
+                <h1 className="font-bold text-lg uppercase mb-2">
+                  Certification
+                </h1>
+                <div className="my-4">
+                  {cvState?.certificate?.map((c, i) => (
+                    <CertificateList certificate={c} key={i} />
                   ))}
                 </div>
               </div>
