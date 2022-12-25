@@ -38,15 +38,17 @@ export const BlendTemplate = () => {
     getCVDocument();
     getImageFile();
   }, []);
-
+  console.log(cvState == (cvState as any));
   return (
     <>
-      {loading ? (
+      {loading && (
         <div className="w-[100vw] h-[100vh] m-auto flex justify-center items-center">
-          <ApLoader
-            colors={["#800000", "#730000", "#ffffff", "#997570", "#4d0000"]}
-          />
+          <ApLoader color="#800000" />
         </div>
+      )}
+
+      {!loading && cvState === null ? (
+        ""
       ) : (
         <div>
           <div className="m-auto flex w-[70%] h-auto">

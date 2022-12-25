@@ -47,7 +47,8 @@ export const BlockTemplate = () => {
       {loading ? (
         <div className="w-screen h-screen flex justify-center items-center">
           <ApLoader
-            colors={["#808080", "#808080", "#FFFFFF", "#FFFFFF", "#808080"]}
+            // colors={["#808080", "#808080", "#FFFFFF", "#FFFFFF", "#808080"]}
+            color={"#808080"}
           />
         </div>
       ) : (

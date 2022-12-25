@@ -7,6 +7,7 @@ export const Navbar = () => {
   const [toggle, setToggle] = useState<{ show: boolean; data?: any }>({
     show: false,
   });
+
   return (
     <div className="bg-black">
       <div
@@ -46,12 +47,16 @@ export const Navbar = () => {
         <div className="hidden sm:hidden md:hidden lg:flex">
           <div className="flex  gap-x-3 items-center ">
             <div>
-              <button className="text-white">Login</button>
+              <Link href={"/auth/signin"}>
+                <button className="text-white">Login</button>
+              </Link>
             </div>
             <div>
-              <button className=" bg-blue-700 rounded-md  text-white p-1 px-3 font-bold ">
-                BUILD MY RESUME
-              </button>
+              <Link href={"/personalInfo"}>
+                <button className=" bg-blue-700 rounded-md  text-white p-1 px-3 font-bold ">
+                  BUILD MY RESUME
+                </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -66,7 +71,7 @@ export const Navbar = () => {
             <div>
               <NavList
                 closeFunc={() => setToggle({ show: false })}
-                Open={toggle.show}
+                open={toggle.show}
               />
             </div>
           )}
@@ -78,17 +83,17 @@ export const Navbar = () => {
 
 interface IProps {
   closeFunc: () => void;
-  Open: boolean;
+  open: boolean;
 }
-const NavList: React.FC<IProps> = ({ closeFunc, Open }) => {
+const NavList: React.FC<IProps> = ({ closeFunc, open }) => {
   // console.log(toggle, "true....")
   return (
     <div className="">
       <nav
         className={
-          Open
-            ? "bg-white absolute right-[0] left-[0] top-[0] z-10 px-4 py-[2rem]  ease-in duration-300"
-            : "bg-white absolute right-[0] left-[0] top-[-22rem] z-10 px-4 py-[2rem]  ease-in duration-300"
+          open
+            ? "bg-white absolute right-[0] left-[0] top-[0] z-10 px-4 py-[2rem] transition delay-150 ease-in duration-300"
+            : "bg-white absolute right-[0] left-[0] top-[-22rem] z-10 px-4 py-[2rem] transition ease-in duration-300"
         }
       >
         <div className="absolute right-[0] top-[2px] px-3 py-2">

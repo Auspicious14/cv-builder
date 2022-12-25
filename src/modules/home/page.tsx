@@ -8,6 +8,7 @@ import { MdDownload, MdExtension, MdFreeBreakfast } from "react-icons/md";
 import { AiTwotoneMedicineBox } from "react-icons/ai";
 import { Template } from "./components/template";
 import { HiOutlineDuplicate } from "react-icons/hi";
+import Link from "next/link";
 
 export const HomePage = () => {
   return (
@@ -46,9 +47,11 @@ export const HomePage = () => {
                   className="flex gap-x-3 px-4 py-2 bg-blue-700 
                 rounded-md my-3 w-[13rem] items-center mx-auto lg:ml-0 "
                 >
-                  <button className="text-white font-bold ">
-                    Build My Resume
-                  </button>
+                  <Link href={"/personalInfo"}>
+                    <button className=" text-white font-bold ">
+                      BUILD MY RESUME
+                    </button>
+                  </Link>
                   <BsArrowRight color="white" size={20} />
                 </div>
                 <p className="text-white">410 People created Resmues today!</p>
@@ -77,7 +80,7 @@ export const HomePage = () => {
               text-current text-center font-bold text-[1.7rem] md:text-[2rem] lg:text-[2rem] "
               >
                 Land your
-                <span className="border-b-4 border-blue-500">
+                <span className="ml-2 border-b-4 border-blue-500">
                   dream job
                 </span>{" "}
                 with the help of our resume builder
@@ -139,7 +142,9 @@ export const HomePage = () => {
           <div>
             <div>
               <h4 className="text-current text-center font-bold text-[1.7rem] md:text-[2rem] lg:text-[2rem]">
-                Why build <span className="border-b-4 border-blue-500">your resume</span> with our resume builder?
+                Why build{" "}
+                <span className="border-b-4 border-blue-500">your resume</span>{" "}
+                with our resume builder?
               </h4>
             </div>
 
@@ -148,7 +153,9 @@ export const HomePage = () => {
                 <div className="w-[80%] mx-auto my-4 md:w-[30%] lg:w-[20%]">
                   <div className="flex gap-x-3 ">
                     <MdFreeBreakfast color="blue" size={35} />
-                    <h4 className="font-bold text-[1.2rem] my-4">We re friendly free</h4>
+                    <h4 className="font-bold text-[1.2rem] my-4">
+                      We re friendly free
+                    </h4>
                   </div>
                   <p className="text-md font-medium text-lg">
                     No gimmicks, no freemium features, no joke. Get everything
@@ -159,7 +166,9 @@ export const HomePage = () => {
                 <div className="w-[80%] mx-auto my-4 md:w-[30%] lg:w-[20%]">
                   <div className="flex gap-x-3">
                     <HiOutlineDuplicate color="blue" size={35} />
-                    <h4 className="font-bold text-[1.2rem] my-4">Data-Driven Templates</h4>
+                    <h4 className="font-bold text-[1.2rem] my-4">
+                      Data-Driven Templates
+                    </h4>
                   </div>
                   <p className="text-md font-medium text-lg">
                     No gimmicks, no freemium features, no joke. Get everything
@@ -182,7 +191,6 @@ export const HomePage = () => {
             </div>
           </div>
         </div>
-        
       </Mainlayout>
     </div>
   );

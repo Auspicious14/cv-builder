@@ -9,7 +9,6 @@ import { SkillList } from "../skill/components/listitem";
 import { AcademyList } from "../academic/components/listitem";
 import { ApButton, ApLoader, ApModal } from "../../components";
 import { UpdateCVModal } from "./update/modal";
-import { getDownloadURL } from "firebase/storage";
 import { useCvState } from "./context";
 import { CertificateList } from "../certificate/components/listitem";
 import { useRouter } from "next/router";
@@ -46,7 +45,8 @@ export const BuildPage = () => {
       {loading ? (
         <div className="w-screen h-screen flex justify-center items-center">
           <ApLoader
-            colors={["#5C5CFF", "#0000FF", "#7EC8E3", "#7EC8E3", "#000C66"]}
+            // colors={["#5C5CFF", "#0000FF", "#7EC8E3", "#7EC8E3", "#000C66"]}
+            color={"#5C5CFF"}
           />
         </div>
       ) : (

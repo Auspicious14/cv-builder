@@ -47,7 +47,8 @@ export const BlackTemplate = () => {
       {loading ? (
         <div className="w-screen h-screen flex justify-center items-center">
           <ApLoader
-            colors={["#000000", "#000000", "#FFFFFF", "#FFFFFF", "#000000"]}
+            // colors={["#000000", "#000000", "#FFFFFF", "#FFFFFF", "#000000"]}
+            color={"#000000"}
           />
         </div>
       ) : (

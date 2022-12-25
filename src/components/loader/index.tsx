@@ -1,20 +1,22 @@
 import React from "react";
-import { ColorRing } from "react-loader-spinner";
+import { Bars, ColorRing } from "react-loader-spinner";
 
 interface IProps {
-  colors: [string, string, string, string, string];
+  colors?: [string, string, string, string, string];
+  color?: string;
 }
-export const ApLoader = ({ colors }: IProps) => {
+export const ApLoader = ({ colors, color }: IProps) => {
   return (
     <>
-      <ColorRing
+      <Bars
         visible={true}
-        height="180"
-        width="180"
+        height="150"
+        width="150"
         ariaLabel="blocks-loading"
         wrapperStyle={{}}
         wrapperClass="blocks-wrapper"
-        colors={colors}
+        // colors={colors}
+        color={color}
       />
     </>
   );
