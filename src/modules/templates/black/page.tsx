@@ -13,6 +13,7 @@ import { BlackTemplateExperienceListItem } from "./components/listitems";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { MdOutlineMarkEmailUnread } from "react-icons/md";
 import { CertificateList } from "../../certificate/components/listitem";
+import { useRouter } from "next/router";
 
 export const BlackTemplate = () => {
   const { getImageFile, imageFile } = useCvState();
@@ -20,7 +21,7 @@ export const BlackTemplate = () => {
   const [modal, setModal] = useState<{ show: boolean; data?: any }>({
     show: false,
   });
-
+  const router = useRouter();
   const getCVDocument = () => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -123,6 +124,27 @@ export const BlackTemplate = () => {
           </div>
         </div>
       )}
+
+      <div className="flex justify-center my-2 gap-4">
+        <ApButton
+          name="Blend Template"
+          type="button"
+          onClick={() => router.push("/template/blend")}
+          className="bg-red-900 px-4 py-2 text-white border-none rounded-md outline-none "
+        />
+        <ApButton
+          name="Main Template"
+          type="button"
+          onClick={() => router.push("/cv")}
+          className="bg-blue-400 px-4 py-2 text-white border-none rounded-md outline-none "
+        />
+        <ApButton
+          name="Block Template"
+          type="button"
+          onClick={() => router.push("/template/block")}
+          className="bg-gray-400 px-4 py-2 text-white border-none rounded-md outline-none "
+        />
+      </div>
       <ApButton
         name="Edit"
         type="button"

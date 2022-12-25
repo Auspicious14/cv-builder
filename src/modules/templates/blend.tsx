@@ -12,6 +12,7 @@ import { UpdateCVModal } from "../buildcv/update/modal";
 import { getDownloadURL } from "firebase/storage";
 import { useCvState } from "../buildcv/context";
 import { CertificateList } from "../certificate/components/listitem";
+import { useRouter } from "next/router";
 
 export const BlendTemplate = () => {
   const { getImageFile, imageFile } = useCvState();
@@ -19,7 +20,7 @@ export const BlendTemplate = () => {
   const [modal, setModal] = useState<{ show: boolean; data?: any }>({
     show: false,
   });
-
+  const router = useRouter();
   const getCVDocument = () => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -113,6 +114,26 @@ export const BlendTemplate = () => {
           </div>
         </div>
       )}
+      <div className="flex justify-center my-2 gap-4">
+        <ApButton
+          name="Main Template"
+          type="button"
+          onClick={() => router.push("/cv")}
+          className="bg-blue-400 px-4 py-2 text-white border-none rounded-md outline-none "
+        />
+        <ApButton
+          name="Black Template"
+          type="button"
+          onClick={() => router.push("/template/black")}
+          className="bg-black px-4 py-2 text-white border-none rounded-md outline-none "
+        />
+        <ApButton
+          name="Block Template"
+          type="button"
+          onClick={() => router.push("/template/block")}
+          className="bg-gray-400 px-4 py-2 text-white border-none rounded-md outline-none "
+        />
+      </div>
       <ApButton
         name="Edit"
         type="button"
