@@ -1,4 +1,5 @@
 import { Form, Formik } from "formik";
+import { useRouter } from "next/router";
 import React from "react";
 import { ApButton, ApTextInput } from "../../components";
 import { Academy } from "./components/create";
@@ -9,8 +10,10 @@ interface IProps {
 }
 export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
   const { updateCVDocument } = useAcademyState();
+  const router = useRouter();
+
   const handleSubmit = (values: any, actions: any) => {
-    const response = updateCVDocument(values).finally(() => {
+    updateCVDocument(values).finally(() => {
       actions.resetForm({
         values: {
           secondarySchool: "",
@@ -20,8 +23,10 @@ export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
           stateofSchool: "",
         },
       });
+      router.push("/certificate");
     });
   };
+
   return (
     <>
       <div>

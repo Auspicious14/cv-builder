@@ -45,10 +45,9 @@ export const PersonalInfoContextProvider: React.FC<IProps> = ({ children }) => {
   const updateCVDocument = async (response: any) => {
     const user: any = auth.currentUser;
     const cvDocRef = doc(db, "cv", user.uid);
-    const cvSnapShot = await updateDoc(cvDocRef, { response }).then((res) => {
-      console.log(res);
-    });
-    console.log(cvSnapShot);
+    const cvSnapShot = await updateDoc(cvDocRef, { response }).then(
+      (res) => {}
+    );
   };
   return (
     <PersonalInfoContext.Provider

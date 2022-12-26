@@ -1,6 +1,7 @@
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import { ApButton, ApTextInput } from "../../../components";
+import { toastSvc } from "../../../services/toast";
 import { Academy } from "../../academic/components/create";
 import { Certificate } from "../../certificate/components/create";
 import { Experience } from "../../experience/components/creat";
@@ -13,6 +14,7 @@ interface IProps {
   onDissmiss: () => void;
 }
 export const UpdateCVModal: React.FC<IProps> = ({ update, onDissmiss }) => {
+  const [cvState, setCvState] = useState(update);
   const { updateCVDocument, uploadImageDocument } = useCvState();
   const [imageUpload, setImageUpload] = useState<any>();
   const [modal, setModal] = useState<{
@@ -24,8 +26,10 @@ export const UpdateCVModal: React.FC<IProps> = ({ update, onDissmiss }) => {
 
   const handleSubmit = (values: any, actions: any) => {
     updateCVDocument(values).then((res) => {
+      // setCvState(r)
       if (res && onDissmiss) {
         onDissmiss();
+        toastSvc.success("Resume updated!");
       }
       actions.resetForm({
         values: {

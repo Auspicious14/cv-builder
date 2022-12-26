@@ -1,4 +1,5 @@
 import { Form, Formik } from "formik";
+import { useRouter } from "next/router";
 import React from "react";
 import { ApButton, ApTextInput } from "../../components";
 import { usePersonalInfoState } from "./context";
@@ -10,9 +11,10 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
   personalInfo,
 }) => {
   const { createCVDocument } = usePersonalInfoState();
+  const router = useRouter();
 
   const handleSubmit = async (values: any, actions: any) => {
-    const response = await createCVDocument(values).finally(() => {
+    await createCVDocument(values).finally(() => {
       actions.resetForm({
         values: {
           firstName: "",
@@ -25,9 +27,10 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
           country: "",
         },
       });
+      router.push("/academy");
     });
-    console.log(response);
   };
+
   return (
     <>
       <div>

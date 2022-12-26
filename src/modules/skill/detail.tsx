@@ -1,6 +1,7 @@
 import { Form, Formik } from "formik";
+import { useRouter } from "next/router";
 import React from "react";
-import { ApButton, ApTextInput } from "../../components";
+import { ApButton } from "../../components";
 import { Skill } from "./components/create";
 import { useSkillState } from "./context";
 import { ISkill } from "./model";
@@ -9,13 +10,16 @@ interface IProps {
 }
 export const SkillDetail: React.FC<IProps> = ({ skill }) => {
   const { updateCVDocument } = useSkillState();
+  const router = useRouter();
+
   const handleSubmit = (values: any, actions: any) => {
-    const response = updateCVDocument(values).finally(() => {
+    updateCVDocument(values).finally(() => {
       actions.resetForm({
         values: {
           skill: [{ skillName: "" }],
         },
       });
+      router.push("/cv");
     });
   };
   return (

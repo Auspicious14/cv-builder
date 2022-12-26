@@ -1,4 +1,5 @@
 import { Form, Formik } from "formik";
+import { useRouter } from "next/router";
 import React from "react";
 import { ApButton, ApTextInput } from "../../components";
 import { Certificate } from "./components/create";
@@ -9,13 +10,17 @@ interface IProps {
 }
 export const CertificateDetail: React.FC<IProps> = ({ certificate }) => {
   const { updateCVDocument } = useCertificateState();
+  const router = useRouter();
+
   const handleSubmit = (values: any, actions: any) => {
-    const response = updateCVDocument(values).finally(() => {
+    updateCVDocument(values).finally(() => {
       actions.resetForm({
         values: {
           name: "",
         },
       });
+
+      router.push("/experience");
     });
   };
   return (

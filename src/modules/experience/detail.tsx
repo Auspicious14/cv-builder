@@ -1,4 +1,5 @@
 import { Form, Formik } from "formik";
+import { useRouter } from "next/router";
 import React from "react";
 import { ApButton, ApTextInput } from "../../components";
 import { Experience } from "./components/creat";
@@ -9,8 +10,10 @@ interface IProps {
 }
 export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
   const { updateCVDocument } = useExperienceState();
+  const router = useRouter();
+
   const handleSubmit = (values: any, actions: any) => {
-    const response = updateCVDocument(values).finally(() => {
+    updateCVDocument(values).finally(() => {
       actions.resetForm({
         values: {
           experience: [
@@ -25,8 +28,10 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
           ],
         },
       });
+      router.push("/skill");
     });
   };
+
   return (
     <>
       <div>
