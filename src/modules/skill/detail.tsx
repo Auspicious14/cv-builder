@@ -26,9 +26,12 @@ export const SkillDetail: React.FC<IProps> = ({ skill }) => {
   };
   return (
     <>
-      <div className="h-screen bg-gray-100 rounded-md shadow-sm p-3">
-        <p className="font-bold text-2xl">SKILLS</p>
-        <Formik initialValues={{ skill: [] }} onSubmit={handleSubmit}>
+      <div className="h-screen rounded-md shadow-sm p-3">
+        <p className="font-bold text-2xl border-b">SKILLS</p>
+        <Formik
+          initialValues={{ skill: [{ skillName: skill?.skillName || "" }] }}
+          onSubmit={handleSubmit}
+        >
           {({ values, setFieldValue }) => (
             <Form>
               <Skill
@@ -51,7 +54,7 @@ export const SkillDetail: React.FC<IProps> = ({ skill }) => {
               <ApButton
                 type="submit"
                 name="create"
-                className="fixed bottom-1 px-4 mt-2 py-1 uppercase bg-blue-400 rounded-md border-none outline-none text-white font-bold"
+                className=" px-4 mt-2 py-1 uppercase bg-blue-400 rounded-md border-none outline-none text-white font-bold"
               />
             </Form>
           )}

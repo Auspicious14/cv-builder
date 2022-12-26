@@ -1,11 +1,12 @@
 import React from "react";
-import { ApButton, ApTextInput } from "../../../components";
+import { MdAddCircle, MdOutlineDeleteOutline } from "react-icons/md";
+import { ApTextInput } from "../../../components";
 import { ICertificate } from "../model";
 
 interface IProps {
-  onDelete: () => void;
-  certificate: ICertificate;
   index: number;
+  certificate: ICertificate;
+  onDelete: () => void;
 }
 export const CertificateListItem: React.FC<IProps> = ({
   onDelete,
@@ -21,21 +22,22 @@ export const CertificateListItem: React.FC<IProps> = ({
         className="p-3 outline-blue-400"
       />
 
-      <ApButton
-        name="Delete"
-        type="button"
-        onClick={onDelete}
-        className="bg-red-400 px-4 mb-4 text-white border-none rounded-md outline-none "
-      />
+      <div onClick={onDelete}>
+        <MdOutlineDeleteOutline
+          size={25}
+          className="text-blue-400 mb-2 cursor-pointer"
+        />
+      </div>
     </>
   );
 };
 
 interface ICertificateProps {
+  certificate: ICertificate[];
   onAdd: () => void;
   onDelete: (index: number) => void;
-  certificate: ICertificate[];
 }
+
 export const Certificate: React.FC<ICertificateProps> = ({
   onAdd,
   onDelete,
@@ -43,14 +45,10 @@ export const Certificate: React.FC<ICertificateProps> = ({
 }) => {
   return (
     <>
-      <div className="mt-4 border-t flex justify-between items-center">
-        <p className="py-3 font-bold">CERTIFICATION</p>
-        <ApButton
-          name="Add"
-          type="button"
-          onClick={onAdd}
-          className="bg-blue-400 px-4 py-2 text-white border-none rounded-md outline-none "
-        />
+      <div className="mt-4 flex justify-end items-center">
+        <div onClick={onAdd}>
+          <MdAddCircle size={30} className={"text-blue-400 cursor-pointer"} />
+        </div>
       </div>
       {certificate?.map((a, i) => (
         <CertificateListItem

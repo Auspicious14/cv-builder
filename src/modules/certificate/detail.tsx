@@ -1,7 +1,7 @@
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import React from "react";
-import { ApButton, ApTextInput } from "../../components";
+import { ApButton } from "../../components";
 import { Certificate } from "./components/create";
 import { useCertificateState } from "./context";
 import { ICertificate } from "./model";
@@ -25,7 +25,10 @@ export const CertificateDetail: React.FC<IProps> = ({ certificate }) => {
   };
   return (
     <>
-      <div>
+      <div className="p-3">
+        <p className="py-3 font-bold uppercase border-b text-2xl">
+          CERTIFICATION
+        </p>
         <Formik
           initialValues={{
             certificate: [

@@ -33,7 +33,10 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
 
   return (
     <>
-      <div>
+      <div className="p-3">
+        <div className="py-3 font-bold uppercase text-2xl border-b mb-4">
+          personal Information
+        </div>
         <Formik
           initialValues={{
             firstName: personalInfo?.firstName || "",
@@ -50,9 +53,6 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
           onSubmit={handleSubmit}
         >
           <Form>
-            <p className="py-3 text-lg text-white text-center font-bold">
-              PERSONAL INFORMATION
-            </p>
             <ApTextInput
               label="First Name"
               type="text"

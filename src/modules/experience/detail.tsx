@@ -34,7 +34,8 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
 
   return (
     <>
-      <div>
+      <div className="p-3">
+        <p className="py-3 font-bold text-2xl uppercase border-b">EXPERIENCE</p>
         <Formik
           initialValues={{
             experience: [

@@ -29,7 +29,8 @@ export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
 
   return (
     <>
-      <div>
+      <div className="p-3">
+        <p className="py-3 font-bold uppercase text-2xl border-b">EDUCATION</p>
         <Formik
           initialValues={{
             academy: [
