@@ -34,10 +34,10 @@ export const ApTextInput: React.FC<IProps> = ({
       style={{ marginBottom: 10, display: "flex", flexDirection: "column" }}
       className={containerClass}
     >
-      <div>{label}</div>
+      <div >{label}</div>
       {type == "textarea" ? (
         <textarea
-          className={`w-full p-4 mb-2 bg-stone-50 border ${className}`}
+          className={`w-full p-4 mb-2 bg-stone-50 border .placeholder-orange-300 ${className}`}
           {...field}
           {...props}
           name={name}
@@ -50,7 +50,7 @@ export const ApTextInput: React.FC<IProps> = ({
           {...field}
           {...props}
           name={name}
-          className={`w-full mb-2 bg-stone-50 border-none ${className}`}
+          className={`w-full mb-2 bg-stone-50 border-none .placeholder-orange-300 ${className}`}
           placeholder={placeHolder}
         />
       )}
