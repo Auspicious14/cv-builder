@@ -2,7 +2,7 @@ import React from "react";
 
 interface IProps {
   className?: string;
-  name: string;
+  name: any;
   disabled?: boolean;
   type: "button" | "submit" | "reset" | undefined;
   onClick?: () => void;

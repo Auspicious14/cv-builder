@@ -27,6 +27,9 @@ module.exports = {
         sans: ["Montserrat", "sans-serif"],
         // serif: ['Merriweather', 'serif'],
       },
+      backgroundImage: {
+        'hero_pattern': "url('/public/backgroundImage.jpg')",
+      }
       
 
     },
