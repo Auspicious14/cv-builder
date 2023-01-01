@@ -38,108 +38,110 @@ export const SignInPage = () => {
   };
 
   return (
-    <div className="bg-hero_pattern h-[973px] m-0  p-0">
-
-    
-    <div className="w-80 m-auto my-12 ">
-      <Formik
-        initialValues={{
-          email: "",
-          password: "",
-        }}
-        onSubmit={handleSubmit}
-        validationSchema={FormSchema}
-      >
-        <Form>
-          <h4 className="my-5 text-center font-bold text-lg">Sign In</h4>
-          <div
-            className="flex items-center
-          rounded-sm bg-slate-300 w-full px-3  "
-          >
-            <div className="mr-4">
-              <BiUserCircle color="" size={25} />
+    <div
+      className="bg-no-repeat bg-cover  bg-center hero
+		  h-[973px] m-0  p-0 relative"
+    >
+      <div className="w-80  m-auto my-12  z-[2] bg-[rgba(0, 0, 0, 0.4)] absolute top-10 left-10">
+        <Formik
+          initialValues={{
+            email: "",
+            password: "",
+          }}
+          onSubmit={handleSubmit}
+          validationSchema={FormSchema}
+        >
+          <Form>
+            <h4 className="my-5 text-center font-bold text-lg">Sign In</h4>
+            <div
+              className="flex items-center
+          rounded-sm bg-slate-200 w-full px-3  "
+            >
+              <div className="mr-4">
+                <BiUserCircle color="" size={25} />
+              </div>
+              <div>
+                <ApTextInput
+                  // label="Email"
+                  type="email"
+                  name="email"
+                  placeHolder="Email"
+                  className="   bg-slate-300 my-6 placeholder-black-300 outline-none"
+                />
+              </div>
             </div>
-            <div>
-              <ApTextInput
-                // label="Email"
-                type="email"
-                name="email"
-                placeHolder="Email"
-                className="   bg-slate-300 my-6 placeholder-black- 300 outline-none"
-              />
-            </div>
-          </div>
 
-          <div
-            className="flex items-center
+            <div
+              className="flex items-center
           rounded-sm bg-slate-300 w-full px-3 my-3  "
-          >
-            <div className="mr-4">
-              <RiLockPasswordLine color="" size={25} />
+            >
+              <div className="mr-4">
+                <RiLockPasswordLine color="" size={25} />
+              </div>
+              <div>
+                <ApTextInput
+                  // label="Password"
+                  type="password"
+                  name="password"
+                  placeHolder="password"
+                  className=" rounded-sm my-6 bg-slate-300 "
+                />
+              </div>
             </div>
-            <div>
-              <ApTextInput
-                // label="Password"
-                type="password"
-                name="password"
-                placeHolder="password"
-                className=" rounded-sm my-6 bg-slate-300 "
-              />
-            </div>
-          </div>
 
-          <div className="flex justify-center align-center">
-            <div>
-              <ApButton
-                name="sign in"
-                type="submit"
-                className="bg-blue-200  py-3 rounded-sm w-80
+            <div className="flex justify-center align-center">
+              <div>
+                <ApButton
+                  name="sign in"
+                  type="submit"
+                  className="bg-blue-200  py-3 rounded-sm w-80
               "
-              />
-              <div className="flex gap-x-4 items-center my-4">
-                <div className="w-full h-[2px]  bg-slate-400"></div>
-                <h4 className="font-bold">Or</h4>
-                <div className="w-full h-[2px]  bg-slate-400"></div>
-                
+                />
+                <div className="flex gap-x-4 items-center my-4">
+                  <div className="w-full h-[2px]  bg-slate-400"></div>
+                  <h4 className="font-bold">Or</h4>
+                  <div className="w-full h-[2px]  bg-slate-400"></div>
                 </div>
-              <div className="flex justify-center items-center">
-                <div className="grid gap-2 grid-cols-1">
+                <div className="flex justify-center items-center">
+                  <div className="grid gap-2 grid-cols-1">
+                    <div className="flex px-[3.5rem]  items-center gap-x-3 bg-red-300 w-80 py-2 ">
+                      <FcGoogle size={30} />
+                      <ApButton
+                        name="Sign in with Google"
+                        type="button"
+                        onClick={signInWithGoogle}
+                      />
+                    </div>
+                    <div
+                      className="flex items-center gap-x-3 bg-[#3b5996]
+                   py-2 px-[3.5rem] w-80 mx-auto"
+                    >
+                      <AiFillFacebook color="white" size={30} />
+                      <ApButton
+                        name="Sign in with Facebook"
+                        type="button"
+                        onClick={signInWithGoogle}
+                      />
+                    </div>
 
-                  <div className="flex px-[3.5rem]  items-center gap-x-3 bg-red-300 w-80 py-2 ">
-                    <FcGoogle size={30} />
-                    <ApButton
-                      name="Sign in with Google"
-                      type="button"
-                      onClick={signInWithGoogle}
-                    />
-                  </div>
-                   <div className="flex items-center gap-x-3 bg-[#3b5996]
-                   py-2 px-[3.5rem] w-80 mx-auto">
-                    <AiFillFacebook color="white" size={30} />
-                    <ApButton
-                      name="Sign in with Facebook"
-                      type="button"
-                      onClick={signInWithGoogle}
-                    />
-                  </div>
-                  
-
-                  <div className="flex  items-center 
-                  px-[3.5rem] gap-x-3 bg-[#00acee] w-80 py-2 ">
-                    <AiFillTwitterCircle color="white" size={30} />
-                    <ApButton
-                      name="Sign in with Twitter"
-                      type="button"
-                      onClick={signInWithGoogle}
-                    />
+                    <div
+                      className="flex  items-center 
+                  px-[3.5rem] gap-x-3 bg-[#00acee] w-80 py-2 "
+                    >
+                      <AiFillTwitterCircle color="white" size={30} />
+                      <ApButton
+                        name="Sign in with Twitter"
+                        type="button"
+                        onClick={signInWithGoogle}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </Form>
-      </Formik>
-    </div>
+          </Form>
+        </Formik>
+      </div>
     </div>
   );
 };
