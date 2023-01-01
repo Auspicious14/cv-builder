@@ -10,14 +10,11 @@
     font-family: 'Montserrat' san-serif;
     font-family: 'Ubuntu', sans-serif;
 }
-
-.hero {
-    background-image: url('../../public/backgroundImage.jpg');
-    filter:blur(5px);
-  
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-    /* -webkit-backdrop-filter: blur('20%'); */
+.hero{
+    background-image: url('../../public/backgroundImages.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    /* width: 100%;
+    height: 100vh;; */
 }

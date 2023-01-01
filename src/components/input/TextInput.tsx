@@ -50,7 +50,7 @@ export const ApTextInput: React.FC<IProps> = ({
           {...field}
           {...props}
           name={name}
-          className={`w-full mb-2 bg-stone-50 border-none  ${className}`}
+          className={`w-full mb-2  border-none  ${className}`}
           placeholder={placeHolder}
         />
       )}

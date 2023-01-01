@@ -38,11 +38,8 @@ export const SignInPage = () => {
   };
 
   return (
-    <div
-      className="bg-no-repeat bg-cover  bg-center hero
-		  h-[973px] m-0  p-0 relative"
-    >
-      <div className="w-80  m-auto my-12  z-[2] bg-[rgba(0, 0, 0, 0.4)] absolute top-10 left-10">
+    <div className="hero w-screen h-screen relative">
+      <div className="w-80 m-auto absolute left-[-50%] right-[-50%] my-[6rem]  ">
         <Formik
           initialValues={{
             email: "",
@@ -52,10 +49,12 @@ export const SignInPage = () => {
           validationSchema={FormSchema}
         >
           <Form>
-            <h4 className="my-5 text-center font-bold text-lg">Sign In</h4>
+            <h4 className=" text-center font-extrabold text-lg mb-5 ">
+              Sign In
+            </h4>
             <div
               className="flex items-center
-          rounded-sm bg-slate-200 w-full px-3  "
+          rounded-sm bg-white shadow-md w-full px-3  "
             >
               <div className="mr-4">
                 <BiUserCircle color="" size={25} />
@@ -66,14 +65,14 @@ export const SignInPage = () => {
                   type="email"
                   name="email"
                   placeHolder="Email"
-                  className="   bg-slate-300 my-6 placeholder-black-300 outline-none"
+                  className="   bg-white my-6 placeholder-black- 300 outline-none"
                 />
               </div>
             </div>
 
             <div
               className="flex items-center
-          rounded-sm bg-slate-300 w-full px-3 my-3  "
+          rounded-sm  bg-white shadow-md w-full px-3 my-3  "
             >
               <div className="mr-4">
                 <RiLockPasswordLine color="" size={25} />
@@ -84,7 +83,7 @@ export const SignInPage = () => {
                   type="password"
                   name="password"
                   placeHolder="password"
-                  className=" rounded-sm my-6 bg-slate-300 "
+                  className=" rounded-sm my-6 bg-white  outline-0"
                 />
               </div>
             </div>
@@ -98,9 +97,9 @@ export const SignInPage = () => {
               "
                 />
                 <div className="flex gap-x-4 items-center my-4">
-                  <div className="w-full h-[2px]  bg-slate-400"></div>
+                  <div className="w-full h-[2px]  bg-white"></div>
                   <h4 className="font-bold">Or</h4>
-                  <div className="w-full h-[2px]  bg-slate-400"></div>
+                  <div className="w-full h-[2px]  bg-white"></div>
                 </div>
                 <div className="flex justify-center items-center">
                   <div className="grid gap-2 grid-cols-1">
