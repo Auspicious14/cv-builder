@@ -33,42 +33,67 @@ export const SignUpPage = () => {
   };
 
   return (
-    <div className="w-72 m-auto my-12">
-      <Formik
-        initialValues={{ firstName: "", lastName: "", email: "", password: "" }}
-        onSubmit={handleSubmit}
-        validationSchema={FormSchema}
-      >
-        <Form>
-          <ApTextInput
-            label="Display Name"
-            type="text"
-            name="firstName"
-            className="p-4 w-full"
-          />
-          <ApTextInput
-            label="Last Name"
-            type="text"
-            name="lastName"
-            className="p-4 w-full"
-          />
+    <div className="hero w-screen h-screen relative">
+      <div className="w-80 m-auto absolute left-[-50%] right-[-50%] my-[6rem] ">
+        <Formik
+          initialValues={{
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+          }}
+          onSubmit={handleSubmit}
+          validationSchema={FormSchema}
+        >
+          <Form>
+            <h4 className=" text-center font-extrabold text-lg mb-5  ">
+              Sign Up
+            </h4>
 
-          <ApTextInput
-            label="Email"
-            type="email"
-            name="email"
-            className="p-4 w-full"
-          />
-          <ApTextInput
-            label="Password"
-            type="password"
-            name="password"
-            className="p-4 w-full"
-          />
+            <div className="rounded-sm bg-white my-4 shadow-md w-full px-3 ">
+              <ApTextInput
+                label="First Name"
+                placeHolder="Sodiq"
+                type="text"
+                name="firstName"
+                className="bg-white my-4  outline-none"
+              />
+            </div>
 
-          <ApButton name="sign up" type="submit" className="bg-sky-400 p-2" />
-        </Form>
-      </Formik>
+            <div className="rounded-sm bg-white my-4 shadow-md w-full px-3 ">
+              <ApTextInput
+                label="Last Name"
+                type="text"
+                name="lastName"
+                placeHolder="Abdulazeez"
+                className="bg-white my-4 outline-none"
+              />
+            </div>
+            <div className="rounded-sm bg-white my-4 shadow-md w-full px-3 ">
+              <ApTextInput
+                label="Email"
+                type="email"
+                name="email"
+                placeHolder="Abdulazeez@gmail.com"
+                className="bg-white my-4   outline-none"
+              />
+            </div>
+
+            <div className="rounded-sm bg-white my-4 shadow-md w-full px-3 ">
+              <ApTextInput
+                label="Password"
+                type="password"
+                name="password"
+                placeHolder="********"
+                className="bg-white my-4   outline-none"
+              />
+            </div>
+            <div className="w-80 bg-blue-700 text-white font-extrabold  text-center py-1 ">
+              <ApButton name="Sign up" type="submit" className="  p-2" />
+            </div>
+          </Form>
+        </Formik>
+      </div>
     </div>
   );
 };
