@@ -1,7 +1,9 @@
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
-import React from "react";
-import { ApButton } from "../../components";
+import React, { useState } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { ApButton, ApModal } from "../../components";
+import { ApSideNav } from "../../components/nav/sidenav";
 import { Certificate } from "./components/create";
 import { useCertificateState } from "./context";
 import { ICertificate } from "./model";
@@ -11,7 +13,7 @@ interface IProps {
 export const CertificateDetail: React.FC<IProps> = ({ certificate }) => {
   const { updateCVDocument } = useCertificateState();
   const router = useRouter();
-
+  const [modal, setModal] = useState<{show:boolean}>({show: false})
   const handleSubmit = (values: any, actions: any) => {
     updateCVDocument(values).finally(() => {
       actions.resetForm({
@@ -26,9 +28,14 @@ export const CertificateDetail: React.FC<IProps> = ({ certificate }) => {
   return (
     <>
       <div className="p-3">
-        <p className="py-3 font-bold uppercase border-b text-2xl">
+      <div className="flex justify-between items-center mb-2 lg:block">
+        <p className="lg:py-3 font-bold uppercase lg:border-b lg:text-2xl text-lg">
           CERTIFICATION
         </p>
+        <div className="lg:hidden">
+        <GiHamburgerMenu size={20} onClick={()=>setModal({show: true})}/>
+        </div>
+      </div>
         <Formik
           initialValues={{
             certificate: [
@@ -61,12 +68,16 @@ export const CertificateDetail: React.FC<IProps> = ({ certificate }) => {
               <ApButton
                 type="submit"
                 name="create"
-                className="px-4 py-2 uppercase bg-blue-400 rounded-md border-none outline-none text-white font-bold"
+                className="px-4 py-2 uppercase lg:bg-blue-400 bg-blue-900 rounded-md border-none outline-none text-white font-bold"
               />
             </Form>
           )}
         </Formik>
       </div>
+      <ApModal title="Cv Craft" show={modal.show} onDimiss={()=>setModal({show: false})} 
+      containerClassName="w-[50%]" notOverflow={true}>
+        <ApSideNav />
+      </ApModal>
     </>
   );
 };

@@ -38,7 +38,7 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
     <>
       <div className="p-3">
         <div className="flex justify-between items-center mb-2 lg:block">
-        <div className="lg:py-3 font-bold uppercase lg:text-2xl lg:border-b lg:mb-4 sm:text-lg">
+        <div className="lg:py-3 font-bold uppercase lg:text-2xl lg:border-b lg:mb-4 text-lg">
           personal Information
         </div>
         <div className="lg:hidden">

@@ -1,7 +1,9 @@
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
-import React from "react";
-import { ApButton, ApTextInput } from "../../components";
+import React, { useState } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { ApButton, ApModal, ApTextInput } from "../../components";
+import { ApSideNav } from "../../components/nav/sidenav";
 import { Experience } from "./components/creat";
 import { useExperienceState } from "./context";
 import { IExperience } from "./model";
@@ -11,7 +13,7 @@ interface IProps {
 export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
   const { updateCVDocument } = useExperienceState();
   const router = useRouter();
-
+  const [modal, setModal] = useState<{show:boolean}>({show: false})
   const handleSubmit = (values: any, actions: any) => {
     updateCVDocument(values).finally(() => {
       actions.resetForm({
@@ -35,7 +37,12 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
   return (
     <>
       <div className="p-3">
-        <p className="py-3 font-bold text-2xl uppercase border-b">EXPERIENCE</p>
+      <div className="flex justify-between items-center mb-2 lg:block">
+        <p className="lg:py-3 font-bold lg:text-2xl uppercase lg:border-b text-lg">EXPERIENCE</p>
+        <div className="lg:hidden">
+        <GiHamburgerMenu size={20} onClick={()=>setModal({show: true})}/>
+        </div>
+      </div>
         <Formik
           initialValues={{
             experience: [
@@ -78,12 +85,16 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
               <ApButton
                 type="submit"
                 name="create"
-                className="px-4 py-2 uppercase bg-blue-400 rounded-md border-none outline-none text-white font-bold"
+                className="px-4 py-2 uppercase lg:bg-blue-400 bg-blue-900 rounded-md border-none outline-none text-white font-bold"
               />
             </Form>
           )}
         </Formik>
       </div>
+      <ApModal title="Cv Craft" show={modal.show} onDimiss={()=>setModal({show: false})} 
+      containerClassName="w-[50%]" notOverflow={true}>
+        <ApSideNav />
+      </ApModal>
     </>
   );
 };

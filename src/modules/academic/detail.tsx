@@ -34,7 +34,7 @@ export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
     <>
       <div className="p-3">
       <div className="flex justify-between items-center mb-2 lg:block">
-        <p className="lg:py-3 font-bold uppercase lg:text-2xl lg:border-b sm:text-lg">EDUCATION</p>
+        <p className="lg:py-3 font-bold uppercase lg:text-2xl lg:border-b text-lg">EDUCATION</p>
         <div className="lg:hidden">
         <GiHamburgerMenu size={20} onClick={()=>setModal({show: true})}/>
         </div>
