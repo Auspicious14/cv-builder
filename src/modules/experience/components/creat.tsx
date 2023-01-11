@@ -1,17 +1,22 @@
+import moment from "moment";
 import React from "react";
 import { MdAddCircle, MdOutlineDeleteOutline } from "react-icons/md";
-import { ApTextInput } from "../../../components";
+import { ApDateRangePicker, ApTextInput } from "../../../components";
 import { IExperience } from "../model";
 
 interface IProps {
-  onDelete: () => void;
   index: number;
+  // date: {fromDate: any, toDate: any};
   experience: IExperience;
+  onDelete: () => void;
+  handleDate: (date: any, index: number) => void;
 }
 export const ExperienceListItem: React.FC<IProps> = ({
   onDelete,
   index,
+  // date,
   experience,
+  handleDate,
 }) => {
   return (
     <div>
@@ -39,22 +44,23 @@ export const ExperienceListItem: React.FC<IProps> = ({
           type="textarea"
           className="p-3 outline-blue-400"
         />
-        <ApTextInput
-          label="Start Date"
-          name={`experience[${index}].fromDate`}
-          type="text"
-          className="p-3 outline-blue-400"
+
+        <ApDateRangePicker
+          onChange={(date) => handleDate(date, index)}
+          date={{
+            startDate:
+              (experience.fromDate as Date) ||
+              moment().startOf("month").toDate(),
+            endDate:
+              (experience.toDate as Date) || moment().endOf("month").toDate(),
+          }}
         />
-        <ApTextInput
-          label="End Date"
-          name={`experience[${index}].toDate`}
-          type="text"
-          className="p-3 outline-blue-400"
-        />
-        <div onClick={onDelete}>
+
+        <div>
           <MdOutlineDeleteOutline
             size={25}
             className="text-blue-400 mb-2 cursor-pointer"
+            onClick={onDelete}
           />
         </div>
       </div>
@@ -66,11 +72,14 @@ interface IExperienceProps {
   onAdd: () => void;
   onDelete: (index: number) => void;
   experience: IExperience[];
+  handleDate: (date: any, i: number) => void;
 }
+
 export const Experience: React.FC<IExperienceProps> = ({
   onAdd,
   onDelete,
   experience,
+  handleDate,
 }) => {
   return (
     <>
@@ -85,6 +94,7 @@ export const Experience: React.FC<IExperienceProps> = ({
           onDelete={() => onDelete(i)}
           index={i}
           key={i}
+          handleDate={(date: any, i: number) => handleDate(date, i)}
         />
       ))}
     </>

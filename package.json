@@ -18,8 +18,10 @@
     "feather-icons": "^4.29.0",
     "firebase": "^9.15.0",
     "formik": "^2.2.9",
+    "moment": "^2.29.4",
     "next": "13.0.7",
     "react": "18.2.0",
+    "react-datepicker": "^4.8.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
     "react-loader-spinner": "^5.3.4",
@@ -31,6 +33,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@types/react-datepicker": "^4.8.0",
     "@types/react-slick": "^0.23.10",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.20",
