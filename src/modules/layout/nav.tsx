@@ -16,7 +16,7 @@ export const Navbar = () => {
         md:flex md:justify-between md:items-center md:py-4 md:px-2 md:w-[75%] md:mx-auto "
       >
         <div>
-          <h4 className="font-bold text-lg text-white">Resume-Builder</h4>
+          <h4 className="font-bold text-lg text-white">Cv-Craft</h4>
         </div>
         <div className="hidden  sm:hidden md:hidden lg:flex">
           <nav className="">

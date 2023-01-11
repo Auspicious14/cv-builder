@@ -178,6 +178,7 @@ export const BlendTemplate = () => {
         show={modal.show}
         onDimiss={() => setModal({ show: false })}
         containerClassName={"w-[70%] m-auto"}
+        possition={'left-0'}
       >
         {modal.show && (
           <UpdateCVModal

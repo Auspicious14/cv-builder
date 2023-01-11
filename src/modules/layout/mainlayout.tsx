@@ -9,12 +9,12 @@ interface IProps {
 
 export const ApMainLayOut = ({ children }: IProps) => {
   return (
-    <div className="flex gap-2 w-[100%] h-screen">
-      <div className="w-[20%] bg-blue-900 overflow-y-hidden sm:hidden">
+    <div className="lg:flex lg:gap-2 w-[100%] h-screen xsm:block">
+      <div className="w-[20%] bg-blue-900 overflow-y-hidden sm:hidden hidden lg:block">
         <ApSideNav />
       </div>
-      <div className="w-[80%] flex gap-2">
-        <div className="w-[70%] overflow-auto">{children}</div>
+      <div className="lg:w-[80%] flex gap-2">
+        <div className="lg:w-[70%] w-full overflow-auto">{children}</div>
         <div className="w-[50%] overflow-y-hidden hidden sm:hidden lg:block">
           <Image
             src={BlockTemplate}

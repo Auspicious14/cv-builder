@@ -37,7 +37,7 @@ export const ApTextInput: React.FC<IProps> = ({
       <div>{label}</div>
       {type == "textarea" ? (
         <textarea
-          className={`w-full p-4 mb-2 bg-stone-50 border .placeholder-orange-300 ${className}`}
+          className={`w-full p-4 mb-2 bg-stone-50 border placeholder-orange-300 ${className}`}
           {...field}
           {...props}
           name={name}
@@ -50,7 +50,7 @@ export const ApTextInput: React.FC<IProps> = ({
           {...field}
           {...props}
           name={name}
-          className={`w-full mb-2  border-none  ${className}`}
+          className={`w-full mb-2 rounded-md border  ${className}`}
           placeholder={placeHolder}
         />
       )}
