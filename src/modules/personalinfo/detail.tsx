@@ -6,6 +6,7 @@ import { ApButton, ApModal, ApTextInput } from "../../components";
 import { ApSideNav } from "../../components/nav/sidenav";
 import { usePersonalInfoState } from "./context";
 import { IPersonalInfo } from "./model";
+import { GiHamburgerMenu } from "react-icons/gi";
 interface IProps {
   personalInfo: IPersonalInfo;
 }
@@ -41,7 +42,7 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
           personal Information
         </div>
         <div className="lg:hidden">
-        <IoIosCloseCircleOutline size={30} onClick={()=>setModal({show: true})}/>
+        <GiHamburgerMenu size={20} onClick={()=>setModal({show: true})}/>
         </div>
         </div>
         <Formik
@@ -125,7 +126,7 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
             <ApButton
               type="submit"
               name="create"
-              className="px-4 py-2 uppercase bg-blue-400 rounded-md border-none outline-none text-white font-bold"
+              className="px-4 py-2 uppercase lg:bg-blue-400 bg-blue-900 rounded-md border-none outline-none text-white font-bold"
             />
           </Form>
         </Formik>

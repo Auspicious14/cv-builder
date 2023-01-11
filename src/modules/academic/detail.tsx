@@ -1,7 +1,10 @@
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
-import React from "react";
-import { ApButton, ApTextInput } from "../../components";
+import React, { useState } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { IoIosCloseCircleOutline } from "react-icons/io";
+import { ApButton, ApModal, ApTextInput } from "../../components";
+import { ApSideNav } from "../../components/nav/sidenav";
 import { Academy } from "./components/create";
 import { useAcademyState } from "./context";
 import { IAcademy } from "./model";
@@ -11,7 +14,7 @@ interface IProps {
 export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
   const { updateCVDocument } = useAcademyState();
   const router = useRouter();
-
+  const [modal, setModal] = useState<{show:boolean}>({show: false})
   const handleSubmit = (values: any, actions: any) => {
     updateCVDocument(values).finally(() => {
       actions.resetForm({
@@ -30,7 +33,12 @@ export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
   return (
     <>
       <div className="p-3">
-        <p className="py-3 font-bold uppercase text-2xl border-b">EDUCATION</p>
+      <div className="flex justify-between items-center mb-2 lg:block">
+        <p className="lg:py-3 font-bold uppercase lg:text-2xl lg:border-b sm:text-lg">EDUCATION</p>
+        <div className="lg:hidden">
+        <GiHamburgerMenu size={20} onClick={()=>setModal({show: true})}/>
+        </div>
+      </div>
         <Formik
           initialValues={{
             academy: [
@@ -69,12 +77,16 @@ export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
               <ApButton
                 type="submit"
                 name="create"
-                className="px-4 py-2 uppercase bg-blue-400 rounded-md border-none outline-none text-white font-bold"
+                className="px-4 py-2 uppercase lg:bg-blue-400 bg-blue-900 rounded-md border-none outline-none text-white font-bold"
               />
             </Form>
           )}
         </Formik>
       </div>
+      <ApModal title="Cv Craft" show={modal.show} onDimiss={()=>setModal({show: false})} 
+      containerClassName="w-[50%]" notOverflow={true}>
+        <ApSideNav />
+      </ApModal>
     </>
   );
 };

@@ -40,7 +40,7 @@ export const ApModal: React.FC<IProps> = ({
               notOverflow ? null : "overflow-y-scroll"
             }  ${containerClassName}`}
           >
-            <div className="flex justify-between px-4 py-2 bg-black items-center ">
+            <div className="flex justify-between px-4 py-2 bg-blue-900 items-center ">
               {title && (
                 <h1 className="text-lg font-bold uppercase  w-full text-white">
                   {title}
