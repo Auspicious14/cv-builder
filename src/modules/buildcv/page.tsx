@@ -12,6 +12,7 @@ import { UpdateCVModal } from "./update/modal";
 import { useCvState } from "./context";
 import { CertificateList } from "../certificate/components/listitem";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 export const BuildPage = () => {
   const { getImageFile, imageFile } = useCvState();
@@ -50,7 +51,7 @@ export const BuildPage = () => {
         <div>
           <div className=" m-auto my-2 border-[2rem] border-blue-500 w-[70%] h-auto">
             <div className=" flex p-4 gap-8">
-              <img
+              <Image
                 src={imageFile}
                 alt="name"
                 className="w-[15%] h-[15%] border rounded-full"

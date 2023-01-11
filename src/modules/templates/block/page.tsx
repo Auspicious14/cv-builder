@@ -14,6 +14,7 @@ import { BsFillTelephoneFill } from "react-icons/bs";
 import { MdOutlineMarkEmailUnread } from "react-icons/md";
 import { CertificateList } from "../../certificate/components/listitem";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 export const BlockTemplate = () => {
   const { getImageFile, imageFile } = useCvState();
@@ -55,7 +56,7 @@ export const BlockTemplate = () => {
         <div>
           <div className="p-4 m-auto  w-[70%] h-auto bg-gray-200">
             <div className="w-full shadow-md flex gap-8 mb-2 py-4 justify-between items-center border rounded-lg px-2 bg-white">
-              <img
+              <Image
                 src={imageFile}
                 alt="name"
                 className="w-[5rem] border text-center m-auto rounded-full"
@@ -74,7 +75,7 @@ export const BlockTemplate = () => {
                     experience
                   </h1>
                   {cvState?.experience?.map((e, i) => (
-                    <div className="border-b last:border-b-0">
+                    <div className="border-b last:border-b-0" key={i}>
                       <BlockTemplateExperienceListItem experience={e} key={i} />
                     </div>
                   ))}
