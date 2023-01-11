@@ -1,7 +1,9 @@
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
-import React from "react";
-import { ApButton } from "../../components";
+import React, { useState } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { ApButton, ApModal } from "../../components";
+import { ApSideNav } from "../../components/nav/sidenav";
 import { toastSvc } from "../../services/toast";
 import { Skill } from "./components/create";
 import { useSkillState } from "./context";
@@ -12,7 +14,7 @@ interface IProps {
 export const SkillDetail: React.FC<IProps> = ({ skill }) => {
   const { updateCVDocument } = useSkillState();
   const router = useRouter();
-
+  const [modal, setModal] = useState<{ show: boolean }>({ show: false });
   const handleSubmit = (values: any, actions: any) => {
     updateCVDocument(values).finally(() => {
       toastSvc.success("CV created successfully!");
@@ -27,7 +29,17 @@ export const SkillDetail: React.FC<IProps> = ({ skill }) => {
   return (
     <>
       <div className="h-screen rounded-md shadow-sm p-3">
-        <p className="font-bold text-2xl border-b">SKILLS</p>
+        <div className="flex justify-between items-center mb-2 lg:block">
+          <div className="lg:py-3 font-bold uppercase lg:text-2xl lg:border-b lg:mb-4 text-lg">
+            skills
+          </div>
+          <div className="lg:hidden">
+            <GiHamburgerMenu
+              size={20}
+              onClick={() => setModal({ show: true })}
+            />
+          </div>
+        </div>
         <Formik
           initialValues={{ skill: [{ skillName: skill?.skillName || "" }] }}
           onSubmit={handleSubmit}
@@ -54,12 +66,21 @@ export const SkillDetail: React.FC<IProps> = ({ skill }) => {
               <ApButton
                 type="submit"
                 name="create"
-                className=" px-4 mt-2 py-1 uppercase bg-blue-400 rounded-md border-none outline-none text-white font-bold"
+                className=" px-4 mt-2 py-1 uppercase lg:bg-blue-400 bg-blue-900 rounded-md border-none outline-none text-white font-bold"
               />
             </Form>
           )}
         </Formik>
       </div>
+      <ApModal
+        title="Cv Craft"
+        show={modal.show}
+        onDimiss={() => setModal({ show: false })}
+        containerClassName="w-[50%]"
+        notOverflow={true}
+      >
+        <ApSideNav />
+      </ApModal>
     </>
   );
 };
