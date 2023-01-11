@@ -1,17 +1,20 @@
+import moment from "moment";
 import React from "react";
 import { MdAddCircle, MdOutlineDeleteOutline } from "react-icons/md";
-import { ApButton, ApTextInput } from "../../../components";
+import { ApButton, ApDateRangePicker, ApTextInput } from "../../../components";
 import { IAcademy } from "../model";
 
 interface IProps {
   onDelete: () => void;
   academy: IAcademy;
   index: number;
+  handleDate: (date: any, index: number) => void;
 }
 export const AcademyListItem: React.FC<IProps> = ({
   onDelete,
   index,
   academy,
+  handleDate,
 }) => {
   return (
     <>
@@ -27,19 +30,15 @@ export const AcademyListItem: React.FC<IProps> = ({
         name={`academy[${index}].course`}
         className="p-3 outline-blue-400"
       />
+      <ApDateRangePicker
+        onChange={(date) => handleDate(date, index)}
+        date={{
+          startDate:
+            (academy.fromDate as Date) || moment().startOf("month").toDate(),
+          endDate: (academy.toDate as Date) || moment().endOf("month").toDate(),
+        }}
+      />
 
-      <ApTextInput
-        label="Date Started"
-        type="text"
-        name={`academy[${index}].fromDate`}
-        className="p-3 outline-blue-400"
-      />
-      <ApTextInput
-        label="Date Ended"
-        type="text"
-        name={`academy[${index}].toDate`}
-        className="p-3 outline-blue-400"
-      />
       <div onClick={onDelete}>
         <MdOutlineDeleteOutline
           size={25}
@@ -54,11 +53,13 @@ interface IAcademyProps {
   onAdd: () => void;
   onDelete: (index: number) => void;
   academy: IAcademy[];
+  handleDate: (date: any, index: number) => void;
 }
 export const Academy: React.FC<IAcademyProps> = ({
   onAdd,
   onDelete,
   academy,
+  handleDate,
 }) => {
   return (
     <>
@@ -73,6 +74,7 @@ export const Academy: React.FC<IAcademyProps> = ({
           onDelete={() => onDelete(i)}
           index={i}
           key={i}
+          handleDate={(date: any, i: number) => handleDate(date, i)}
         />
       ))}
     </>

@@ -1,6 +1,6 @@
 export interface IAcademy {
   name: string;
   course: string;
-  fromDate: string;
-  toDate: string;
+  fromDate: string | Date;
+  toDate: string | Date;
 }

@@ -1,4 +1,5 @@
 import { Form, Formik } from "formik";
+import moment from "moment";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -14,7 +15,7 @@ interface IProps {
 export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
   const { updateCVDocument } = useAcademyState();
   const router = useRouter();
-  const [modal, setModal] = useState<{show:boolean}>({show: false})
+  const [modal, setModal] = useState<{ show: boolean }>({ show: false });
   const handleSubmit = (values: any, actions: any) => {
     updateCVDocument(values).finally(() => {
       actions.resetForm({
@@ -33,20 +34,26 @@ export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
   return (
     <>
       <div className="p-3">
-      <div className="flex justify-between items-center mb-2 lg:block">
-        <p className="lg:py-3 font-bold uppercase lg:text-2xl lg:border-b text-lg">EDUCATION</p>
-        <div className="lg:hidden">
-        <GiHamburgerMenu size={20} onClick={()=>setModal({show: true})}/>
+        <div className="flex justify-between items-center mb-2 lg:block">
+          <p className="lg:py-3 font-bold uppercase lg:text-2xl lg:border-b text-lg">
+            EDUCATION
+          </p>
+          <div className="lg:hidden">
+            <GiHamburgerMenu
+              size={20}
+              onClick={() => setModal({ show: true })}
+            />
+          </div>
         </div>
-      </div>
         <Formik
           initialValues={{
             academy: [
               {
                 name: academy?.name || "",
                 course: academy?.course || "",
-                fromDate: academy?.fromDate || "",
-                toDate: academy?.toDate || "",
+                fromDate:
+                  academy?.fromDate || moment().startOf("month").toDate(),
+                toDate: academy?.toDate || moment().endOf("month").toDate(),
               },
             ],
           }}
@@ -62,8 +69,8 @@ export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
                     {
                       name: "",
                       course: "",
-                      fromDate: "",
-                      toDate: "",
+                      fromDate: moment().startOf("month").toDate(),
+                      toDate: moment().endOf("month").toDate(),
                     },
                   ])
                 }
@@ -71,6 +78,19 @@ export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
                   setFieldValue(
                     "academy",
                     values.academy.filter((a, i) => i !== index)
+                  )
+                }
+                handleDate={(date: any, i: number) =>
+                  setFieldValue(
+                    "experience",
+                    values.academy.map((e, index) => {
+                      if (i !== index) return e;
+                      return {
+                        ...e,
+                        fromDate: date.fromDate,
+                        endDate: date.endDate,
+                      };
+                    })
                   )
                 }
               />
@@ -83,8 +103,13 @@ export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
           )}
         </Formik>
       </div>
-      <ApModal title="Cv Craft" show={modal.show} onDimiss={()=>setModal({show: false})} 
-      containerClassName="w-[50%]" notOverflow={true}>
+      <ApModal
+        title="Cv Craft"
+        show={modal.show}
+        onDimiss={() => setModal({ show: false })}
+        containerClassName="w-[50%]"
+        notOverflow={true}
+      >
         <ApSideNav />
       </ApModal>
     </>
