@@ -49,7 +49,7 @@ export const SignUpPage = () => {
 
             <ApTextInput
               label="First Name"
-              placeHolder="Sodiq"
+              placeHolder="John"
               type="text"
               name="firstName"
               className="p-2 outline-blue-400"
@@ -59,14 +59,14 @@ export const SignUpPage = () => {
               label="Last Name"
               type="text"
               name="lastName"
-              placeHolder="Abdulazeez"
+              placeHolder="Doe"
               className="p-2 outline-blue-400"
             />
             <ApTextInput
               label="Email"
               type="email"
               name="email"
-              placeHolder="Abdulazeez@gmail.com"
+              placeHolder="johndoe@example.com"
               className="p-2 outline-blue-400"
             />
 

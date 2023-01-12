@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
-import {IoIosCloseCircleOutline} from 'react-icons/io'
+import { IoIosCloseCircleOutline } from "react-icons/io";
 import { ApButton, ApModal, ApTextInput } from "../../components";
 import { ApSideNav } from "../../components/nav/sidenav";
 import { usePersonalInfoState } from "./context";
 import { IPersonalInfo } from "./model";
 import { GiHamburgerMenu } from "react-icons/gi";
+import Link from "next/link";
 interface IProps {
   personalInfo: IPersonalInfo;
 }
@@ -15,7 +16,7 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
 }) => {
   const { createCVDocument } = usePersonalInfoState();
   const router = useRouter();
-  const [modal, setModal] = useState<{show:boolean}>({show: false})
+  const [modal, setModal] = useState<{ show: boolean }>({ show: false });
   const handleSubmit = async (values: any, actions: any) => {
     await createCVDocument(values).finally(() => {
       actions.resetForm({
@@ -38,12 +39,15 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
     <>
       <div className="p-3">
         <div className="flex justify-between items-center mb-2 lg:block">
-        <div className="lg:py-3 font-bold uppercase lg:text-2xl lg:border-b lg:mb-4 text-lg">
-          personal Information
-        </div>
-        <div className="lg:hidden">
-        <GiHamburgerMenu size={20} onClick={()=>setModal({show: true})}/>
-        </div>
+          <div className="lg:py-3 font-bold uppercase lg:text-2xl lg:border-b lg:mb-4 text-lg">
+            personal Information
+          </div>
+          <div className="lg:hidden">
+            <GiHamburgerMenu
+              size={20}
+              onClick={() => setModal({ show: true })}
+            />
+          </div>
         </div>
         <Formik
           initialValues={{
@@ -132,8 +136,13 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
         </Formik>
       </div>
 
-      <ApModal title="Cv Craft" show={modal.show} onDimiss={()=>setModal({show: false})} 
-      containerClassName="w-[50%]" notOverflow={true}>
+      <ApModal
+        title={<Link href={"/"}>CV CRAFT</Link>}
+        show={modal.show}
+        onDimiss={() => setModal({ show: false })}
+        containerClassName="w-[50%]"
+        notOverflow={true}
+      >
         <ApSideNav />
       </ApModal>
     </>

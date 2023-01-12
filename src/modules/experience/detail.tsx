@@ -9,6 +9,7 @@ import { Experience } from "./components/creat";
 import { useExperienceState } from "./context";
 import * as Yup from "yup";
 import moment from "moment";
+import Link from "next/link";
 
 const FormSchema = Yup.object().shape({});
 interface IProps {
@@ -130,7 +131,7 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
         </Formik>
       </div>
       <ApModal
-        title="Cv Craft"
+        title={<Link href={"/"}>CV CRAFT</Link>}
         show={modal.show}
         onDimiss={() => setModal({ show: false })}
         containerClassName="w-[50%]"

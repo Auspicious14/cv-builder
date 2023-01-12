@@ -1,7 +1,9 @@
+import { onAuthStateChanged } from "firebase/auth";
 import Link from "next/link";
 import React, { useState } from "react";
 import { AiOutlineCloseCircle, AiOutlineMenuUnfold } from "react-icons/ai";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import { auth } from "../../library";
 
 export const Navbar = () => {
   const [toggle, setToggle] = useState<{ show: boolean; data?: any }>({
@@ -16,7 +18,7 @@ export const Navbar = () => {
         md:flex md:justify-between md:items-center md:py-4 md:px-2 md:w-[75%] md:mx-auto"
       >
         <div>
-          <h4 className="font-bold text-lg text-white">Cv-Craft</h4>
+          <h4 className="font-bold text-lg text-white px-4">Cv-Craft</h4>
         </div>
         <div className="hidden  sm:hidden md:hidden lg:flex">
           <nav className="">
@@ -87,6 +89,15 @@ interface IProps {
 }
 const NavList: React.FC<IProps> = ({ closeFunc, open }) => {
   // console.log(toggle, "true....")
+  let [session, setSession] = useState() as any;
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setSession(user.uid);
+      console.log(user.displayName);
+    }
+  });
+
+  // console.log(session);
   return (
     <div className="">
       <nav
@@ -99,12 +110,13 @@ const NavList: React.FC<IProps> = ({ closeFunc, open }) => {
         <div className="absolute right-[0] top-[2px] px-3 py-2">
           <AiOutlineCloseCircle color="black" size={30} onClick={closeFunc} />
         </div>
-
         <ul className="grid gap-y-4 grid-cols font-bold text-sm text-slate-700 mt-4">
-          <li className="flex justify-between">
-            <Link href="/">Resumes</Link>
-            <RiArrowDropDownLine color="color" size={20} />
-          </li>
+          {session && (
+            <li className="flex justify-between">
+              <Link href="/cv">Resumes</Link>
+              <RiArrowDropDownLine color="color" size={20} />
+            </li>
+          )}
           <li className="flex justify-between">
             <Link href="/">Cover Letter</Link>
             <RiArrowDropDownLine color="color" size={20} />
@@ -123,11 +135,13 @@ const NavList: React.FC<IProps> = ({ closeFunc, open }) => {
           </li>
 
           <li className="flex justify-between">
-            <button className="text-black">Login</button>
+            <button>
+              <Link href={"/auth/signin"}>Login</Link>
+            </button>
           </li>
           <li className="flex justify-between">
             <button className=" bg-blue-700 rounded-md  text-white p-1 px-3 font-bold ">
-              BUILD MY RESUME
+              <Link href={"/personalInfo"}>BUILD MY RESUME</Link>
             </button>
           </li>
         </ul>

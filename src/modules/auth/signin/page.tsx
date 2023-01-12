@@ -65,7 +65,7 @@ export const SignInPage = () => {
                 label="Email"
                 type="email"
                 name="email"
-                placeHolder="Email"
+                placeHolder="johndoe@example.com"
                 className="p-2 outline-blue-400"
               />
 
@@ -73,7 +73,7 @@ export const SignInPage = () => {
                 label="Password"
                 type="password"
                 name="password"
-                placeHolder="password"
+                placeHolder="*********"
                 className="p-2 outline-blue-400"
               />
 

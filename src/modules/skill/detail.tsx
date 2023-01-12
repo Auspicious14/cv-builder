@@ -1,4 +1,5 @@
 import { Form, Formik } from "formik";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -73,7 +74,7 @@ export const SkillDetail: React.FC<IProps> = ({ skill }) => {
         </Formik>
       </div>
       <ApModal
-        title="Cv Craft"
+        title={<Link href={"/"}>CV CRAFT</Link>}
         show={modal.show}
         onDimiss={() => setModal({ show: false })}
         containerClassName="w-[50%]"

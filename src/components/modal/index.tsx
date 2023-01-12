@@ -1,9 +1,9 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
 
 interface IProps {
-  title?: string;
+  title?: string | ReactNode;
   show: boolean;
   children: React.ReactNode;
   possition?: string;
@@ -19,7 +19,7 @@ export const ApModal: React.FC<IProps> = ({
   closeBtnClassName,
   containerClassName,
   children,
-    possition ,
+  possition,
   onDimiss,
   notOverflow,
 }) => {

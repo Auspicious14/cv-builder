@@ -135,7 +135,7 @@ export const Footer = () => {
           <h4 className="text-white font-extrabold text-[1.3rem]">
             Stay Connected
           </h4>
-          <div className="flex gap-x-4">
+          <div className="flex gap-x-4 items-center justify-center my-2">
             <BsInstagram color="white" size={25} />
             <BsTwitter color="white" size={25} />
             <BsLinkedin color="white" size={25} />

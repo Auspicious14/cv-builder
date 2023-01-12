@@ -31,11 +31,14 @@ export const BuildPage = () => {
         if (cvSnapShot.exists()) {
           setLoading(false);
           setCvState(cvSnapShot.data() as any);
+          console.log(cvSnapShot.data(), "snappppshottt");
+        } else {
+          setLoading(false);
         }
       }
     });
   };
-
+  console.log(!cvState == undefined ? "yes" : "no");
   useEffect(() => {
     getCVDocument();
     getImageFile();
@@ -43,19 +46,22 @@ export const BuildPage = () => {
 
   return (
     <>
-      {loading ? (
+      {loading && (
         <div className="w-screen h-screen flex justify-center items-center">
           <ApLoader color={"#5C5CFF"} />
         </div>
-      ) : (
+      )}
+      {!loading && !cvState == undefined ? (
         <div>
           <div className=" m-auto my-2 border-[2rem] border-blue-500 w-[70%] h-auto">
             <div className=" flex p-4 gap-8">
-              <Image
-                src={imageFile}
-                alt="name"
-                className="w-[15%] h-[15%] border rounded-full"
-              />
+              {imageFile && (
+                <Image
+                  src={imageFile}
+                  alt="name"
+                  className="w-[15%] h-[15%] border rounded-full"
+                />
+              )}
               <div className="pt-8 pb-4 text-4xl">
                 {`${cvState?.firstName
                   ?.charAt(0)
@@ -135,6 +141,8 @@ export const BuildPage = () => {
             className="bg-blue-400 px-4 py-2 text-white border-none rounded-md outline-none "
           />
         </div>
+      ) : (
+        <div>nothing is here</div>
       )}
       <ApModal
         title={"Update CV"}

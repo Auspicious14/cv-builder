@@ -1,4 +1,5 @@
 import { Form, Formik } from "formik";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -13,7 +14,7 @@ interface IProps {
 export const CertificateDetail: React.FC<IProps> = ({ certificate }) => {
   const { updateCVDocument } = useCertificateState();
   const router = useRouter();
-  const [modal, setModal] = useState<{show:boolean}>({show: false})
+  const [modal, setModal] = useState<{ show: boolean }>({ show: false });
   const handleSubmit = (values: any, actions: any) => {
     updateCVDocument(values).finally(() => {
       actions.resetForm({
@@ -28,14 +29,17 @@ export const CertificateDetail: React.FC<IProps> = ({ certificate }) => {
   return (
     <>
       <div className="p-3">
-      <div className="flex justify-between items-center mb-2 lg:block">
-        <p className="lg:py-3 font-bold uppercase lg:border-b lg:text-2xl text-lg">
-          CERTIFICATION
-        </p>
-        <div className="lg:hidden">
-        <GiHamburgerMenu size={20} onClick={()=>setModal({show: true})}/>
+        <div className="flex justify-between items-center mb-2 lg:block">
+          <p className="lg:py-3 font-bold uppercase lg:border-b lg:text-2xl text-lg">
+            CERTIFICATION
+          </p>
+          <div className="lg:hidden">
+            <GiHamburgerMenu
+              size={20}
+              onClick={() => setModal({ show: true })}
+            />
+          </div>
         </div>
-      </div>
         <Formik
           initialValues={{
             certificate: [
@@ -74,8 +78,13 @@ export const CertificateDetail: React.FC<IProps> = ({ certificate }) => {
           )}
         </Formik>
       </div>
-      <ApModal title="Cv Craft" show={modal.show} onDimiss={()=>setModal({show: false})} 
-      containerClassName="w-[50%]" notOverflow={true}>
+      <ApModal
+        title={<Link href={"/"}>CV CRAFT</Link>}
+        show={modal.show}
+        onDimiss={() => setModal({ show: false })}
+        containerClassName="w-[50%]"
+        notOverflow={true}
+      >
         <ApSideNav />
       </ApModal>
     </>

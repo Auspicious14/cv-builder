@@ -28,16 +28,17 @@ export const HomePage = () => {
              lg:text-left lg:w-[37rem]"
             >
               <h4
-                className="text-white font-bold text-[2rem] tracking-normal leading-[2.5rem] my-3 
+                className="text-white font-bold px-4 text-[2rem] tracking-normal leading-[2.5rem] my-3 
               sm:text-[2.5rem]
               md:text-[2.5rem]
                "
               >
-                Make your cv stand out from the majority
+                Make your <span className="uppercase">cv</span> stand out from
+                the majority
               </h4>
               <p
                 className="text-white text-[1.1rem] leading-[1.3rem] my-4
-              sm:text-[1.3rem] sm:leading-[1.7rem] sm:my-4"
+              sm:text-[1.3rem] sm:leading-[1.7rem] px-4 tracking-wide"
               >
                 Our professional Resume Builder has helped thousands of job
                 seekers land more interviews and get hired faster.
