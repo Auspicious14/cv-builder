@@ -13,6 +13,7 @@ import { FcGoogle } from "react-icons/fc";
 import { AiFillFacebook, AiFillTwitterCircle } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { BiUserCircle } from "react-icons/bi";
+import { HiOutlineMail } from "react-icons/hi";
 
 const FormSchema = Yup.object().shape({
   email: Yup.string().required("Email is required"),
@@ -25,7 +26,7 @@ export const SignInPage = () => {
     if (values) {
       await signInUser(values.email, values.password)
         .then((res) => {
-          router.push("/");
+          router.push("/personalInfo");
         })
         .catch((err) => console.log(err));
     }
@@ -35,11 +36,13 @@ export const SignInPage = () => {
     const response = (await signInWithGooglePopUp()).user;
     console.log(response);
     createUserDocument(response);
+    router.push("/personalInfo");
   };
 
   return (
     <div className="hero w-screen h-screen relative">
-      <div className="w-80 m-auto absolute left-[-50%] right-[-50%] my-[6rem]  ">
+      <div className="w-[25rem] rounded-md m-auto absolute left-[-50%] right-[-50%] my-[6rem] py-2 px-4 bg-white">
+        {" "}
         <Formik
           initialValues={{
             email: "",
@@ -52,22 +55,18 @@ export const SignInPage = () => {
             <h4 className=" text-center font-extrabold text-lg mb-5 ">
               Sign In
             </h4>
-            <div
-              className="flex items-center
-          rounded-sm bg-white shadow-md w-full px-3  "
-            >
-              <div className="mr-4">
-                <BiUserCircle color="" size={25} />
-              </div>
-              <div>
-                <ApTextInput
-                  // label="Email"
-                  type="email"
-                  name="email"
-                  placeHolder="Email"
-                  className="   bg-white my-6 placeholder-black- 300 outline-none"
-                />
-              </div>
+
+            <div className="flex gap-2 items-center">
+              <HiOutlineMail size={25} />
+              <ApTextInput
+                label="Email"
+                type="email"
+                name="email"
+                props={<HiOutlineMail size={20} />}
+                placeHolder="Email"
+                className="p-2 outline-blue-400"
+                components={<HiOutlineMail size={20} />}
+              />
             </div>
 
             <div

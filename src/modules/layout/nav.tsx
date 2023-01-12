@@ -13,7 +13,7 @@ export const Navbar = () => {
       <div
         className=" w-[100%] flex justify-between  items-center py-4 px-1
        sm:w-[100%] sm:flex sm:justify-between sm:items-center sm:py-4 sm:px-2
-        md:flex md:justify-between md:items-center md:py-4 md:px-2 md:w-[75%] md:mx-auto "
+        md:flex md:justify-between md:items-center md:py-4 md:px-2 md:w-[75%] md:mx-auto"
       >
         <div>
           <h4 className="font-bold text-lg text-white">Cv-Craft</h4>
@@ -53,8 +53,8 @@ export const Navbar = () => {
             </div>
             <div>
               <Link href={"/personalInfo"}>
-                <button className=" bg-blue-700 rounded-md  text-white p-1 px-3 font-bold ">
-                  BUILD MY CV
+                <button className=" bg-blue-700 rounded-md uppercase text-white p-1 px-3 font-bold ">
+                  get started
                 </button>
               </Link>
             </div>

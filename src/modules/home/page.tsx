@@ -47,9 +47,9 @@ export const HomePage = () => {
                   className="flex gap-x-3 px-4 py-2 bg-blue-700 
                 rounded-md my-3 w-[13rem] items-center mx-auto lg:ml-0 "
                 >
-                  <Link href={"/personalInfo"}>
+                  <Link href={"/auth/signup"}>
                     <button className=" text-white font-bold ">
-                      BUILD MY CV
+                      Sign up to build cv
                     </button>
                   </Link>
                   <BsArrowRight color="white" size={20} />

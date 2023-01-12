@@ -13,6 +13,7 @@ interface IProps {
     [x: string]: any;
   };
   containerClass?: string;
+  components?: React.ReactNode;
 }
 
 export const ApTextInput: React.FC<IProps> = ({
@@ -23,6 +24,7 @@ export const ApTextInput: React.FC<IProps> = ({
   placeHolder,
   containerClass,
   sideLabel,
+  components,
   ...props
 }) => {
   const [field, meta] = useField(name);
@@ -50,6 +52,7 @@ export const ApTextInput: React.FC<IProps> = ({
           {...field}
           {...props}
           name={name}
+          components={components}
           className={`w-full mb-2 rounded-md border  ${className}`}
           placeholder={placeHolder}
         />
