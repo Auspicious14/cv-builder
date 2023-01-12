@@ -28,7 +28,10 @@ export const SignUpPage = () => {
 
   return (
     <div className="hero w-screen h-screen relative">
-      <div className="w-[25rem] shadow-md rounded-md m-auto absolute left-[-50%] right-[-50%] my-[6rem] py-2 px-4 bg-white">
+      <div className="text-xl flex justify-center items-center text-white font-bold pt-[2rem] pb-[2rem]">
+        <Link href={"/"}>CV-CRAFT</Link>
+      </div>
+      <div className="lg:w-[25rem] w-80 rounded-md m-auto absolute left-[-50%] right-[-50%] py-2 px-4 bg-white">
         <Formik
           initialValues={{
             firstName: "",
@@ -78,8 +81,8 @@ export const SignUpPage = () => {
               <ApButton name="Sign up" type="submit" className="  p-2" />
             </div>
 
-            <div className="text-center my-2 text-sm">
-              Already have an account?{" "}
+            <div className="flex justify-center gap-2 text-center my-2 text-sm">
+              <p> Already have an account?</p>
               <Link href={"/auth/signin"} className="text-orange-500">
                 Sign in
               </Link>

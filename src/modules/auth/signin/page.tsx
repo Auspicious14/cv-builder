@@ -14,6 +14,7 @@ import { AiFillFacebook, AiFillTwitterCircle } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { BiUserCircle } from "react-icons/bi";
 import { HiOutlineMail } from "react-icons/hi";
+import Link from "next/link";
 
 const FormSchema = Yup.object().shape({
   email: Yup.string().required("Email is required"),
@@ -40,106 +41,90 @@ export const SignInPage = () => {
   };
 
   return (
-    <div className="hero w-screen h-screen relative">
-      <div className="w-[25rem] rounded-md m-auto absolute left-[-50%] right-[-50%] my-[6rem] py-2 px-4 bg-white">
-        {" "}
-        <Formik
-          initialValues={{
-            email: "",
-            password: "",
-          }}
-          onSubmit={handleSubmit}
-          validationSchema={FormSchema}
-        >
-          <Form>
-            <h4 className=" text-center font-extrabold text-lg mb-5 ">
-              Sign In
-            </h4>
+    <>
+      <div className="hero w-screen h-screen relative ">
+        <div className="text-xl flex justify-center items-center text-white font-bold pt-[2rem] pb-[2rem]">
+          <Link href={"/"}>CV-CRAFT</Link>
+        </div>
+        <div className="lg:w-[25rem] w-80 rounded-md m-auto absolute left-[-50%] right-[-50%]  py-2 px-4 bg-white">
+          {" "}
+          <Formik
+            initialValues={{
+              email: "",
+              password: "",
+            }}
+            onSubmit={handleSubmit}
+            validationSchema={FormSchema}
+          >
+            <Form>
+              <h4 className=" text-center font-extrabold text-lg mb-5 ">
+                Sign In
+              </h4>
 
-            <div className="flex gap-2 items-center">
-              <HiOutlineMail size={25} />
               <ApTextInput
                 label="Email"
                 type="email"
                 name="email"
-                props={<HiOutlineMail size={20} />}
                 placeHolder="Email"
                 className="p-2 outline-blue-400"
-                components={<HiOutlineMail size={20} />}
               />
-            </div>
 
-            <div
-              className="flex items-center
-          rounded-sm  bg-white shadow-md w-full px-3 my-3  "
-            >
-              <div className="mr-4">
-                <RiLockPasswordLine color="" size={25} />
+              <ApTextInput
+                label="Password"
+                type="password"
+                name="password"
+                placeHolder="password"
+                className="p-2 outline-blue-400"
+              />
+
+              <div className="w-full rounded-md bg-blue-700 text-white font-extrabold  text-center py-1 ">
+                <ApButton name="Sign in" type="submit" className="  p-2" />
+              </div>
+              <div className="flex justify-center gap-2 text-center my-2 text-sm">
+                <p>Don't have an account?</p>
+                <Link href={"/auth/signup"} className="text-orange-500">
+                  Sign up
+                </Link>
+              </div>
+              <div className="flex gap-x-4 items-center my-4">
+                <div className="w-full h-[2px]  bg-white"></div>
+                <h4 className="font-bold">Or</h4>
+                <div className="w-full h-[2px]  bg-white"></div>
               </div>
               <div>
-                <ApTextInput
-                  // label="Password"
-                  type="password"
-                  name="password"
-                  placeHolder="password"
-                  className=" rounded-sm my-6 bg-white  outline-0"
-                />
-              </div>
-            </div>
+                <div className="grid gap-2 grid-cols-1">
+                  <div className="flex lg:px-[3.5rem]  items-center justify-center gap-x-3 border rounded-md  py-2 ">
+                    <FcGoogle size={30} />
+                    <ApButton
+                      name="Sign in with Google"
+                      type="button"
+                      onClick={signInWithGoogle}
+                    />
+                  </div>
 
-            <div className="flex justify-center align-center">
-              <div>
-                <ApButton
-                  name="sign in"
-                  type="submit"
-                  className="bg-blue-200  py-3 rounded-sm w-80
-              "
-                />
-                <div className="flex gap-x-4 items-center my-4">
-                  <div className="w-full h-[2px]  bg-white"></div>
-                  <h4 className="font-bold">Or</h4>
-                  <div className="w-full h-[2px]  bg-white"></div>
-                </div>
-                <div className="flex justify-center items-center">
-                  <div className="grid gap-2 grid-cols-1">
-                    <div className="flex px-[3.5rem]  items-center gap-x-3 bg-red-300 w-80 py-2 ">
-                      <FcGoogle size={30} />
-                      <ApButton
-                        name="Sign in with Google"
-                        type="button"
-                        onClick={signInWithGoogle}
-                      />
-                    </div>
-                    <div
-                      className="flex items-center gap-x-3 bg-[#3b5996]
-                   py-2 px-[3.5rem] w-80 mx-auto"
-                    >
-                      <AiFillFacebook color="white" size={30} />
-                      <ApButton
-                        name="Sign in with Facebook"
-                        type="button"
-                        onClick={signInWithGoogle}
-                      />
-                    </div>
+                  <div className="flex items-center justify-center text-white gap-x-3 bg-[#4267B2] py-2 rounded-md">
+                    <AiFillFacebook color="white" size={30} />
+                    <ApButton
+                      name="Sign in with Facebook"
+                      type="button"
+                      onClick={signInWithGoogle}
+                    />
+                  </div>
 
-                    <div
-                      className="flex  items-center 
-                  px-[3.5rem] gap-x-3 bg-[#00acee] w-80 py-2 "
-                    >
-                      <AiFillTwitterCircle color="white" size={30} />
-                      <ApButton
-                        name="Sign in with Twitter"
-                        type="button"
-                        onClick={signInWithGoogle}
-                      />
-                    </div>
+                  <div className="flex  text-white items-center justify-center lg:px-[3.5rem] gap-x-3 bg-[#1DA1F2]  py-2 rounded-md">
+                    <AiFillTwitterCircle color="white" size={30} />
+                    <ApButton
+                      name="Sign in with Twitter"
+                      type="button"
+                      onClick={signInWithGoogle}
+                    />
                   </div>
                 </div>
               </div>
-            </div>
-          </Form>
-        </Formik>
+            </Form>
+          </Formik>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
