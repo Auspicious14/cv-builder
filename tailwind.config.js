@@ -27,7 +27,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ["Montserrat", "sans-serif"],
+        sans: ["Ubuntu", "sans-serif"],
         // serif: ['Merriweather', 'serif'],
       },
       backgroundImage: {

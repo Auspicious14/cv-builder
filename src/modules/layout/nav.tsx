@@ -54,7 +54,7 @@ export const Navbar = () => {
             <div>
               <Link href={"/personalInfo"}>
                 <button className=" bg-blue-700 rounded-md  text-white p-1 px-3 font-bold ">
-                  BUILD MY RESUME
+                  BUILD MY CV
                 </button>
               </Link>
             </div>

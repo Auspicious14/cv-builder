@@ -33,7 +33,7 @@ export const HomePage = () => {
               md:text-[2.5rem]
                "
               >
-                Make your resume stand out from the majority
+                Make your cv stand out from the majority
               </h4>
               <p
                 className="text-white text-[1.1rem] leading-[1.3rem] my-4
@@ -49,12 +49,12 @@ export const HomePage = () => {
                 >
                   <Link href={"/personalInfo"}>
                     <button className=" text-white font-bold ">
-                      BUILD MY RESUME
+                      BUILD MY CV
                     </button>
                   </Link>
                   <BsArrowRight color="white" size={20} />
                 </div>
-                <p className="text-white">410 People created Resmues today!</p>
+                <p className="text-white">410 People created Cvs today!</p>
               </div>
             </div>
             <div className="">
@@ -83,7 +83,7 @@ export const HomePage = () => {
                 <span className="ml-2 border-b-4 border-blue-500">
                   dream job
                 </span>{" "}
-                with the help of our resume builder
+                with the help of our cv craft
               </h4>
             </div>
             <div className="block  md:flex md:gap-x-20 md:justify-center md:my-6 ">
@@ -101,13 +101,13 @@ export const HomePage = () => {
                   <li className="flex gap-x-3 items-center px-3 py-2 bg-slate-200 my-2">
                     <MdExtension color="grey" size={25} />
                     <h4 className="font-bold text-[1.2rem] md:text-[1.3rem] lg:text-[1.3rem]">
-                      Intutive Resume Builder
+                      Intutive CV Builder
                     </h4>
                   </li>
                   <li className="flex gap-x-3 items-center px-3 py-2 hover:bg-slate-200 my-2 ">
                     <AiTwotoneMedicineBox color="grey" size={25} />
                     <h4 className="font-bold text-[1.2rem] md:text-[1.3rem] lg:text-[1.3rem]">
-                      A Tailored Resume
+                      A Tailored CV
                     </h4>
                   </li>
                   <li className="flex gap-x-3 items-center px-3 py-2 hover:bg-slate-200 my-2 ">
@@ -126,7 +126,7 @@ export const HomePage = () => {
           <div>
             <div>
               <h4 className="text-center font-bold text-[2rem]">
-                Explore our resume Template
+                Explore our CV Template
               </h4>
             </div>
             <div className="w-[80%] mx-auto my-8">
@@ -143,8 +143,8 @@ export const HomePage = () => {
             <div>
               <h4 className="text-current text-center font-bold text-[1.7rem] md:text-[2rem] lg:text-[2rem]">
                 Why build{" "}
-                <span className="border-b-4 border-blue-500">your resume</span>{" "}
-                with our resume builder?
+                <span className="border-b-4 border-blue-500">your cv</span> with
+                our cv builder?
               </h4>
             </div>
 

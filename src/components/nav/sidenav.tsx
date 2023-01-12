@@ -10,23 +10,34 @@ export const ApSideNav = () => {
   return (
     <>
       <div className="w-full h-full lg:text-amber-300 text-blue-900 px-4 lg:py-2">
-        <div className="text-2xl font-bold uppercase lg:my-4 lg:block hidden">cv craft</div>
+        <div className="text-2xl font-bold uppercase lg:my-4 lg:block hidden">
+          <Link href={"/"}>cv craft</Link>
+        </div>
         <ul className="font-bold mt-8 uppercase">
           <Link href={"/personalInfo"}>
             <div className="flex lg:gap-2 gap-4 items-center lg:hover:bg-blue-900 lg:hover:border hover:rounded-sm lg:hover:px-2 lg:hover:text-white">
-              <BsInfoCircleFill size={20} className="lg:text-white text-blue-900" />
+              <BsInfoCircleFill
+                size={20}
+                className="lg:text-white text-blue-900"
+              />
               <li className="py-2">Personal Information</li>
             </div>
           </Link>
           <Link href={"/academy"}>
             <div className="flex lg:gap-2 gap-4 items-center lg:hover:bg-blue-900 lg:hover:border lg:hover:rounded-sm lg:hover:px-2 lg:hover:text-white">
-              <HiAcademicCap size={20} className="lg:text-white text-blue-900" />
+              <HiAcademicCap
+                size={20}
+                className="lg:text-white text-blue-900"
+              />
               <li className="py-2">Academy</li>
             </div>
           </Link>
           <Link href={"/certificate"}>
             <div className="flex lg:gap-2 gap-4 items-center lg:hover:bg-blue-900 lg:hover:border lg:hover:rounded-sm hover:px-2 lg:hover:text-white">
-              <TbFileCertificate size={20} className="lg:text-white text-blue-900" />
+              <TbFileCertificate
+                size={20}
+                className="lg:text-white text-blue-900"
+              />
               <li className="py-2">Certificate</li>
             </div>
           </Link>
