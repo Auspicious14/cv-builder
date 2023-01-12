@@ -81,7 +81,7 @@ export const SignInPage = () => {
                 <ApButton name="Sign in" type="submit" className="  p-2" />
               </div>
               <div className="flex justify-center gap-2 text-center my-2 text-sm">
-                <p>Don't have an account?</p>
+                <p>{"Don't have an account?"}</p>
                 <Link href={"/auth/signup"} className="text-orange-500">
                   Sign up
                 </Link>
