@@ -11,6 +11,7 @@ import { UpdateCVModal } from "../buildcv/update/modal";
 import { useCvState } from "../buildcv/context";
 import { CertificateList } from "../certificate/components/listitem";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 export const BlendTemplate = () => {
   const { getImageFile, imageFile } = useCvState();
@@ -53,7 +54,7 @@ export const BlendTemplate = () => {
         <div>
           <div className="m-auto flex w-[70%] h-auto">
             <div className="w-[40%] px-2 bg-blend-darken bg-red-900 text-white">
-              <img
+              <Image
                 src={imageFile}
                 alt="name"
                 className=" border text-center m-auto rounded-full"
@@ -178,7 +179,7 @@ export const BlendTemplate = () => {
         show={modal.show}
         onDimiss={() => setModal({ show: false })}
         containerClassName={"w-[70%] m-auto"}
-        possition={'left-0'}
+        possition={"left-0"}
       >
         {modal.show && (
           <UpdateCVModal

@@ -1,4 +1,5 @@
 import { Form, Formik } from "formik";
+import moment from "moment";
 import React, { useState } from "react";
 import { ApButton, ApTextInput } from "../../../components";
 import { toastSvc } from "../../../services/toast";
@@ -195,6 +196,19 @@ export const UpdateCVModal: React.FC<IProps> = ({ update, onDissmiss }) => {
                     values.academy.filter((a, i) => i !== index)
                   )
                 }
+                handleDate={(date: any, i: number) =>
+                  setFieldValue(
+                    "experience",
+                    values.academy.map((e, index) => {
+                      if (i !== index) return e;
+                      return {
+                        ...e,
+                        fromDate: date.fromDate,
+                        endDate: date.endDate,
+                      };
+                    })
+                  )
+                }
               />
             ) : null}
 
@@ -223,8 +237,8 @@ export const UpdateCVModal: React.FC<IProps> = ({ update, onDissmiss }) => {
                       jobTitle: "",
                       organization: "",
                       description: "",
-                      fromDate: "",
-                      toDate: "",
+                      fromDate: moment().startOf("month").toDate(),
+                      toDate: moment().endOf("month").toDate(),
                       location: "",
                     },
                   ])
@@ -233,6 +247,19 @@ export const UpdateCVModal: React.FC<IProps> = ({ update, onDissmiss }) => {
                   setFieldValue(
                     "experience",
                     values.experience.filter((e, i) => i !== index)
+                  )
+                }
+                handleDate={(date: any, i: number) =>
+                  setFieldValue(
+                    "experience",
+                    values.experience.map((e, index) => {
+                      if (i !== index) return e;
+                      return {
+                        ...e,
+                        fromDate: date.fromDate,
+                        endDate: date.endDate,
+                      };
+                    })
                   )
                 }
               />
