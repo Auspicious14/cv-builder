@@ -51,15 +51,17 @@ export const BuildPage = () => {
           <ApLoader color={"#5C5CFF"} />
         </div>
       )}
-      {!loading && !cvState == undefined ? (
+      {!loading && cvState ? (
         <div>
           <div className=" m-auto my-2 border-[2rem] border-blue-500 w-[70%] h-auto">
             <div className=" flex p-4 gap-8">
-              {imageFile && (
-                <Image
-                  src={imageFile}
+              {imageFile.length && (
+                <img
+                  src={imageFile ? imageFile : "https://picsum.photos/200/300"}
                   alt="name"
                   className="w-[15%] h-[15%] border rounded-full"
+                  width={200}
+                  height={200}
                 />
               )}
               <div className="pt-8 pb-4 text-4xl">

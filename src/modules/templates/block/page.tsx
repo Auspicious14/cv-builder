@@ -56,7 +56,7 @@ export const BlockTemplate = () => {
         <div>
           <div className="p-4 m-auto  w-[70%] h-auto bg-gray-200">
             <div className="w-full shadow-md flex gap-8 mb-2 py-4 justify-between items-center border rounded-lg px-2 bg-white">
-              <Image
+              <img
                 src={imageFile}
                 alt="name"
                 className="w-[5rem] border text-center m-auto rounded-full"
@@ -161,7 +161,7 @@ export const BlockTemplate = () => {
         show={modal.show}
         onDimiss={() => setModal({ show: false })}
         containerClassName={"w-[70%] m-auto"}
-        possition={'left-0'}
+        possition={"left-0"}
       >
         {modal.show && (
           <UpdateCVModal

@@ -23,7 +23,10 @@ export const SignUpPage = () => {
       displayName: values.firstName,
       lastName: values.lastName,
     });
-    response.then((user) => {});
+    response.then((user) => {
+      console.log(user);
+      router.push("/auth/signin");
+    });
   };
 
   return (

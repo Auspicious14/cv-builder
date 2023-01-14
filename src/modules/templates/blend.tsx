@@ -54,11 +54,13 @@ export const BlendTemplate = () => {
         <div>
           <div className="m-auto flex w-[70%] h-auto">
             <div className="w-[40%] px-2 bg-blend-darken bg-red-900 text-white">
-              <Image
-                src={imageFile}
-                alt="name"
-                className=" border text-center m-auto rounded-full"
-              />
+              <div className="relative">
+                <img
+                  src={imageFile}
+                  alt="name"
+                  className=" border text-center m-auto rounded-full"
+                />
+              </div>
               <div className="pt-8 pb-4 text-2xl uppercase font-bold">
                 {`${cvState?.firstName
                   ?.charAt(0)

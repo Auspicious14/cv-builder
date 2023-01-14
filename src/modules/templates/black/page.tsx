@@ -53,11 +53,11 @@ export const BlackTemplate = () => {
           <div className="px-6 text-white m-auto w-[70%] h-auto bg-neutral-800">
             <div className="flex gap-8 mb-12 pt-8 justify-between items-center w-[50%] px-2 text-white">
               {/* <img
-              src={imageFile}
-              alt="name"
-              className=" border text-center m-auto rounded-full"
-            /> */}
-              <div className=" text-2xl uppercase font-bold">
+                src={imageFile}
+                alt="name"
+                className=" border text-center m-auto rounded-full"
+              /> */}
+              <div className=" text-lg lg:text-2xl uppercase font-bold">
                 <div>
                   {`${cvState?.firstName
                     ?.charAt(0)
@@ -170,7 +170,7 @@ export const BlackTemplate = () => {
         show={modal.show}
         onDimiss={() => setModal({ show: false })}
         containerClassName={"w-[70%] m-auto"}
-        possition={'left-0'}
+        possition={"left-0"}
       >
         {modal.show && (
           <UpdateCVModal
