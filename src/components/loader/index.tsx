@@ -11,7 +11,7 @@ export const ApLoader = ({ colors, color }: IProps) => {
       <Bars
         visible={true}
         height="150"
-        width="150"
+        width="150 "
         ariaLabel="blocks-loading"
         wrapperStyle={{}}
         wrapperClass="blocks-wrapper"

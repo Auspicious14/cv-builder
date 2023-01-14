@@ -52,13 +52,13 @@ export const BlendTemplate = () => {
         ""
       ) : (
         <div>
-          <div className="m-auto flex w-[70%] h-auto">
-            <div className="w-[40%] px-2 bg-blend-darken bg-red-900 text-white">
+          <div className="m-auto flex lg:w-[70%] h-auto">
+            <div className="lg:w-[40%] w-[30%] px-2 pt-4 lg:pt-0 bg-blend-darken bg-red-900 text-white">
               <div className="relative">
                 <img
                   src={imageFile}
                   alt="name"
-                  className=" border text-center m-auto rounded-full"
+                  className=" border w-[5rem] h-[5rem] rounded-full text-center m-auto lg:rounded-full"
                 />
               </div>
               <div className="pt-8 pb-4 text-2xl uppercase font-bold">
@@ -81,7 +81,7 @@ export const BlendTemplate = () => {
                 </div>
               </div>
             </div>
-            <div className=" bg-gray-200 h-auto">
+            <div className=" bg-gray-200 h-auto pt-4 lg:pt-0">
               {cvState.description ? (
                 <div>
                   {" "}
@@ -147,7 +147,7 @@ export const BlendTemplate = () => {
               </div>
             </div>
           </div>
-          <div className="flex justify-center my-2 gap-4">
+          <div className="flex justify-center my-2 mx-4 lg:mx-0 gap-4">
             <ApButton
               name="Main Template"
               type="button"
@@ -171,7 +171,7 @@ export const BlendTemplate = () => {
             name="Edit"
             type="button"
             onClick={() => setModal({ show: true, data: cvState })}
-            className="bg-red-900 px-4 py-2 text-white border-none rounded-md outline-none "
+            className="bg-red-900 px-4 py-2 mx-4 text-white border-none rounded-md outline-none "
           />
         </div>
       )}
