@@ -18,18 +18,21 @@ export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
   const router = useRouter();
   const [modal, setModal] = useState<{ show: boolean }>({ show: false });
   const handleSubmit = (values: any, actions: any) => {
-    updateCVDocument(values).finally(() => {
-      actions.resetForm({
-        values: {
-          secondarySchool: "",
-          university: "",
-          createdAt: "",
-          graduatedAt: "",
-          stateofSchool: "",
-        },
+    console.log(values);
+    updateCVDocument(values)
+      .then((res) => console.log(res))
+      .finally(() => {
+        router.push("/certificate");
+        actions.resetForm({
+          values: {
+            secondarySchool: "",
+            university: "",
+            createdAt: "",
+            graduatedAt: "",
+            stateofSchool: "",
+          },
+        });
       });
-      router.push("/certificate");
-    });
   };
 
   return (

@@ -1,8 +1,8 @@
 export interface IExperience {
   jobTitle: string;
   organization: string;
-  fromDate?: Date | string | number;
-  toDate?: Date|string | number;
+  fromDate?: Date | string | number | any;
+  toDate?: Date|string | number | any;
   description: string;
   location: string;
 }
