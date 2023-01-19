@@ -35,6 +35,22 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
     });
   };
 
+  const getDescriptiveAiInfo = async (prompt: string) => {
+    const response = await fetch("/api/open-ai", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text: prompt }),
+    });
+
+    try {
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <div className="p-3">
@@ -95,6 +111,11 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
               type="textarea"
               name="description"
               className="p-3 outline-blue-400"
+            />
+            <ApButton
+              type="button"
+              name={"generate description"}
+              onClick={() => getDescriptiveAiInfo("Describe my info")}
             />
             <ApTextInput
               label="Profession"
