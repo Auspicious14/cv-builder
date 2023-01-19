@@ -8,8 +8,6 @@ import { usePersonalInfoState } from "./context";
 import { IPersonalInfo } from "./model";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Link from "next/link";
-import { openAi } from "../../library";
-import { env } from "process";
 interface IProps {
   personalInfo: IPersonalInfo;
 }
@@ -18,7 +16,6 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
 }) => {
   const { createCVDocument } = usePersonalInfoState();
   const router = useRouter();
-  const [value, setValue] = useState<string>("");
   const [modal, setModal] = useState<{ show: boolean }>({ show: false });
   const handleSubmit = async (values: any, actions: any) => {
     await createCVDocument(values).finally(() => {
@@ -36,19 +33,6 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
       });
       router.push("/academy");
     });
-  };
-
-  const generateDescriptionApi = async (prompt: string) => {
-    const response = await fetch("/api/open-ai", {
-      method: "POST",
-      headers: {
-        "Content-Type": "Application/json",
-      },
-      body: JSON.stringify({ text: prompt }),
-    });
-
-    const data = await response.json();
-    console.log(data);
   };
 
   return (
@@ -117,13 +101,6 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
               type="text"
               name="profession"
               className="p-3 outline-blue-400"
-            />
-            <ApButton
-              type="button"
-              name={"generate text"}
-              onClick={() =>
-                generateDescriptionApi("describe the role of a doctor")
-              }
             />
             <ApTextInput
               label="Address"
