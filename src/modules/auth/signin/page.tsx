@@ -17,8 +17,8 @@ import { HiOutlineMail } from "react-icons/hi";
 import Link from "next/link";
 
 const FormSchema = Yup.object().shape({
-  email: Yup.string().required("Email is required"),
-  password: Yup.string().required("Password is required"),
+  email: Yup.string().required("Email is required").email(),
+  password: Yup.string().required("Password is required").min(8),
 });
 export const SignInPage = () => {
   const router = useRouter();

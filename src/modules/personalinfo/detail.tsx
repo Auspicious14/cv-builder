@@ -20,7 +20,11 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
 }) => {
   const { createCVDocument, getUser, getUserFunc } = usePersonalInfoState();
   const router = useRouter();
-  const [value, setValue] = useState("");
+  const [description, setDescription] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [profession, setProfession] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
   const [modal, setModal] = useState<{ show: boolean }>({ show: false });
 
@@ -37,7 +41,7 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
     try {
       setLoading(false);
       const data = await response.json();
-      setValue(data.result);
+      setDescription(data.result);
       console.log(data.result);
     } catch (error) {
       console.log(error);
@@ -45,7 +49,15 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
   };
 
   const handleSubmit = async (values: any, actions: any) => {
-    await createCVDocument({ ...values, description: value }).finally(() => {
+    const { displayName, lastName, email, profession } = getUser;
+    await createCVDocument({
+      ...values,
+      description,
+      firstName: displayName,
+      lastName,
+      profession,
+      email,
+    }).finally(() => {
       actions.resetForm({
         values: {
           firstName: "",
@@ -61,6 +73,8 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
       router.push("/academy");
     });
   };
+  // console.log('');
+  console.log(getUser);
 
   useEffect(() => {
     getUserFunc();
@@ -96,24 +110,62 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
           onSubmit={handleSubmit}
         >
           <Form>
-            <ApTextInput
-              label="First Name"
-              type="text"
-              name="firstName"
-              className="p-3 outline-blue-400"
-            />
-            <ApTextInput
-              label="Last Name"
-              type="text"
-              name="lastName"
-              className="p-3 outline-blue-400"
-            />
-            <ApTextInput
-              label="Email"
-              type="email"
-              name="email"
-              className="p-3 outline-blue-400"
-            />
+            {getUser?.displayName ? (
+              <div>
+                <label htmlFor="">First Name</label>
+                <input
+                  type={"text"}
+                  value={getUser?.displayName}
+                  className={`w-full mb-2 rounded-md border p-3 outline-blue-400`}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+              </div>
+            ) : (
+              <ApTextInput
+                label="First Name"
+                type="text"
+                name="firstName"
+                className="p-3 outline-blue-400"
+              />
+            )}
+
+            {getUser ? (
+              <div>
+                <label htmlFor="">Last Name</label>
+                <input
+                  type={"text"}
+                  value={getUser?.lastName}
+                  className={`w-full mb-2 rounded-md border p-3 outline-blue-400`}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </div>
+            ) : (
+              <ApTextInput
+                label="Last Name"
+                type="text"
+                name="lastName"
+                className="p-3 outline-blue-400"
+              />
+            )}
+
+            {getUser?.email ? (
+              <div>
+                <label htmlFor="">Email</label>
+                <input
+                  value={getUser?.email}
+                  type={"email"}
+                  className={`w-full mb-2 rounded-md border p-3 outline-blue-400`}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+            ) : (
+              <ApTextInput
+                label="Email"
+                type="email"
+                name="email"
+                className="p-3 outline-blue-400"
+              />
+            )}
 
             <ApTextInput
               label="Phone Number"
@@ -121,30 +173,56 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
               name="phoneNumber"
               className="p-3 outline-blue-400"
             />
-            <ApTextInput
-              label="Description"
-              type="textarea"
-              name={"description"}
-              className="p-3 outline-blue-400"
-            />
+            {description ? (
+              <div className="flex flex-col">
+                <label htmlFor="">Description</label>
+                <textarea
+                  name={"description"}
+                  value={description}
+                  rows={5}
+                  cols={30}
+                  onChange={(e) => setDescription(e.target.value)}
+                  className="p-3 border rounded-md outline-blue-400 w-full"
+                />
+              </div>
+            ) : (
+              <ApTextInput
+                label="Description"
+                type="textarea"
+                name={"description"}
+                className="p-3 outline-blue-400"
+              />
+            )}
             <ApButton
               type="button"
               name={
                 loading ? <ApGenerateButtonLoader /> : "Generate Description"
               }
-              className="bg-blue-900 px-2 mb-2 py-1 border outline-none rounded-md text-white"
+              className="bg-blue-900 px-2 my-2 py-1 border outline-none rounded-md text-white"
               onClick={() =>
                 getDescriptiveAiInfo(
                   `Describe me (${getUser?.displayName}) as a ${getUser?.profession}`
                 )
               }
             />
-            <ApTextInput
-              label="Profession"
-              type="text"
-              name="profession"
-              className="p-3 outline-blue-400"
-            />
+            {getUser.profession ? (
+              <div>
+                <label htmlFor="">Profession</label>
+                <input
+                  type={"text"}
+                  value={getUser?.profession}
+                  className={`w-full mb-2 rounded-md border p-3 outline-blue-400`}
+                  onChange={(e) => setProfession(e.target.value)}
+                />
+              </div>
+            ) : (
+              <ApTextInput
+                label="Profession"
+                type="text"
+                name="profession"
+                className="p-3 outline-blue-400"
+              />
+            )}
             <ApTextInput
               label="Address"
               type="text"
