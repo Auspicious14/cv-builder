@@ -1,12 +1,17 @@
 import moment from "moment";
-import React from "react";
+import React, { useState } from "react";
 import { MdAddCircle, MdOutlineDeleteOutline } from "react-icons/md";
-import { ApDateRangePicker, ApTextInput } from "../../../components";
-import { IExperience } from "../model";
+import {
+  ApButton,
+  ApDateRangePicker,
+  ApGenerateButtonLoader,
+  ApTextInput,
+} from "../../../components";
+import { useOpenAiApi } from "../../../library";
+import { ICategory, IExperience } from "../model";
 
 interface IProps {
   index: number;
-  // date: {fromDate: any, toDate: any};
   experience: IExperience;
   onDelete: () => void;
   handleDate: (date: any, index: number) => void;
@@ -14,10 +19,13 @@ interface IProps {
 export const ExperienceListItem: React.FC<IProps> = ({
   onDelete,
   index,
-  // date,
   experience,
   handleDate,
 }) => {
+  const [category, setCategory] = useState("");
+
+  const { loading, error, result, setResult, getDescriptiveAiInfo } =
+    useOpenAiApi(category);
   return (
     <div>
       <div>
@@ -39,13 +47,45 @@ export const ExperienceListItem: React.FC<IProps> = ({
           type="text"
           className="p-3 outline-blue-400"
         />
-        <ApTextInput
-          label="Description"
-          name={`experience[${index}].description`}
-          type="textarea"
-          className="p-3 outline-blue-400"
-        />
-
+        {result ? (
+          <div className="flex flex-col">
+            <label htmlFor="">Description</label>
+            <textarea
+              name={"description"}
+              value={result}
+              rows={5}
+              cols={30}
+              onChange={(e) => setResult(e.target.value)}
+              className="p-3 border rounded-md outline-blue-400 w-full"
+            />
+          </div>
+        ) : (
+          <ApTextInput
+            label="Description"
+            name={`experience[${index}].description`}
+            type="textarea"
+            className="p-3 outline-blue-400"
+          />
+        )}
+        <div className="flex gap-3 items-center">
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="border px-3 py-1 rounded-md bg-blue-900 text-white"
+          >
+            {ICategory?.map((m, i) => (
+              <option value={m.name} key={i}>
+                {m.label}
+              </option>
+            ))}
+          </select>
+          <ApButton
+            type="button"
+            name={loading ? <ApGenerateButtonLoader /> : "Generate Description"}
+            className="bg-blue-900 px-2 my-2 py-1 border outline-none rounded-md text-white"
+            onClick={getDescriptiveAiInfo}
+          />
+        </div>
         <ApDateRangePicker
           onChange={(date) => handleDate(date, index)}
           date={{

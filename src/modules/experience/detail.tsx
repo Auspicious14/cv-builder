@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { ApButton, ApGenerateButtonLoader, ApModal } from "../../components";
 import { ApSideNav } from "../../components/nav/sidenav";
-import { IExperience } from "./model";
+import { ICategory, IExperience } from "./model";
 import { Experience } from "./components/creat";
 import { useExperienceState } from "./context";
 import * as Yup from "yup";
@@ -16,6 +16,7 @@ interface IProps {
   experience: IExperience;
 }
 export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
+  const [category, setCategory] = useState<string>("");
   const { updateCVDocument, loading } = useExperienceState();
   const router = useRouter();
   const [modal, setModal] = useState<{ show: boolean }>({ show: false });
@@ -41,6 +42,26 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
       });
     });
   };
+
+  // const getDescriptiveAiInfo = async (prompt: string) => {
+  //   setLoading(true);
+  //   const response = await fetch("/api/open-ai", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ text: prompt }),
+  //   });
+
+  //   try {
+  //     setLoading(false);
+  //     const data = await response.json();
+  //     setDescription(data.result);
+  //     console.log(data.result);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <>
