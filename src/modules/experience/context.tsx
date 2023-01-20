@@ -1,13 +1,25 @@
 import { doc, updateDoc } from "firebase/firestore";
 import React, { createContext, useContext, useState } from "react";
-import { auth, db } from "../../library";
+import { auth, db, useOpenAiApi } from "../../library";
 
 interface ExperienceState {
+  category: string;
   loading: boolean;
+  error: any;
+  result: any;
+  load: boolean;
+  getDescriptiveAiInfo: () => void;
+  setResult: React.Dispatch<any>;
   updateCVDocument: (response: any) => Promise<any>;
 }
 const ExperienceContext = createContext<ExperienceState>({
+  category: "",
   loading: false,
+  error: null,
+  result: null,
+  getDescriptiveAiInfo() {},
+  setResult() {},
+  load: false,
   updateCVDocument(response) {
     return {} as any;
   },
@@ -27,7 +39,7 @@ interface IProps {
 
 export const ExperienceContextProvider: React.FC<IProps> = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(false);
-
+  const [category, setCategory] = useState("");
   const updateCVDocument = async (response: any) => {
     setLoading(true);
     const user: any = auth.currentUser;
@@ -39,8 +51,28 @@ export const ExperienceContextProvider: React.FC<IProps> = ({ children }) => {
       console.log(err);
     }
   };
+
+  const {
+    loading: load,
+    error,
+    result,
+    setResult,
+    getDescriptiveAiInfo,
+  } = useOpenAiApi(`Describe my experience as a ${category}`);
+
   return (
-    <ExperienceContext.Provider value={{ updateCVDocument, loading }}>
+    <ExperienceContext.Provider
+      value={{
+        updateCVDocument,
+        loading,
+        load,
+        error,
+        category,
+        result,
+        setResult,
+        getDescriptiveAiInfo,
+      }}
+    >
       {children}
     </ExperienceContext.Provider>
   );

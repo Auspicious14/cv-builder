@@ -8,6 +8,7 @@ import {
   ApTextInput,
 } from "../../../components";
 import { useOpenAiApi } from "../../../library";
+import { useExperienceState } from "../context";
 import { ICategory, IExperience } from "../model";
 
 interface IProps {
@@ -25,7 +26,7 @@ export const ExperienceListItem: React.FC<IProps> = ({
   const [category, setCategory] = useState("");
 
   const { loading, error, result, setResult, getDescriptiveAiInfo } =
-    useOpenAiApi(category);
+    useExperienceState();
   return (
     <div>
       <div>
@@ -67,7 +68,7 @@ export const ExperienceListItem: React.FC<IProps> = ({
             className="p-3 outline-blue-400"
           />
         )}
-        <div className="flex gap-3 items-center">
+        <div className="lg:flex block lg:gap-3 items-center">
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
