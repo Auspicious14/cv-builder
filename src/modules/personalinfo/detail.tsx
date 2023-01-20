@@ -18,7 +18,12 @@ interface IProps {
 export const PersonalInformationDetail: React.FC<IProps> = ({
   personalInfo,
 }) => {
-  const { createCVDocument, getUser, getUserFunc } = usePersonalInfoState();
+  const {
+    createCVDocument,
+    getUser,
+    getUserFunc,
+    loading: createLoading,
+  } = usePersonalInfoState();
   const router = useRouter();
   const [description, setDescription] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -58,6 +63,7 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
       profession,
       email,
     }).finally(() => {
+      router.push("/academy");
       actions.resetForm({
         values: {
           firstName: "",
@@ -70,11 +76,8 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
           country: "",
         },
       });
-      router.push("/academy");
     });
   };
-  // console.log('');
-  console.log(getUser);
 
   useEffect(() => {
     getUserFunc();
@@ -250,7 +253,7 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
 
             <ApButton
               type="submit"
-              name="create"
+              name={createLoading ? <ApGenerateButtonLoader /> : "create"}
               className="px-4 py-2 uppercase lg:bg-blue-400 bg-blue-900 rounded-md border-none outline-none text-white font-bold"
             />
           </Form>

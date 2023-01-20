@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { ApButton, ApModal } from "../../components";
+import { ApButton, ApGenerateButtonLoader, ApModal } from "../../components";
 import { ApSideNav } from "../../components/nav/sidenav";
 import { Certificate } from "./components/create";
 import { useCertificateState } from "./context";
@@ -12,18 +12,17 @@ interface IProps {
   certificate: ICertificate;
 }
 export const CertificateDetail: React.FC<IProps> = ({ certificate }) => {
-  const { updateCVDocument } = useCertificateState();
+  const { updateCVDocument, loading } = useCertificateState();
   const router = useRouter();
   const [modal, setModal] = useState<{ show: boolean }>({ show: false });
   const handleSubmit = (values: any, actions: any) => {
     updateCVDocument(values).finally(() => {
+      router.push("/experience");
       actions.resetForm({
         values: {
           name: "",
         },
       });
-
-      router.push("/experience");
     });
   };
   return (
@@ -71,7 +70,7 @@ export const CertificateDetail: React.FC<IProps> = ({ certificate }) => {
               />
               <ApButton
                 type="submit"
-                name="create"
+                name={loading ? <ApGenerateButtonLoader /> : "create"}
                 className="px-4 py-2 uppercase lg:bg-blue-400 bg-blue-900 rounded-md border-none outline-none text-white font-bold"
               />
             </Form>

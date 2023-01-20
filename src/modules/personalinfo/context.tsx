@@ -3,12 +3,14 @@ import React, { createContext, useContext, useState } from "react";
 import { auth, db } from "../../library";
 
 interface IPersonalInfoState {
+  loading: boolean;
   getUser: any;
   getUserFunc: () => Promise<void>;
   createCVDocument: (response: any) => Promise<any>;
   updateCVDocument: (response: any) => Promise<any>;
 }
 const PersonalInfoContext = createContext<IPersonalInfoState>({
+  loading: false,
   getUser: {},
   getUserFunc() {
     return null as any;
@@ -36,12 +38,15 @@ interface IProps {
 export const PersonalInfoContextProvider: React.FC<IProps> = ({ children }) => {
   const [getUser, setGetUser] = useState<any>({});
   const user: any = auth.currentUser;
+  const [loading, setLoading] = useState<boolean>(false);
 
   const createCVDocument = async (response: any) => {
+    setLoading(true);
     const cvDocRef = doc(db, "cv", user.uid);
     const cvSnapShot = await getDoc(cvDocRef);
     if (!cvSnapShot.exists()) {
       try {
+        setLoading(false);
         await setDoc(cvDocRef, response).then((res) => console.log(res));
       } catch (err) {
         console.log(err);
@@ -66,6 +71,7 @@ export const PersonalInfoContextProvider: React.FC<IProps> = ({ children }) => {
   return (
     <PersonalInfoContext.Provider
       value={{
+        loading,
         createCVDocument,
         updateCVDocument,
         getUser,

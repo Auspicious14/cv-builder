@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { ApButton, ApModal } from "../../components";
+import { ApButton, ApGenerateButtonLoader, ApModal } from "../../components";
 import { ApSideNav } from "../../components/nav/sidenav";
 import { toastSvc } from "../../services/toast";
 import { Skill } from "./components/create";
@@ -13,18 +13,19 @@ interface IProps {
   skill: ISkill;
 }
 export const SkillDetail: React.FC<IProps> = ({ skill }) => {
-  const { updateCVDocument } = useSkillState();
+  const { updateCVDocument, loading } = useSkillState();
   const router = useRouter();
   const [modal, setModal] = useState<{ show: boolean }>({ show: false });
+
   const handleSubmit = (values: any, actions: any) => {
     updateCVDocument(values).finally(() => {
       toastSvc.success("CV created successfully!");
+      router.push("/cv");
       actions.resetForm({
         values: {
           skill: [{ skillName: "" }],
         },
       });
-      router.push("/cv");
     });
   };
   return (
@@ -66,7 +67,7 @@ export const SkillDetail: React.FC<IProps> = ({ skill }) => {
               />
               <ApButton
                 type="submit"
-                name="create"
+                name={loading ? <ApGenerateButtonLoader /> : "create"}
                 className=" px-4 mt-2 py-1 uppercase lg:bg-blue-400 bg-blue-900 rounded-md border-none outline-none text-white font-bold"
               />
             </Form>

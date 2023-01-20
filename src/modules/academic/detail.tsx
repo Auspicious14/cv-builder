@@ -4,8 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { IoIosCloseCircleOutline } from "react-icons/io";
-import { ApButton, ApModal, ApTextInput } from "../../components";
+import { ApButton, ApGenerateButtonLoader, ApModal } from "../../components";
 import { ApSideNav } from "../../components/nav/sidenav";
 import { Academy } from "./components/create";
 import { useAcademyState } from "./context";
@@ -14,9 +13,10 @@ interface IProps {
   academy: IAcademy;
 }
 export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
-  const { updateCVDocument } = useAcademyState();
+  const { updateCVDocument, loading } = useAcademyState();
   const router = useRouter();
   const [modal, setModal] = useState<{ show: boolean }>({ show: false });
+
   const handleSubmit = (values: any, actions: any) => {
     console.log(values);
     updateCVDocument(values)
@@ -100,7 +100,7 @@ export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
               />
               <ApButton
                 type="submit"
-                name="create"
+                name={loading ? <ApGenerateButtonLoader /> : "create"}
                 className="px-4 py-2 uppercase lg:bg-blue-400 bg-blue-900 rounded-md border-none outline-none text-white font-bold"
               />
             </Form>

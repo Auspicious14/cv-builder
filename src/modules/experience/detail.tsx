@@ -2,7 +2,7 @@ import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { ApButton, ApModal, ApTextInput } from "../../components";
+import { ApButton, ApGenerateButtonLoader, ApModal } from "../../components";
 import { ApSideNav } from "../../components/nav/sidenav";
 import { IExperience } from "./model";
 import { Experience } from "./components/creat";
@@ -16,24 +16,15 @@ interface IProps {
   experience: IExperience;
 }
 export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
-  const { updateCVDocument } = useExperienceState();
+  const { updateCVDocument, loading } = useExperienceState();
   const router = useRouter();
   const [modal, setModal] = useState<{ show: boolean }>({ show: false });
-  const [date, setDate] = useState<{ startDate: Date; endDate: Date }>({
-    startDate: moment().startOf("month").toDate(),
-    endDate: moment().endOf("month").toDate(),
-  });
-
-  // const handleDate = (date: any) => {
-  //   setDate(date);
-  // };
 
   const handleSubmit = (values: any, actions: any) => {
     updateCVDocument({
       ...values,
-      // fromDate: date.startDate.getTime(),
-      // toDate: date.endDate.getTime(),
     }).finally(() => {
+      router.push("/skill");
       actions.resetForm({
         values: {
           experience: [
@@ -48,12 +39,9 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
           ],
         },
       });
-      router.push("/skill");
     });
-
-    console.log(values);
   };
-  console.log(moment.now());
+
   return (
     <>
       <div className="p-3">
@@ -123,7 +111,7 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
               />
               <ApButton
                 type="submit"
-                name="create"
+                name={loading ? <ApGenerateButtonLoader /> : "create"}
                 className="px-4 py-2 uppercase lg:bg-blue-400 bg-blue-900 rounded-md border-none outline-none text-white font-bold"
               />
             </Form>
