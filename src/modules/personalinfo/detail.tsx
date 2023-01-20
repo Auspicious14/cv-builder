@@ -16,9 +16,29 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
 }) => {
   const { createCVDocument } = usePersonalInfoState();
   const router = useRouter();
+  const [value, setValue] = useState("");
   const [modal, setModal] = useState<{ show: boolean }>({ show: false });
+
+  const getDescriptiveAiInfo = async (prompt: string) => {
+    const response = await fetch("/api/open-ai", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text: prompt }),
+    });
+
+    try {
+      const data = await response.json();
+      setValue(data.result);
+      console.log(data.result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleSubmit = async (values: any, actions: any) => {
-    await createCVDocument(values).finally(() => {
+    await createCVDocument({ ...values, description: value }).finally(() => {
       actions.resetForm({
         values: {
           firstName: "",
@@ -35,22 +55,7 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
     });
   };
 
-  const getDescriptiveAiInfo = async (prompt: string) => {
-    const response = await fetch("/api/open-ai", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text: prompt }),
-    });
-
-    try {
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  console.log(value);
   return (
     <>
       <div className="p-3">
@@ -69,7 +74,7 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
           initialValues={{
             firstName: personalInfo?.firstName || "",
             lastName: personalInfo?.lastName || "",
-            description: personalInfo?.description || "",
+            description: personalInfo?.description || value,
             address: personalInfo?.address || "",
             profession: personalInfo?.profession || "",
             phoneNumber: personalInfo?.phoneNumber || "",
@@ -109,7 +114,7 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
             <ApTextInput
               label="Description"
               type="textarea"
-              name="description"
+              name={"description"}
               className="p-3 outline-blue-400"
             />
             <ApButton

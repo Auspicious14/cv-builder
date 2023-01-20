@@ -1,6 +1,6 @@
 import { Form, Formik } from "formik";
-import React from "react";
-import { ApButton, ApTextInput } from "../../../components";
+import React, { useState } from "react";
+import { ApAuthLoader, ApButton, ApTextInput } from "../../../components";
 import * as Yup from "yup";
 import { auth, signUpUser } from "../../../library/firebase";
 import { toastSvc } from "../../../services/toast";
@@ -12,18 +12,21 @@ const FormSchema = Yup.object().shape({
   firstName: Yup.string().required("First Name is required"),
   lastName: Yup.string().required("Last Name is required"),
   email: Yup.string().required("Email is required"),
-  password: Yup.string().required("Password is required"),
+  password: Yup.string().required("Password is required").min(8),
 });
 
 export const SignUpPage = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
   const handleSubmit = (values: any) => {
+    setLoading(true);
     const response = signUpUser(values.email, values.password, {
       displayName: values.firstName,
       lastName: values.lastName,
     });
     response.then((user) => {
+      setLoading(false);
       console.log(user);
       router.push("/auth/signin");
     });
@@ -81,7 +84,11 @@ export const SignUpPage = () => {
               className="p-2 outline-blue-400"
             />
             <div className="w-full rounded-md bg-blue-700 text-white font-extrabold  text-center py-1 ">
-              <ApButton name="Sign up" type="submit" className="  p-2" />
+              <ApButton
+                name={loading ? <ApAuthLoader /> : "Sign up"}
+                type="submit"
+                className="  p-2"
+              />
             </div>
 
             <div className="flex justify-center gap-2 text-center my-2 text-sm">

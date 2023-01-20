@@ -1,5 +1,5 @@
 import React from "react";
-import { Bars, ColorRing } from "react-loader-spinner";
+import { Bars, RotatingLines } from "react-loader-spinner";
 
 interface IProps {
   colors?: [string, string, string, string, string];
@@ -19,5 +19,19 @@ export const ApLoader = ({ colors, color }: IProps) => {
         color={color}
       />
     </>
+  );
+};
+
+export const ApAuthLoader = () => {
+  return (
+    <div>
+      <RotatingLines
+        strokeColor="white"
+        strokeWidth="5"
+        animationDuration="0.75"
+        width="50"
+        visible={true}
+      />
+    </div>
   );
 };

@@ -1,6 +1,6 @@
 import { Form, Formik } from "formik";
-import React from "react";
-import { ApButton, ApTextInput } from "../../../components";
+import React, { useState } from "react";
+import { ApAuthLoader, ApButton, ApTextInput } from "../../../components";
 import * as Yup from "yup";
 import {
   createUserDocument,
@@ -22,11 +22,13 @@ const FormSchema = Yup.object().shape({
 });
 export const SignInPage = () => {
   const router = useRouter();
-
+  const [loading, setLoading] = useState<boolean>(false);
   const handleSubmit = async (values: any) => {
+    setLoading(true);
     if (values) {
       await signInUser(values.email, values.password)
         .then((res) => {
+          setLoading(false);
           router.push("/personalInfo");
         })
         .catch((err) => console.log(err));
@@ -78,7 +80,11 @@ export const SignInPage = () => {
               />
 
               <div className="w-full rounded-md bg-blue-700 text-white font-extrabold  text-center py-1 ">
-                <ApButton name="Sign in" type="submit" className="  p-2" />
+                <ApButton
+                  name={loading ? <ApAuthLoader /> : "Sign in"}
+                  type="submit"
+                  className="  p-2"
+                />
               </div>
               <div className="flex justify-center gap-2 text-center my-2 text-sm">
                 <p>{"Don't have an account?"}</p>
