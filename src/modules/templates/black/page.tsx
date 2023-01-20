@@ -55,7 +55,7 @@ export const BlackTemplate = () => {
                 <ApLoader color={"#000000"} />
               </div>
             ) : (
-              <div className="bg-neutral-800">
+              <div className="bg-neutral-800 lg:bg-transparent">
                 <div className="px-6 text-white m-auto lg:w-[70%] h-auto bg-neutral-800">
                   <div className="lg:flex lg:gap-8 mb-12 pt-8 lg:justify-between lg:items-center lg:w-[50%] px-2 text-white">
                     {/* <img

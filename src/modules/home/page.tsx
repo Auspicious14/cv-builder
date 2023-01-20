@@ -46,7 +46,7 @@ export const HomePage = () => {
               <div>
                 <div
                   className="flex gap-x-3 px-4 py-2 bg-blue-700 
-                rounded-md my-3 w-[13rem] items-center mx-auto lg:ml-0 "
+                rounded-md my-3 w-[13rem] items-center mx-auto lg:mx-4 "
                 >
                   <Link href={"/auth/signup"}>
                     <button className=" text-white font-bold ">
@@ -55,7 +55,6 @@ export const HomePage = () => {
                   </Link>
                   <BsArrowRight color="white" size={20} />
                 </div>
-                <p className="text-white">410 People created Cvs today!</p>
               </div>
             </div>
             <div className="">
@@ -130,7 +129,7 @@ export const HomePage = () => {
                 Explore our CV Template
               </h4>
             </div>
-            <div className="w-[80%] mx-auto my-8">
+            <div className="w-[70%] mx-auto my-8 ">
               <div>
                 <Template />
               </div>
@@ -139,7 +138,7 @@ export const HomePage = () => {
         </div>
 
         {/* ............................ */}
-        <div className="my-16">
+        <div className="my-16 mx-28 text-justify">
           <div>
             <div>
               <h4 className="text-current text-center font-bold text-[1.7rem] md:text-[2rem] lg:text-[2rem]">
@@ -150,7 +149,7 @@ export const HomePage = () => {
             </div>
 
             <div className="my-6">
-              <div className=" block md:flex md:justify-around lg:flex lg:justify-around">
+              <div className=" block md:flex md:justify-around lg:flex lg:justify-around items-center">
                 <div className="w-[80%] mx-auto my-4 md:w-[30%] lg:w-[20%]">
                   <div className="flex gap-x-3 ">
                     <MdFreeBreakfast color="blue" size={35} />

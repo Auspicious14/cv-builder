@@ -10,6 +10,14 @@ export const Navbar = () => {
     show: false,
   });
 
+  let [session, setSession] = useState() as any;
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setSession(user.uid);
+      console.log(user.displayName);
+    }
+  });
+
   return (
     <div className="bg-black">
       <div
@@ -23,10 +31,12 @@ export const Navbar = () => {
         <div className="hidden  sm:hidden md:hidden lg:flex">
           <nav className="">
             <ul className=" flex gap-x-4 font-bold text-sm text-white">
-              <li className="flex gap-x-1">
-                <Link href="/">Resumes</Link>
-                <RiArrowDropDownLine color="color" size={20} />
-              </li>
+              {session ? (
+                <li className="flex gap-x-1">
+                  <Link href="/cv">My Resume</Link>
+                  <RiArrowDropDownLine color="color" size={20} />
+                </li>
+              ) : null}
               <li className="flex gap-x-1">
                 <Link href="/">Cover Letter</Link>
                 <RiArrowDropDownLine color="color" size={20} />
@@ -53,13 +63,13 @@ export const Navbar = () => {
                 <button className="text-white">Login</button>
               </Link>
             </div>
-            <div>
+            {/* <div>
               <Link href={"/personalInfo"}>
                 <button className=" bg-blue-700 rounded-md uppercase text-white p-1 px-3 font-bold ">
                   get started
                 </button>
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
 
