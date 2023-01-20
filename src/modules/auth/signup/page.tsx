@@ -24,6 +24,7 @@ export const SignUpPage = () => {
     const response = signUpUser(values.email, values.password, {
       displayName: values.firstName,
       lastName: values.lastName,
+      profession: values.profession,
     });
     response.then((user) => {
       setLoading(false);
@@ -34,7 +35,7 @@ export const SignUpPage = () => {
 
   return (
     <div className="hero w-screen h-screen relative">
-      <div className="text-xl flex justify-center items-center text-white font-bold pt-[2rem] pb-[2rem]">
+      <div className="text-xl flex justify-center items-center text-white font-bold pt-[2rem] pb-4">
         <Link href={"/"}>CV-CRAFT</Link>
       </div>
       <div className="lg:w-[25rem] w-80 rounded-md m-auto absolute left-[-50%] right-[-50%] py-2 px-4 bg-white">
@@ -42,6 +43,7 @@ export const SignUpPage = () => {
           initialValues={{
             firstName: "",
             lastName: "",
+            profession: "",
             email: "",
             password: "",
           }}
@@ -66,6 +68,13 @@ export const SignUpPage = () => {
               type="text"
               name="lastName"
               placeHolder="Doe"
+              className="p-2 outline-blue-400"
+            />
+            <ApTextInput
+              label="Profession"
+              type="text"
+              name="profession"
+              placeHolder="Software Engineer"
               className="p-2 outline-blue-400"
             />
             <ApTextInput

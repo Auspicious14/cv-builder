@@ -1,12 +1,18 @@
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { auth, db } from "../../library";
 
 interface IPersonalInfoState {
+  getUser: any;
+  getUserFunc: () => Promise<void>;
   createCVDocument: (response: any) => Promise<any>;
   updateCVDocument: (response: any) => Promise<any>;
 }
 const PersonalInfoContext = createContext<IPersonalInfoState>({
+  getUser: {},
+  getUserFunc() {
+    return null as any;
+  },
   createCVDocument(response) {
     return {} as any;
   },
@@ -28,8 +34,10 @@ interface IProps {
 }
 
 export const PersonalInfoContextProvider: React.FC<IProps> = ({ children }) => {
+  const [getUser, setGetUser] = useState<any>({});
+  const user: any = auth.currentUser;
+
   const createCVDocument = async (response: any) => {
-    const user: any = auth.currentUser;
     const cvDocRef = doc(db, "cv", user.uid);
     const cvSnapShot = await getDoc(cvDocRef);
     if (!cvSnapShot.exists()) {
@@ -42,8 +50,14 @@ export const PersonalInfoContextProvider: React.FC<IProps> = ({ children }) => {
     return cvDocRef;
   };
 
+  const getUserFunc = async () => {
+    const getAUser = doc(db, "users", user.uid);
+    const userSnapShot = await getDoc(getAUser);
+    if (userSnapShot.exists()) {
+      setGetUser(userSnapShot.data());
+    }
+  };
   const updateCVDocument = async (response: any) => {
-    const user: any = auth.currentUser;
     const cvDocRef = doc(db, "cv", user.uid);
     const cvSnapShot = await updateDoc(cvDocRef, { response }).then(
       (res) => {}
@@ -51,7 +65,12 @@ export const PersonalInfoContextProvider: React.FC<IProps> = ({ children }) => {
   };
   return (
     <PersonalInfoContext.Provider
-      value={{ createCVDocument, updateCVDocument }}
+      value={{
+        createCVDocument,
+        updateCVDocument,
+        getUser,
+        getUserFunc,
+      }}
     >
       {children}
     </PersonalInfoContext.Provider>

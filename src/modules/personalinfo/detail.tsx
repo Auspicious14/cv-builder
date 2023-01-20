@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
-import { IoIosCloseCircleOutline } from "react-icons/io";
-import { ApButton, ApModal, ApTextInput } from "../../components";
+import {
+  ApButton,
+  ApGenerateButtonLoader,
+  ApModal,
+  ApTextInput,
+} from "../../components";
 import { ApSideNav } from "../../components/nav/sidenav";
 import { usePersonalInfoState } from "./context";
 import { IPersonalInfo } from "./model";
@@ -14,12 +18,14 @@ interface IProps {
 export const PersonalInformationDetail: React.FC<IProps> = ({
   personalInfo,
 }) => {
-  const { createCVDocument } = usePersonalInfoState();
+  const { createCVDocument, getUser, getUserFunc } = usePersonalInfoState();
   const router = useRouter();
   const [value, setValue] = useState("");
+  const [loading, setLoading] = useState<boolean>(false);
   const [modal, setModal] = useState<{ show: boolean }>({ show: false });
 
   const getDescriptiveAiInfo = async (prompt: string) => {
+    setLoading(true);
     const response = await fetch("/api/open-ai", {
       method: "POST",
       headers: {
@@ -29,6 +35,7 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
     });
 
     try {
+      setLoading(false);
       const data = await response.json();
       setValue(data.result);
       console.log(data.result);
@@ -55,7 +62,10 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
     });
   };
 
-  console.log(value);
+  useEffect(() => {
+    getUserFunc();
+  }, []);
+
   return (
     <>
       <div className="p-3">
@@ -74,7 +84,7 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
           initialValues={{
             firstName: personalInfo?.firstName || "",
             lastName: personalInfo?.lastName || "",
-            description: personalInfo?.description || value,
+            description: personalInfo?.description || "",
             address: personalInfo?.address || "",
             profession: personalInfo?.profession || "",
             phoneNumber: personalInfo?.phoneNumber || "",
@@ -119,8 +129,15 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
             />
             <ApButton
               type="button"
-              name={"generate description"}
-              onClick={() => getDescriptiveAiInfo("Describe my info")}
+              name={
+                loading ? <ApGenerateButtonLoader /> : "Generate Description"
+              }
+              className="bg-blue-900 px-2 mb-2 py-1 border outline-none rounded-md text-white"
+              onClick={() =>
+                getDescriptiveAiInfo(
+                  `Describe me (${getUser?.displayName}) as a ${getUser?.profession}`
+                )
+              }
             />
             <ApTextInput
               label="Profession"

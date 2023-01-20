@@ -1,5 +1,5 @@
 import React from "react";
-import { Bars, RotatingLines } from "react-loader-spinner";
+import { Bars, ProgressBar, RotatingLines } from "react-loader-spinner";
 
 interface IProps {
   colors?: [string, string, string, string, string];
@@ -31,6 +31,22 @@ export const ApAuthLoader = () => {
         animationDuration="0.75"
         width="50"
         visible={true}
+      />
+    </div>
+  );
+};
+
+export const ApGenerateButtonLoader = () => {
+  return (
+    <div>
+      <ProgressBar
+        height="80"
+        width="80"
+        ariaLabel="progress-bar-loading"
+        wrapperStyle={{}}
+        wrapperClass="progress-bar-wrapper"
+        borderColor="#fff"
+        barColor="#51E5FF"
       />
     </div>
   );
