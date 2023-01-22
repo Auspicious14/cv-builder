@@ -16,7 +16,7 @@ interface IProps {
   experience: IExperience;
 }
 export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
-  const { updateCVDocument, loading, result } = useExperienceState();
+  const { updateCVDocument, loading, result, setResult } = useExperienceState();
   const router = useRouter();
   const [modal, setModal] = useState<{ show: boolean }>({ show: false });
 
@@ -63,7 +63,7 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
               {
                 jobTitle: experience?.jobTitle || "",
                 organization: experience?.organization || "",
-                description: experience?.description || result,
+                description: result || "",
                 location: experience?.location || "",
                 fromDate:
                   experience?.fromDate || moment().startOf("month").toDate(),
@@ -110,6 +110,8 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
                     })
                   )
                 }
+                value={result}
+                onChange={() => setResult(result)}
               />
               <ApButton
                 type="submit"

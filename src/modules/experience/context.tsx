@@ -9,6 +9,7 @@ interface ExperienceState {
   result: any;
   load: boolean;
   getDescriptiveAiInfo: () => void;
+  handleSetCategory: (e: any) => void;
   setResult: React.Dispatch<any>;
   updateCVDocument: (response: any) => Promise<any>;
 }
@@ -18,6 +19,7 @@ const ExperienceContext = createContext<ExperienceState>({
   error: null,
   result: null,
   getDescriptiveAiInfo() {},
+  handleSetCategory() {},
   setResult() {},
   load: false,
   updateCVDocument(response) {
@@ -52,6 +54,8 @@ export const ExperienceContextProvider: React.FC<IProps> = ({ children }) => {
     }
   };
 
+  const handleSetCategory = () => setCategory(category);
+
   const {
     loading: load,
     error,
@@ -71,6 +75,7 @@ export const ExperienceContextProvider: React.FC<IProps> = ({ children }) => {
         result,
         setResult,
         getDescriptiveAiInfo,
+        handleSetCategory,
       }}
     >
       {children}

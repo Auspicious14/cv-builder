@@ -7,20 +7,23 @@ import {
   ApGenerateButtonLoader,
   ApTextInput,
 } from "../../../components";
-import { useOpenAiApi } from "../../../library";
 import { useExperienceState } from "../context";
 import { ICategory, IExperience } from "../model";
 
 interface IProps {
   index: number;
+  value: string;
   experience: IExperience;
+  onChange: (e: any) => void;
   onDelete: () => void;
   handleDate: (date: any, index: number) => void;
 }
 export const ExperienceListItem: React.FC<IProps> = ({
   onDelete,
   index,
+  value,
   experience,
+  onChange,
   handleDate,
 }) => {
   const [category, setCategory] = useState("");
@@ -48,15 +51,17 @@ export const ExperienceListItem: React.FC<IProps> = ({
           type="text"
           className="p-3 outline-blue-400"
         />
-        {result ? (
+        {value ? (
           <div className="flex flex-col">
             <label htmlFor="">Description</label>
             <textarea
               name={"description"}
-              value={result}
+              value={value}
               rows={5}
               cols={30}
-              onChange={(e) => setResult(e.target.value)}
+              onChange={(e) => {
+                e.preventDefault(), onChange(e.target.value);
+              }}
               className="p-3 border rounded-md outline-blue-400 w-full"
             />
           </div>
@@ -71,7 +76,9 @@ export const ExperienceListItem: React.FC<IProps> = ({
         <div className="lg:flex block lg:gap-3 items-center">
           <select
             value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            onChange={(e) => {
+              e.preventDefault(), setCategory(e.target.value);
+            }}
             className="border px-3 py-1 rounded-md bg-blue-900 text-white"
           >
             {ICategory?.map((m, i) => (
@@ -111,17 +118,21 @@ export const ExperienceListItem: React.FC<IProps> = ({
 };
 
 interface IExperienceProps {
+  value: string;
   onAdd: () => void;
+  onChange: () => void;
   onDelete: (index: number) => void;
   experience: IExperience[];
   handleDate: (date: any, i: number) => void;
 }
 
 export const Experience: React.FC<IExperienceProps> = ({
+  value,
   onAdd,
   onDelete,
   experience,
   handleDate,
+  onChange,
 }) => {
   return (
     <>
@@ -136,7 +147,9 @@ export const Experience: React.FC<IExperienceProps> = ({
           onDelete={() => onDelete(i)}
           index={i}
           key={i}
+          value={value}
           handleDate={(date: any, i: number) => handleDate(date, i)}
+          onChange={onChange}
         />
       ))}
     </>
