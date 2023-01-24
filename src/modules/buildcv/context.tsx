@@ -17,6 +17,7 @@ interface ICvState {
   getCVDocument: () => void;
   getImageFile: (imageUpload?: any) => void;
   uploadImageDocument: (image: any) => void;
+  uploadFileDocument: (image: any) => void;
   updateCVDocument: (response: any) => Promise<DocumentReference<DocumentData>>;
 }
 const CVContext = createContext<ICvState>({
@@ -28,6 +29,7 @@ const CVContext = createContext<ICvState>({
     return null as any;
   },
   uploadImageDocument(image) {},
+  uploadFileDocument(image) {},
 });
 
 export const useCvState = () => {
@@ -79,10 +81,22 @@ export const CVContetxProvider: React.FC<IProps> = ({ children }) => {
     const imageRef = ref(storage, `images/${imageUpload.name}${user?.uid}`);
     const response = uploadBytes(imageRef, imageUpload).then((res) => {
       alert("image uploaded");
-      console.log(res);
-      updateCVDocument({ file: res.ref.fullPath }).then((res) =>
-        console.log("file added")
-      );
+      console.log(res.ref);
+      // updateCVDocument({ file: res.ref.fullPath }).then((res) =>
+      //   console.log("file added")
+      // );
+    });
+  };
+  const uploadFileDocument = (imageUpload: any) => {
+    if (imageUpload === null) return;
+    const user = auth.currentUser;
+    const imageRef = ref(storage, `images/${user?.uid}`);
+    const response = uploadBytes(imageRef, imageUpload).then((res) => {
+      alert("image uploaded");
+      console.log(res.ref);
+      // updateCVDocument({ file: res.ref.fullPath }).then((res) =>
+      //   console.log("file added")
+      // );
     });
   };
 
@@ -94,6 +108,7 @@ export const CVContetxProvider: React.FC<IProps> = ({ children }) => {
       });
     });
   };
+
   return (
     <CVContext.Provider
       value={{
@@ -102,6 +117,7 @@ export const CVContetxProvider: React.FC<IProps> = ({ children }) => {
         getCVDocument,
         updateCVDocument,
         uploadImageDocument,
+        uploadFileDocument,
         getImageFile,
       }}
     >

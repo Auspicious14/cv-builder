@@ -262,6 +262,11 @@ export const UpdateCVModal: React.FC<IProps> = ({ update, onDissmiss }) => {
                     })
                   )
                 }
+                value={""}
+                category={""}
+                loading={false}
+                onChange={() => {}}
+                onTextChange={() => {}}
               />
             ) : null}
 

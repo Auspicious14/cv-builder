@@ -13,22 +13,26 @@ import { ICategory, IExperience } from "../model";
 interface IProps {
   index: number;
   value: string;
+  category: string;
+  loading: boolean;
   experience: IExperience;
-  onChange: (e: any) => void;
+  onChange: (e: any, i: number) => void;
+  onTextChange: (e: any, i: number) => void;
   onDelete: () => void;
   handleDate: (date: any, index: number) => void;
 }
 export const ExperienceListItem: React.FC<IProps> = ({
   onDelete,
   index,
+  category,
   value,
+  loading,
   experience,
   onChange,
+  onTextChange,
   handleDate,
 }) => {
-  const [category, setCategory] = useState("");
-
-  const { loading, error, result, setResult, getDescriptiveAiInfo } =
+  const { error, result, setResult, getDescriptiveAiInfo } =
     useExperienceState();
   return (
     <div>
@@ -60,7 +64,7 @@ export const ExperienceListItem: React.FC<IProps> = ({
               rows={5}
               cols={30}
               onChange={(e) => {
-                e.preventDefault(), onChange(e.target.value);
+                e.preventDefault(), onTextChange(e, index);
               }}
               className="p-3 border rounded-md outline-blue-400 w-full"
             />
@@ -77,7 +81,7 @@ export const ExperienceListItem: React.FC<IProps> = ({
           <select
             value={category}
             onChange={(e) => {
-              e.preventDefault(), setCategory(e.target.value);
+              onChange(e, index), console.log(e.target.value);
             }}
             className="border px-3 py-1 rounded-md bg-blue-900 text-white"
           >
@@ -91,7 +95,9 @@ export const ExperienceListItem: React.FC<IProps> = ({
             type="button"
             name={loading ? <ApGenerateButtonLoader /> : "Generate Description"}
             className="bg-blue-900 px-2 my-2 py-1 border outline-none rounded-md text-white"
-            onClick={getDescriptiveAiInfo}
+            onClick={() => {
+              getDescriptiveAiInfo(), console.log(category);
+            }}
           />
         </div>
         <ApDateRangePicker
@@ -118,9 +124,12 @@ export const ExperienceListItem: React.FC<IProps> = ({
 };
 
 interface IExperienceProps {
+  category: string;
   value: string;
+  loading: boolean;
   onAdd: () => void;
-  onChange: () => void;
+  onChange: (e: any, i: number) => void;
+  onTextChange: (e: any, i: number) => void;
   onDelete: (index: number) => void;
   experience: IExperience[];
   handleDate: (date: any, i: number) => void;
@@ -128,11 +137,14 @@ interface IExperienceProps {
 
 export const Experience: React.FC<IExperienceProps> = ({
   value,
+  category,
+  loading,
   onAdd,
   onDelete,
   experience,
   handleDate,
   onChange,
+  onTextChange,
 }) => {
   return (
     <>
@@ -148,8 +160,11 @@ export const Experience: React.FC<IExperienceProps> = ({
           index={i}
           key={i}
           value={value}
+          category={category}
+          loading={loading}
           handleDate={(date: any, i: number) => handleDate(date, i)}
-          onChange={onChange}
+          onChange={(e: any, i: number) => onChange(e, i)}
+          onTextChange={(e: any, i: number) => onTextChange(e, i)}
         />
       ))}
     </>

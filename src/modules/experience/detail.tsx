@@ -16,10 +16,11 @@ interface IProps {
   experience: IExperience;
 }
 export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
-  const { updateCVDocument, loading, result, setResult } = useExperienceState();
+  const { updateCVDocument, loading, result, setResult, load } =
+    useExperienceState();
   const router = useRouter();
   const [modal, setModal] = useState<{ show: boolean }>({ show: false });
-
+  const [category, setCategory] = useState<string>("");
   const handleSubmit = (values: any, actions: any) => {
     updateCVDocument({
       ...values,
@@ -103,7 +104,7 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
                       if (i !== index) return e;
                       return {
                         ...e,
-                        description: result || "",
+                        // description: result || "",
                         fromDate: date.fromDate,
                         endDate: date.endDate,
                       };
@@ -111,7 +112,10 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
                   )
                 }
                 value={result}
-                onChange={() => setResult(result)}
+                category={category}
+                onChange={(e) => setCategory(e.target.value)}
+                loading={load}
+                onTextChange={() => {}}
               />
               <ApButton
                 type="submit"
