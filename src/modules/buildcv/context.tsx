@@ -7,6 +7,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
+import jsPDF from "jspdf";
 import React, { createContext, useContext, useState } from "react";
 import { auth, db, storage } from "../../library";
 import { ICV } from "./model";
@@ -18,6 +19,7 @@ interface ICvState {
   getImageFile: (imageUpload?: any) => void;
   uploadImageDocument: (image: any) => void;
   uploadFileDocument: (image: any) => void;
+  downloadCV: (text?: string) => void;
   updateCVDocument: (response: any) => Promise<DocumentReference<DocumentData>>;
 }
 const CVContext = createContext<ICvState>({
@@ -30,6 +32,7 @@ const CVContext = createContext<ICvState>({
   },
   uploadImageDocument(image) {},
   uploadFileDocument(image) {},
+  downloadCV() {},
 });
 
 export const useCvState = () => {
@@ -47,6 +50,12 @@ interface IProps {
 export const CVContetxProvider: React.FC<IProps> = ({ children }) => {
   const [cvState, setCvState] = useState<ICV>() as any;
   const [imageFile, setImageFile] = useState("");
+  // const [text, setText] = useState<string>('')
+  const downloadCV = (text?: string) => {
+    const exportCV = new jsPDF();
+    exportCV.GState(cvState);
+    exportCV.save("a4.pdf");
+  };
   const getCVDocument = () => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -118,6 +127,7 @@ export const CVContetxProvider: React.FC<IProps> = ({ children }) => {
         updateCVDocument,
         uploadImageDocument,
         uploadFileDocument,
+        downloadCV,
         getImageFile,
       }}
     >

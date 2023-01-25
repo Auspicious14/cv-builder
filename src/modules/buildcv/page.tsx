@@ -18,7 +18,7 @@ import { BsFillTelephoneFill } from "react-icons/bs";
 import Link from "next/link";
 
 export const BuildPage = () => {
-  const { getImageFile, imageFile, uploadFileDocument } = useCvState();
+  const { getImageFile, imageFile, downloadCV } = useCvState();
   const [cvState, setCvState] = useState<ICV>({} as any);
   const [modal, setModal] = useState<{ show: boolean; data?: any }>({
     show: false,
@@ -35,8 +35,8 @@ export const BuildPage = () => {
         const cvSnapShot = await getDoc(cvDocRef);
         if (cvSnapShot.exists()) {
           setLoading(false);
-          setCvState(cvSnapShot.data() as any);
-          uploadFileDocument(cvSnapShot.data);
+          setCvState(cvSnapShot.data() as any | string);
+          // uploadFileDocument(cvSnapShot.data);
         } else {
           setLoading(false);
         }
@@ -137,7 +137,7 @@ export const BuildPage = () => {
                 <ApButton
                   name={"download cv"}
                   type={"button"}
-                  onClick={() => getImageFile()}
+                  onClick={() => downloadCV()}
                 />
                 <div className="flex justify-center lg:gap-4 gap-2 mx-4 mb-2 lg:mb-0 lg:mx-0">
                   <ApButton

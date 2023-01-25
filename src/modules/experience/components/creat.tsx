@@ -12,9 +12,9 @@ import { ICategory, IExperience } from "../model";
 
 interface IProps {
   index: number;
-  value: string;
-  category: string;
-  loading: boolean;
+  value?: string;
+  category?: string;
+  loading?: boolean;
   experience: IExperience;
   onChange: (e: any, i: number) => void;
   onTextChange: (e: any, i: number) => void;
@@ -126,7 +126,7 @@ export const ExperienceListItem: React.FC<IProps> = ({
 interface IExperienceProps {
   category: string;
   value: string;
-  loading: boolean;
+  loading?: boolean;
   onAdd: () => void;
   onChange: (e: any, i: number) => void;
   onTextChange: (e: any, i: number) => void;
