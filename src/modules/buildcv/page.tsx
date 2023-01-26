@@ -14,6 +14,7 @@ import { CertificateList } from "../certificate/components/listitem";
 import { useRouter } from "next/router";
 import { MdOutlineMarkEmailUnread } from "react-icons/md";
 import { BsFillTelephoneFill } from "react-icons/bs";
+import { FiDownload } from "react-icons/fi";
 import Link from "next/link";
 import Pdf from "react-to-pdf";
 
@@ -62,16 +63,6 @@ export const BuildPage = () => {
 
             {!loading && cvState ? (
               <div>
-                <Pdf targetRef={ref} filename="resume.pdf">
-                  {({ toPdf }) => (
-                    <ApButton
-                      name={"generate reume"}
-                      type={"button"}
-                      onClick={toPdf}
-                    />
-                  )}
-                </Pdf>
-
                 <>
                   <div
                     ref={ref}
@@ -171,16 +162,32 @@ export const BuildPage = () => {
                     className="bg-gray-400 lg:px-4 py-2 px-2 text-white border-none rounded-md outline-none "
                   />
                 </div>
-                <ApButton
-                  name="Edit"
-                  type="button"
-                  onClick={() => setModal({ show: true, data: cvState })}
-                  className="bg-blue-400 lg:px-4 py-2 px-4 mx-4 mb-4 lg:mb-0 lg:mx-0 text-white border-none rounded-md outline-none "
-                />
+                <div className="flex gap-4 justify-center">
+                  <ApButton
+                    name="Edit"
+                    type="button"
+                    onClick={() => setModal({ show: true, data: cvState })}
+                    className="bg-blue-400 lg:px-4 py-2 px-4 mx-4 mb-4 lg:mb-0 lg:mx-0 text-white border-none rounded-md outline-none "
+                  />
+                  <Pdf targetRef={ref} filename="resume.pdf">
+                    {({ toPdf }) => (
+                      <ApButton
+                        name={"Download Resume"}
+                        type={"button"}
+                        className={
+                          "bg-black text-white px-4 py-2 border rounded-md"
+                        }
+                        onClick={toPdf}
+                        icon={<FiDownload size={20} />}
+                      />
+                    )}
+                  </Pdf>
+                </div>
               </div>
             ) : (
               <div>nothing is here</div>
             )}
+
             <ApModal
               title={"Update CV"}
               show={modal.show}

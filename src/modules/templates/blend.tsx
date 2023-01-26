@@ -11,10 +11,12 @@ import { UpdateCVModal } from "../buildcv/update/modal";
 import { useCvState } from "../buildcv/context";
 import { CertificateList } from "../certificate/components/listitem";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import Link from "next/link";
+import Pdf from "react-to-pdf";
+import { FiDownload } from "react-icons/fi";
 
 export const BlendTemplate = () => {
+  const ref = React.createRef<any>();
   const { getImageFile, imageFile } = useCvState();
   const [cvState, setCvState] = useState<ICV>({} as any);
   const [modal, setModal] = useState<{ show: boolean; data?: any }>({
@@ -57,7 +59,7 @@ export const BlendTemplate = () => {
               ""
             ) : (
               <div>
-                <div className="m-auto flex lg:w-[70%] h-auto">
+                <div ref={ref} className="m-auto flex lg:w-[70%] h-auto">
                   <div className="lg:w-[40%] w-[30%] px-2 pt-4 lg:pt-0 bg-blend-darken bg-red-900 text-white">
                     <div className="relative">
                       <img
@@ -172,12 +174,27 @@ export const BlendTemplate = () => {
                     className="bg-gray-400 px-4 py-2 text-white border-none rounded-md outline-none "
                   />
                 </div>
-                <ApButton
-                  name="Edit"
-                  type="button"
-                  onClick={() => setModal({ show: true, data: cvState })}
-                  className="bg-red-900 px-4 py-2 mx-4 text-white border-none rounded-md outline-none "
-                />
+                <div className="flex gap-4 justify-center">
+                  <ApButton
+                    name="Edit"
+                    type="button"
+                    onClick={() => setModal({ show: true, data: cvState })}
+                    className="bg-red-900 px-4 py-2 mx-4 text-white border-none rounded-md outline-none "
+                  />
+                  <Pdf targetRef={ref} filename="resume.pdf">
+                    {({ toPdf }) => (
+                      <ApButton
+                        name={"Download Resume"}
+                        type={"button"}
+                        className={
+                          "bg-black text-white px-4 py-2 border rounded-md"
+                        }
+                        onClick={toPdf}
+                        icon={<FiDownload size={20} />}
+                      />
+                    )}
+                  </Pdf>
+                </div>
               </div>
             )}
 

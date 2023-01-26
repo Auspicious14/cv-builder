@@ -15,8 +15,10 @@ import { MdOutlineMarkEmailUnread } from "react-icons/md";
 import { CertificateList } from "../../certificate/components/listitem";
 import { useRouter } from "next/router";
 import Link from "next/link";
-
+import { FiDownload } from "react-icons/fi";
+import Pdf from "react-to-pdf";
 export const BlackTemplate = () => {
+  const ref = React.createRef<any>();
   const { getImageFile, imageFile } = useCvState();
   const [cvState, setCvState] = useState<ICV>({} as any);
   const [modal, setModal] = useState<{ show: boolean; data?: any }>({
@@ -56,13 +58,11 @@ export const BlackTemplate = () => {
               </div>
             ) : (
               <div className="bg-neutral-800 lg:bg-transparent">
-                <div className="px-6 text-white m-auto lg:w-[70%] h-auto bg-neutral-800">
+                <div
+                  ref={ref}
+                  className="px-6 text-white m-auto lg:w-[70%] h-auto bg-neutral-800"
+                >
                   <div className="lg:flex lg:gap-8 mb-12 pt-8 lg:justify-between lg:items-center lg:w-[50%] px-2 text-white">
-                    {/* <img
-                src={imageFile}
-                alt="name"
-                className=" border text-center m-auto rounded-full"
-              /> */}
                     <div className="text-center text-xl lg:text-2xl uppercase font-bold">
                       <div className="lg:block flex gap-2 items-center text-center justify-center">
                         <div>
@@ -172,13 +172,27 @@ export const BlackTemplate = () => {
                     className="bg-gray-400 px-4 py-2 text-white border-none rounded-md outline-none "
                   />
                 </div>
-
-                <ApButton
-                  name="Edit"
-                  type="button"
-                  onClick={() => setModal({ show: true, data: cvState })}
-                  className="bg-neutral-800 mx-4 my-2 px-4 text-white border-none rounded-sm outline-none "
-                />
+                <div className="flex gap-4 justify-center">
+                  <ApButton
+                    name="Edit"
+                    type="button"
+                    onClick={() => setModal({ show: true, data: cvState })}
+                    className="bg-neutral-800 mx-4 my-2 px-4 text-white border-none rounded-sm outline-none "
+                  />
+                  <Pdf targetRef={ref} filename="resume.pdf">
+                    {({ toPdf }) => (
+                      <ApButton
+                        name={"Download Resume"}
+                        type={"button"}
+                        className={
+                          "bg-black text-white px-4 py-2 border rounded-md border-none"
+                        }
+                        onClick={toPdf}
+                        icon={<FiDownload size={20} />}
+                      />
+                    )}
+                  </Pdf>
+                </div>
               </div>
             )}
 

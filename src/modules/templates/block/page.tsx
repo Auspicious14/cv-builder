@@ -16,8 +16,11 @@ import { CertificateList } from "../../certificate/components/listitem";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
+import Pdf from "react-to-pdf";
+import { FiDownload } from "react-icons/fi";
 
 export const BlockTemplate = () => {
+  const ref = React.createRef<any>();
   const { getImageFile, imageFile } = useCvState();
   const [cvState, setCvState] = useState<ICV>({} as any);
   const [modal, setModal] = useState<{ show: boolean; data?: any }>({
@@ -60,16 +63,19 @@ export const BlockTemplate = () => {
               </div>
             ) : (
               <div>
-                <div className="p-4 m-auto  lg:w-[70%] h-auto bg-gray-200">
+                <div
+                  ref={ref}
+                  className="p-4 m-auto  lg:w-[70%] h-auto bg-gray-200"
+                >
                   <div className="lg:w-full lg:flex lg:gap-8 lg:justify-between lg:items-center w-full shadow-md mb-2 py-4  border rounded-lg px-2 bg-white">
-                    <div className="w-full flex gap-8 justify-between items-center ">
+                    <div className="w-full flex gap-8 lg:justify-between items-center ">
                       <img
                         src={imageFile}
                         alt="name"
-                        className="w-[5rem] border text-center m-auto rounded-full"
+                        className="w-[5rem] border text-center lg:m-auto rounded-full"
                       />
                       <div className="">
-                        <div className="mb-2 flex text-xl uppercase font-bold">
+                        <div className="mb-2 lg:flex text-xl uppercase font-bold">
                           <div>{`${cvState?.firstName} ${cvState?.lastName}`}</div>
                         </div>
                         <p className="hidden lg:block text-justify">
@@ -169,12 +175,27 @@ export const BlockTemplate = () => {
                     className="bg-blue-400 px-4 py-2 text-white border-none rounded-md outline-none "
                   />
                 </div>
-                <ApButton
-                  name="Edit"
-                  type="button"
-                  onClick={() => setModal({ show: true, data: cvState })}
-                  className="bg-gray-400 mx-4 my-2 px-4 text-white border-none rounded-sm outline-none "
-                />
+                <div className="flex gap-4 justify-center">
+                  <ApButton
+                    name="Edit"
+                    type="button"
+                    onClick={() => setModal({ show: true, data: cvState })}
+                    className="bg-gray-400 mx-4 my-2 px-4 text-white border-none rounded-sm outline-none "
+                  />
+                  <Pdf targetRef={ref} filename="resume.pdf">
+                    {({ toPdf }) => (
+                      <ApButton
+                        name={"Download Resume"}
+                        type={"button"}
+                        className={
+                          "bg-black text-white px-4 py-2 border rounded-md"
+                        }
+                        onClick={toPdf}
+                        icon={<FiDownload size={20} />}
+                      />
+                    )}
+                  </Pdf>
+                </div>
               </div>
             )}
             <ApModal

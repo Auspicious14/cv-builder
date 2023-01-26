@@ -4,6 +4,7 @@ interface IProps {
   className?: string;
   name: any;
   disabled?: boolean;
+  icon?: React.ReactNode;
   type: "button" | "submit" | "reset" | undefined;
   onClick?: () => void;
 }
@@ -12,6 +13,7 @@ export const ApButton: React.FC<IProps> = ({
   name,
   disabled = false,
   type,
+  icon,
   onClick,
 }) => {
   return (
@@ -22,7 +24,14 @@ export const ApButton: React.FC<IProps> = ({
         type={type}
         onClick={onClick}
       >
-        {name}
+        {icon ? (
+          <div className="flex gap-2 items-center">
+            {icon}
+            {name}
+          </div>
+        ) : (
+          <div>{name}</div>
+        )}
       </button>
     </div>
   );
