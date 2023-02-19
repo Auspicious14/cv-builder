@@ -9,12 +9,15 @@ import {
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import React, { createContext, useContext, useState } from "react";
 import { auth, db, storage } from "../../library";
+import { toastSvc } from "../../services/toast";
 import { ICV } from "./model";
 
 interface ICvState {
   imageFile: string;
+  imageSource: string;
   cvState: ICV;
   getCVDocument: () => void;
+  displayImage: () => void;
   getImageFile: (imageUpload?: any) => void;
   uploadImageDocument: (image: any) => void;
   uploadFileDocument: (image: any) => void;
@@ -22,8 +25,10 @@ interface ICvState {
 }
 const CVContext = createContext<ICvState>({
   imageFile: "",
+  imageSource: "",
   cvState: null as any,
   getCVDocument() {},
+  displayImage() {},
   getImageFile(imageUpload) {},
   updateCVDocument(response) {
     return null as any;
@@ -45,8 +50,10 @@ interface IProps {
 }
 
 export const CVContetxProvider: React.FC<IProps> = ({ children }) => {
+  const user = auth.currentUser;
   const [cvState, setCvState] = useState<ICV>() as any;
   const [imageFile, setImageFile] = useState("");
+  const [imageSource, setImageSource] = useState("");
   // const [text, setText] = useState<string>('')
 
   const getCVDocument = () => {
@@ -103,7 +110,7 @@ export const CVContetxProvider: React.FC<IProps> = ({ children }) => {
   };
 
   const getImageFile = (imageUpload?: any) => {
-    const imageRef = ref(storage, "images/");
+    const imageRef = ref(storage, `images/${user?.uid}`);
     listAll(imageRef).then((res) => {
       res.items?.map((url) => {
         getDownloadURL(url).then((res) => setImageFile(res));
@@ -111,16 +118,47 @@ export const CVContetxProvider: React.FC<IProps> = ({ children }) => {
     });
   };
 
+  const displayImage = () => {
+    getDownloadURL(ref(storage, `images/${user?.uid}`))
+      .then((url) => {
+        // This can be downloaded directly:
+        if (!url) {
+          console.log("user added no image");
+          return;
+        }
+        setImageSource(url);
+        // const xhr = new XMLHttpRequest();
+        // xhr.responseType = "blob";
+        // xhr.onload = (event) => {
+        //   const blob = xhr.response;
+        // };
+        // xhr.open("GET", url);
+        // xhr.send();
+
+        // Or inserted into an <img> element
+        // const img = document.getElementById('myimg');
+        // img.setAttribute('src', url);
+      })
+      .catch((err) => {
+        switch (err) {
+          case "storage/object-not-found":
+            return console.log("no image was added");
+        }
+      });
+  };
+
   return (
     <CVContext.Provider
       value={{
         imageFile,
+        imageSource,
         cvState,
         getCVDocument,
         updateCVDocument,
         uploadImageDocument,
         uploadFileDocument,
         getImageFile,
+        displayImage,
       }}
     >
       {children}

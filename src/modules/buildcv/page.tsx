@@ -20,7 +20,7 @@ import Pdf from "react-to-pdf";
 
 export const BuildPage = () => {
   const ref = React.createRef<any>();
-  const { getImageFile, imageFile } = useCvState();
+  const { getImageFile, imageFile, imageSource, displayImage } = useCvState();
   const [cvState, setCvState] = useState<ICV>({} as any);
   const [modal, setModal] = useState<{ show: boolean; data?: any }>({
     show: false,
@@ -47,9 +47,10 @@ export const BuildPage = () => {
   };
   useEffect(() => {
     getCVDocument();
-    getImageFile();
+    displayImage();
   }, []);
 
+  console.log(cvState);
   return (
     <>
       <div>
@@ -69,11 +70,11 @@ export const BuildPage = () => {
                     className=" m-auto my-2 lg:border-[2rem] border-blue-500 lg:w-[70%] h-auto"
                   >
                     <div className=" flex p-4 gap-8 items-center">
-                      {imageFile.length && (
+                      {imageSource.length && (
                         <img
                           src={
-                            imageFile
-                              ? imageFile
+                            imageSource
+                              ? imageSource
                               : "https://picsum.photos/200/300"
                           }
                           alt="name"
@@ -170,7 +171,7 @@ export const BuildPage = () => {
                     className="bg-blue-400 lg:px-4 py-2 px-4 mx-4 mb-4 lg:mb-0 lg:mx-0 text-white border-none rounded-md outline-none "
                   />
                   <Pdf targetRef={ref} filename="resume.pdf">
-                    {({ toPdf }) => (
+                    {({ toPdf }: any) => (
                       <ApButton
                         name={"Download Resume"}
                         type={"button"}

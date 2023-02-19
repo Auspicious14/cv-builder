@@ -59,8 +59,8 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
       ...values,
       description,
       firstName: displayName,
-      lastName,
-      profession,
+      lastName: values.lastName || lastName,
+      profession: values.profession || profession,
       email,
     }).finally(() => {
       router.push("/academy");
@@ -78,7 +78,7 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
       });
     });
   };
-
+  console.log(getUser);
   useEffect(() => {
     getUserFunc();
   }, []);
@@ -120,7 +120,7 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
                   type={"text"}
                   value={getUser?.displayName}
                   className={`w-full mb-2 rounded-md border p-3 outline-blue-400`}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  // onChange={(e) => setFirstName(e.target.value)}
                 />
               </div>
             ) : (
@@ -132,14 +132,14 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
               />
             )}
 
-            {getUser ? (
+            {getUser.lastName ? (
               <div>
                 <label htmlFor="">Last Name</label>
                 <input
                   type={"text"}
                   value={getUser?.lastName}
                   className={`w-full mb-2 rounded-md border p-3 outline-blue-400`}
-                  onChange={(e) => setLastName(e.target.value)}
+                  // onChange={(e) => setLastName(e.target.value)}
                 />
               </div>
             ) : (
@@ -158,7 +158,7 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
                   value={getUser?.email}
                   type={"email"}
                   className={`w-full mb-2 rounded-md border p-3 outline-blue-400`}
-                  onChange={(e) => setEmail(e.target.value)}
+                  // onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
             ) : (
@@ -215,7 +215,7 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
                   type={"text"}
                   value={getUser?.profession}
                   className={`w-full mb-2 rounded-md border p-3 outline-blue-400`}
-                  onChange={(e) => setProfession(e.target.value)}
+                  // onChange={(e) => setProfession(e.target.value)}
                 />
               </div>
             ) : (

@@ -13,7 +13,7 @@ import { ICategory, IExperience } from "../model";
 interface IProps {
   index: number;
   value?: string;
-  category?: string;
+  category: string;
   loading?: boolean;
   experience: IExperience;
   onChange: (e: any, i: number) => void;
@@ -60,7 +60,7 @@ export const ExperienceListItem: React.FC<IProps> = ({
             <label htmlFor="">Description</label>
             <textarea
               name={"description"}
-              value={value}
+              value={`experience[${index}].${value}`}
               rows={5}
               cols={30}
               onChange={(e) => {
@@ -96,7 +96,10 @@ export const ExperienceListItem: React.FC<IProps> = ({
             name={loading ? <ApGenerateButtonLoader /> : "Generate Description"}
             className="bg-blue-900 px-2 my-2 py-1 border outline-none rounded-md text-white"
             onClick={() => {
-              getDescriptiveAiInfo(), console.log(category);
+              getDescriptiveAiInfo(
+                `write my experience as a ${category} for company`
+              ),
+                console.log(category);
             }}
           />
         </div>

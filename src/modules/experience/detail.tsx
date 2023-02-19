@@ -104,7 +104,6 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
                       if (i !== index) return e;
                       return {
                         ...e,
-                        // description: result || "",
                         fromDate: date.fromDate,
                         endDate: date.endDate,
                       };

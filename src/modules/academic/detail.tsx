@@ -86,7 +86,7 @@ export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
                 }
                 handleDate={(date: any, i: number) =>
                   setFieldValue(
-                    "experience",
+                    "academy",
                     values.academy.map((e, index) => {
                       if (i !== index) return e;
                       return {
