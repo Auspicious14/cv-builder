@@ -1,6 +1,9 @@
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import React, { createContext, useContext, useState } from "react";
 import { auth, db } from "../../library";
+import { apiReqHandler } from "../../components";
+import { toastSvc } from "../../services/toast";
+import { toast } from "react-toastify";
 
 interface IPersonalInfoState {
   loading: boolean;
@@ -40,19 +43,25 @@ export const PersonalInfoContextProvider: React.FC<IProps> = ({ children }) => {
   const user: any = auth.currentUser;
   const [loading, setLoading] = useState<boolean>(false);
 
-  const createCVDocument = async (response: any) => {
+  const createCVDocument = async (payload: any) => {
     setLoading(true);
-    const cvDocRef = doc(db, "cv", user.uid);
-    const cvSnapShot = await getDoc(cvDocRef);
-    if (!cvSnapShot.exists()) {
-      try {
-        setLoading(false);
-        await setDoc(cvDocRef, response).then((res) => console.log(res));
-      } catch (err) {
-        console.log(err);
+    try {
+      const res = await apiReqHandler({
+        endPoint: `${process.env.NEXT_PUBLIC_API_ROUTE}/cv`,
+        method: "POST",
+        payload,
+      });
+
+      setLoading(false);
+      if (res?.res?.status == 200) {
+        const data = res?.res?.data?.data;
+        toastSvc.success("Personal Information created");
+        console.log(data);
+        return data;
       }
+    } catch (error: any) {
+      toastSvc.error(error);
     }
-    return cvDocRef;
   };
 
   const getUserFunc = async () => {
