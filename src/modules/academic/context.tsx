@@ -1,10 +1,12 @@
 import { doc, updateDoc } from "firebase/firestore";
 import React, { createContext, useContext, useState } from "react";
 import { auth, db } from "../../library";
+import { toastSvc } from "../../services/toast";
+import { apiReqHandler } from "../../components";
 
 interface IAcademyState {
   loading: boolean;
-  updateCVDocument: (response: any) => Promise<any>;
+  updateCVDocument: (response: any, id: string) => Promise<any>;
 }
 const AcademyContext = createContext<IAcademyState>({
   loading: false,
@@ -28,15 +30,24 @@ interface IProps {
 export const AcademyContextProvider: React.FC<IProps> = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
-  const updateCVDocument = async (response: any) => {
+  const updateCVDocument = async (payload: any, id: string) => {
     setLoading(true);
-    const user: any = auth.currentUser;
-    const cvDocRef = doc(db, "cv", user.uid);
     try {
+      const res = await apiReqHandler({
+        endPoint: `${process.env.NEXT_PUBLIC_API_ROUTE}/cv/${id}`,
+        method: "POST",
+        payload,
+      });
+
       setLoading(false);
-      await updateDoc(cvDocRef, response).then((res) => console.log(res));
-    } catch (err) {
-      console.log(err);
+      if (res?.res?.data?.success === true) {
+        const data = res?.res?.data?.data;
+        toastSvc.success("Academy created");
+        console.log(data);
+        return data;
+      }
+    } catch (error: any) {
+      toastSvc.error(error);
     }
   };
   return (

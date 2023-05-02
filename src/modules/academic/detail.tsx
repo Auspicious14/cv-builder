@@ -9,20 +9,21 @@ import { ApSideNav } from "../../components/nav/sidenav";
 import { Academy } from "./components/create";
 import { useAcademyState } from "./context";
 import { IAcademy } from "./model";
+import { getCookie } from "../../services/helper";
 interface IProps {
-  academy: IAcademy;
+  academic: IAcademy;
 }
-export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
+export const AcademyDetail: React.FC<IProps> = ({ academic }) => {
   const { updateCVDocument, loading } = useAcademyState();
   const router = useRouter();
   const [modal, setModal] = useState<{ show: boolean }>({ show: false });
 
   const handleSubmit = (values: any, actions: any) => {
     console.log(values);
-    updateCVDocument(values)
-      .then((res) => console.log(res))
+    const id = getCookie("user_id");
+    updateCVDocument(values, id)
+      .then((res) => router.push("/certificate"))
       .finally(() => {
-        router.push("/certificate");
         actions.resetForm({
           values: {
             secondarySchool: "",
@@ -51,13 +52,12 @@ export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
         </div>
         <Formik
           initialValues={{
-            academy: [
+            academic: [
               {
-                name: academy?.name || "",
-                course: academy?.course || "",
-                fromDate:
-                  academy?.fromDate || moment().startOf("month").toDate(),
-                toDate: academy?.toDate || moment().endOf("month").toDate(),
+                school: academic?.school || "",
+                course: academic?.course || "",
+                fromDate: academic?.fromDate || "",
+                toDate: academic?.toDate || "",
               },
             ],
           }}
@@ -66,12 +66,12 @@ export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
           {({ values, setFieldValue }) => (
             <Form>
               <Academy
-                academy={values.academy}
+                academy={values.academic}
                 onAdd={() =>
-                  setFieldValue("academy", [
-                    ...values.academy,
+                  setFieldValue("academic", [
+                    ...values.academic,
                     {
-                      name: "",
+                      school: "",
                       course: "",
                       fromDate: moment().startOf("month").toDate(),
                       toDate: moment().endOf("month").toDate(),
@@ -80,23 +80,24 @@ export const AcademyDetail: React.FC<IProps> = ({ academy }) => {
                 }
                 onDelete={(index: number) =>
                   setFieldValue(
-                    "academy",
-                    values.academy.filter((a, i) => i !== index)
+                    "academic",
+                    values.academic.filter((a, i) => i !== index)
                   )
                 }
-                handleDate={(date: any, i: number) =>
-                  setFieldValue(
-                    "academy",
-                    values.academy.map((e, index) => {
-                      if (i !== index) return e;
-                      return {
-                        ...e,
-                        fromDate: date.fromDate,
-                        endDate: date.endDate,
-                      };
-                    })
-                  )
-                }
+                handleDate={(date: any, i: number) => {
+                  console.log(date, "handle datee"),
+                    setFieldValue(
+                      "academic",
+                      values.academic.map((e, index) => {
+                        if (i !== index) return e;
+                        return {
+                          ...e,
+                          fromDate: date.startDate,
+                          toDate: date.endDate,
+                        };
+                      })
+                    );
+                }}
               />
               <ApButton
                 type="submit"
