@@ -21,6 +21,12 @@ export const CertificateListItem: React.FC<IProps> = ({
         name={`certificate[${index}].name`}
         className="p-3 outline-blue-400"
       />
+      <ApTextInput
+        label="Year"
+        type="text"
+        name={`certificate[${index}].year`}
+        className="p-3 outline-blue-400"
+      />
 
       <div onClick={onDelete}>
         <MdOutlineDeleteOutline

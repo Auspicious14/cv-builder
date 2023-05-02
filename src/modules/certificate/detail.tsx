@@ -8,6 +8,7 @@ import { ApSideNav } from "../../components/nav/sidenav";
 import { Certificate } from "./components/create";
 import { useCertificateState } from "./context";
 import { ICertificate } from "./model";
+import { getCookie } from "../../services/helper";
 interface IProps {
   certificate: ICertificate;
 }
@@ -15,15 +16,22 @@ export const CertificateDetail: React.FC<IProps> = ({ certificate }) => {
   const { updateCVDocument, loading } = useCertificateState();
   const router = useRouter();
   const [modal, setModal] = useState<{ show: boolean }>({ show: false });
+
   const handleSubmit = (values: any, actions: any) => {
-    updateCVDocument(values).finally(() => {
-      router.push("/experience");
-      actions.resetForm({
-        values: {
-          name: "",
-        },
+    const id = getCookie("user_id");
+
+    updateCVDocument(values, id)
+      .then((res) => {
+        router.push("/experience");
+      })
+      .finally(() => {
+        actions.resetForm({
+          values: {
+            name: "",
+            year: "",
+          },
+        });
       });
-    });
   };
   return (
     <>
@@ -44,6 +52,7 @@ export const CertificateDetail: React.FC<IProps> = ({ certificate }) => {
             certificate: [
               {
                 name: certificate?.name || "",
+                year: certificate?.year || "",
               },
             ],
           }}
@@ -58,6 +67,7 @@ export const CertificateDetail: React.FC<IProps> = ({ certificate }) => {
                     ...values.certificate,
                     {
                       name: "",
+                      year: "",
                     },
                   ])
                 }
