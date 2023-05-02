@@ -53,8 +53,8 @@ export const PersonalInfoContextProvider: React.FC<IProps> = ({ children }) => {
       });
 
       setLoading(false);
-      if (res?.res?.status == 200) {
-        const data = res?.res?.data?.data;
+      if (res?.res?.data?.success === true) {
+        const data: any = res?.res?.data?.data;
         toastSvc.success("Personal Information created");
         console.log(data);
         return data;

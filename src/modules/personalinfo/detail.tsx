@@ -14,6 +14,7 @@ import { IPersonalInfo } from "./model";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Link from "next/link";
 import { UploadProps } from "antd";
+import { getCookie } from "../../services/helper";
 interface IProps {
   personalInfo: IPersonalInfo;
 }
@@ -76,9 +77,11 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
 
   const handleSubmit = async (values: any, actions: any) => {
     console.log(file);
+    const _id = getCookie("user_id");
     await createCVDocument({
       personalInformation: {
         ...values,
+        _id,
         image: {
           uri: file?.thumbUrl,
           name: file?.name,
@@ -87,7 +90,7 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
       },
     })
       .then((res) => {
-        // router.push("/academy");
+        router.push("/academy");
       })
       .finally(() => {
         actions.resetForm({
@@ -104,10 +107,6 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
         });
       });
   };
-  // console.log(getUser);
-  // useEffect(() => {
-  //   getUserFunc();
-  // }, []);
 
   return (
     <>
@@ -136,16 +135,11 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
             state: personalInfo?.state || "",
             city: personalInfo?.city || "",
             country: personalInfo?.country || "",
-            // image: personalInfo?.image || files,
-            // image: personalInfo?.image || "",
           }}
           onSubmit={handleSubmit}
         >
           <Form>
-            <Files
-              // fileList={{ file }}
-              handleChange={(res: any) => handleProductImage(res)}
-            />
+            <Files handleChange={(res: any) => handleProductImage(res)} />
             <ApTextInput
               label="First Name"
               type="text"
