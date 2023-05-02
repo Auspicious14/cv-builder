@@ -15,24 +15,18 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { BiUserCircle } from "react-icons/bi";
 import { HiOutlineMail } from "react-icons/hi";
 import Link from "next/link";
+import { useSignInState } from "./context";
 
 const FormSchema = Yup.object().shape({
   email: Yup.string().required("Email is required").email(),
   password: Yup.string().required("Password is required").min(8),
 });
 export const SignInPage = () => {
+  const { handleSignIn, loading } = useSignInState();
   const router = useRouter();
-  const [loading, setLoading] = useState<boolean>(false);
   const handleSubmit = async (values: any) => {
-    setLoading(true);
-    if (values) {
-      await signInUser(values.email, values.password)
-        .then((res) => {
-          setLoading(false);
-          router.push("/personalInfo");
-        })
-        .catch((err) => console.log(err));
-    }
+    const res: any = await handleSignIn(values);
+    if (res) router.push("/personalInfo");
   };
 
   const signInWithGoogle = async () => {
