@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { apiReqHandler } from "../../../components";
-import { setCookie } from "../../../helper";
+import { toast } from "react-toastify";
 
 interface IVerifyState {
   loading: boolean;
@@ -41,8 +41,10 @@ export const VerifyOTPContextProvider: React.FC<IProps> = ({ children }) => {
       setLoading(false);
       const data = await response.res?.data;
       console.log(data);
+      toast.success(data?.message);
       console.log(data);
-    } catch (error) {
+    } catch (error: any) {
+      toast.error(error);
       console.log(error);
     }
   };
