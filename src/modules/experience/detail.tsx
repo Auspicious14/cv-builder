@@ -10,6 +10,7 @@ import { useExperienceState } from "./context";
 import * as Yup from "yup";
 import moment from "moment";
 import Link from "next/link";
+import { getCookie } from "../../services/helper";
 
 const FormSchema = Yup.object().shape({});
 interface IProps {
@@ -22,26 +23,26 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
   const [modal, setModal] = useState<{ show: boolean }>({ show: false });
   const [category, setCategory] = useState<string>("");
   const handleSubmit = (values: any, actions: any) => {
-    updateCVDocument({
-      ...values,
-      // description: result,
-    }).finally(() => {
-      router.push("/skill");
-      actions.resetForm({
-        values: {
-          experience: [
-            {
-              jobTitle: "",
-              description: "",
-              organization: "",
-              fromDate: "",
-              toDate: "",
-              location: "",
-            },
-          ],
-        },
+    const id = getCookie("user_id");
+    console.log(values);
+    updateCVDocument(values, id)
+      .then((res) => router.push("/skill"))
+      .finally(() => {
+        actions.resetForm({
+          values: {
+            experience: [
+              {
+                jobTitle: "",
+                description: "",
+                organization: "",
+                fromDate: "",
+                toDate: "",
+                location: "",
+              },
+            ],
+          },
+        });
       });
-    });
   };
 
   return (
@@ -63,8 +64,8 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
             experience: [
               {
                 jobTitle: experience?.jobTitle || "",
-                organization: experience?.organization || "",
-                description: result || "",
+                company: experience?.company || "",
+                description: experience?.description || "",
                 location: experience?.location || "",
                 fromDate:
                   experience?.fromDate || moment().startOf("month").toDate(),
@@ -83,7 +84,7 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
                     ...values.experience,
                     {
                       jobTitle: "",
-                      organization: "",
+                      company: "",
                       description: "",
                       location: "",
                       fromDate: moment().startOf("month").toDate(),
@@ -97,19 +98,20 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
                     values.experience.filter((e, i) => i !== index)
                   )
                 }
-                handleDate={(date: any, i: number) =>
-                  setFieldValue(
-                    "experience",
-                    values.experience.map((e, index) => {
-                      if (i !== index) return e;
-                      return {
-                        ...e,
-                        fromDate: date.fromDate,
-                        endDate: date.endDate,
-                      };
-                    })
-                  )
-                }
+                handleDate={(date: any, i: number) => {
+                  console.log(date, "handle datee"),
+                    setFieldValue(
+                      "experience",
+                      values.experience.map((e, index) => {
+                        if (i !== index) return e;
+                        return {
+                          ...e,
+                          fromDate: date.startDate,
+                          toDate: date.endDate,
+                        };
+                      })
+                    );
+                }}
                 value={result}
                 category={category}
                 onChange={(e) => setCategory(e.target.value)}

@@ -1,6 +1,8 @@
 import { doc, updateDoc } from "firebase/firestore";
 import React, { createContext, useContext, useState } from "react";
 import { auth, db, useOpenAiApi } from "../../library";
+import { toastSvc } from "../../services/toast";
+import { apiReqHandler } from "../../components";
 
 interface ExperienceState {
   category: string;
@@ -12,7 +14,7 @@ interface ExperienceState {
   getDescriptiveAiInfo: (prompt: string) => void;
   handleSetCategory: (e: any) => void;
   setResult: React.Dispatch<any>;
-  updateCVDocument: (response: any) => Promise<any>;
+  updateCVDocument: (response: any, id: string) => Promise<any>;
 }
 const ExperienceContext = createContext<ExperienceState>({
   category: "",
@@ -46,15 +48,24 @@ export const ExperienceContextProvider: React.FC<IProps> = ({ children }) => {
   const [description, setDescription] = useState("");
   const [fetchLoading, setFetchLoading] = useState<boolean>(false);
   const [category, setCategory] = useState("");
-  const updateCVDocument = async (response: any) => {
+  const updateCVDocument = async (payload: any, id: string) => {
     setLoading(true);
-    const user: any = auth.currentUser;
-    const cvDocRef = doc(db, "cv", user.uid);
     try {
+      const res = await apiReqHandler({
+        endPoint: `${process.env.NEXT_PUBLIC_API_ROUTE}/cv/${id}`,
+        method: "POST",
+        payload,
+      });
+
       setLoading(false);
-      await updateDoc(cvDocRef, response).then((res) => console.log(res));
-    } catch (err) {
-      console.log(err);
+      if (res?.res?.data?.success === true) {
+        const data = res?.res?.data?.data;
+        toastSvc.success("Academy created");
+        console.log(data);
+        return data;
+      }
+    } catch (error: any) {
+      toastSvc.error(error);
     }
   };
 

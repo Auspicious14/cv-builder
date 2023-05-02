@@ -1,36 +1,35 @@
 export interface IExperience {
   jobTitle: string;
-  organization: string;
+  company: string;
   fromDate?: Date | string | number | any;
-  toDate?: Date|string | number | any;
+  toDate?: Date | string | number | any;
   description: string;
   location: string;
 }
 
-
-export const ICategory =[ 
+export const ICategory = [
   {
     label: "Software Engineer",
-  name: 'softwareEngineer'
+    name: "softwareEngineer",
   },
   {
     label: "lawyer",
-    name: 'lawyer'
+    name: "lawyer",
   },
   {
-    label: 'doctor',
-    name: 'doctor'
+    label: "doctor",
+    name: "doctor",
   },
   {
-    label: 'Accountant',
-    name: 'accountant'
+    label: "Accountant",
+    name: "accountant",
   },
   {
-    label: 'Nurse',
-    name: 'nurse'
+    label: "Nurse",
+    name: "nurse",
   },
   {
-    label: 'educationist',
-    name: 'educationist'
+    label: "educationist",
+    name: "educationist",
   },
-]
+];

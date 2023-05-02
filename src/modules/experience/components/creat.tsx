@@ -13,11 +13,11 @@ import { ICategory, IExperience } from "../model";
 interface IProps {
   index: number;
   value?: string;
-  category: string;
+  category?: string;
   loading?: boolean;
   experience: IExperience;
   onChange: (e: any, i: number) => void;
-  onTextChange: (e: any, i: number) => void;
+  onTextChange?: (e: any, i: number) => void;
   onDelete: () => void;
   handleDate: (date: any, index: number) => void;
 }
@@ -45,7 +45,7 @@ export const ExperienceListItem: React.FC<IProps> = ({
         />
         <ApTextInput
           label="Organization"
-          name={`experience[${index}].organization`}
+          name={`experience[${index}].company`}
           type="text"
           className="p-3 outline-blue-400"
         />
@@ -55,29 +55,15 @@ export const ExperienceListItem: React.FC<IProps> = ({
           type="text"
           className="p-3 outline-blue-400"
         />
-        {value ? (
-          <div className="flex flex-col">
-            <label htmlFor="">Description</label>
-            <textarea
-              name={"description"}
-              value={`experience[${index}].${value}`}
-              rows={5}
-              cols={30}
-              onChange={(e) => {
-                e.preventDefault(), onTextChange(e, index);
-              }}
-              className="p-3 border rounded-md outline-blue-400 w-full"
-            />
-          </div>
-        ) : (
-          <ApTextInput
-            label="Description"
-            name={`experience[${index}].description`}
-            type="textarea"
-            className="p-3 outline-blue-400"
-          />
-        )}
-        <div className="lg:flex block lg:gap-3 items-center">
+
+        <ApTextInput
+          label="Description"
+          name={`experience[${index}].description`}
+          type="textarea"
+          className="p-3 outline-blue-400"
+        />
+
+        {/* <div className="lg:flex block lg:gap-3 items-center">
           <select
             value={category}
             onChange={(e) => {
@@ -102,7 +88,7 @@ export const ExperienceListItem: React.FC<IProps> = ({
                 console.log(category);
             }}
           />
-        </div>
+        </div> */}
         <ApDateRangePicker
           onChange={(date) => handleDate(date, index)}
           date={{
