@@ -41,7 +41,7 @@ export const ApDateRangePicker: React.FC<IProps> = ({ date, onChange }) => {
             selected={dt.endDate}
             onChange={(date: any) => {
               setDt({ ...dt, endDate: date }),
-                onChange({ ...dt, startDate: date });
+                onChange({ ...dt, endDate: date });
             }}
             selectsEnd
             startDate={dt.startDate}
