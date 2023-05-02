@@ -17,36 +17,47 @@ import { BsFillTelephoneFill } from "react-icons/bs";
 import { FiDownload } from "react-icons/fi";
 import Link from "next/link";
 import Pdf from "react-to-pdf";
+import { getCookie } from "../../services/helper";
+import Image from "next/image";
 
 export const BuildPage = () => {
   const ref = React.createRef<any>();
-  const { getImageFile, imageFile, imageSource, displayImage } = useCvState();
-  const [cvState, setCvState] = useState<ICV>({} as any);
+  const {
+    getImageFile,
+    imageFile,
+    imageSource,
+    displayImage,
+    getCVDocument,
+    loading,
+    cvState,
+  } = useCvState();
+  // const [cvState, setCvState] = useState<ICV>({} as any);
   const [modal, setModal] = useState<{ show: boolean; data?: any }>({
     show: false,
   });
-  const [loading, setLoading] = useState<boolean>(false);
+  // const [loading, setLoading] = useState<boolean>(false);
   const [session, setSession] = useState({});
   const router = useRouter();
-  const getCVDocument = () => {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        setLoading(true);
-        setSession(user?.uid);
-        const cvDocRef = doc(db, "cv", user.uid);
-        const cvSnapShot = await getDoc(cvDocRef);
-        if (cvSnapShot.exists()) {
-          setLoading(false);
-          setCvState(cvSnapShot.data() as any | string);
-          // uploadFileDocument(cvSnapShot.data);
-        } else {
-          setLoading(false);
-        }
-      }
-    });
-  };
+  // const getCVDocument = () => {
+  //   onAuthStateChanged(auth, async (user) => {
+  //     if (user) {
+  //       setLoading(true);
+  //       setSession(user?.uid);
+  //       const cvDocRef = doc(db, "cv", user.uid);
+  //       const cvSnapShot = await getDoc(cvDocRef);
+  //       if (cvSnapShot.exists()) {
+  //         setLoading(false);
+  //         setCvState(cvSnapShot.data() as any | string);
+  //         // uploadFileDocument(cvSnapShot.data);
+  //       } else {
+  //         setLoading(false);
+  //       }
+  //     }
+  //   });
+  // };
   useEffect(() => {
-    getCVDocument();
+    const id = getCookie("user_id");
+    getCVDocument(id);
     displayImage();
   }, []);
 
@@ -67,47 +78,51 @@ export const BuildPage = () => {
                 <>
                   <div
                     ref={ref}
-                    className=" m-auto my-2 lg:border-[2rem] border-blue-500 lg:w-[70%] h-auto"
+                    className=" m-auto my-2 lg:border-[2rem] border-blue-500 lg:w-[58%] h-auto"
                   >
                     <div className=" flex p-4 gap-8 items-center">
-                      {imageSource.length && (
+                      {cvState?.personalInformation?.image && (
                         <img
                           src={
-                            imageSource
-                              ? imageSource
+                            cvState?.personalInformation?.image?.uri
+                              ? cvState?.personalInformation?.image?.uri
                               : "https://picsum.photos/200/300"
                           }
-                          alt="name"
+                          alt={cvState?.personalInformation?.image?.name}
                           className="w-[15%] h-[15%] border rounded-full"
                           width={200}
                           height={200}
                         />
                       )}
                       <div className="lg:pt-8 lg:pb-4 lg:text-4xl text-2xl font-bold">
-                        {`${cvState?.firstName
+                        {`${cvState?.personalInformation?.firstName
                           ?.charAt(0)
-                          ?.toLocaleUpperCase()}${cvState?.firstName?.slice(
+                          ?.toLocaleUpperCase()}${cvState?.personalInformation?.firstName?.slice(
                           1
-                        )} ${cvState?.lastName
+                        )} ${cvState?.personalInformation?.lastName
                           ?.charAt(0)
-                          ?.toLocaleUpperCase()}${cvState?.lastName?.slice(1)}`}
+                          ?.toLocaleUpperCase()}${cvState?.personalInformation?.lastName?.slice(
+                          1
+                        )}`}
                       </div>
                     </div>
-                    <p className="p-4 text-justify">{cvState?.description}</p>
+                    <p className="p-4 text-justify">
+                      {cvState?.personalInformation?.description}
+                    </p>
                     <div className="ml-4 lg:flex text-white lg:justify-between  h-auto lg:p-4 p-2 bg-blue-500">
                       <div>
                         <div className="py-2 flex gap-2 items-center">
                           <MdOutlineMarkEmailUnread size={20} />
-                          <p>{cvState?.email}</p>
+                          <p>{cvState?.personalInformation?.email}</p>
                         </div>
                         <div className="flex gap-2 items-center">
                           <BsFillTelephoneFill size={20} />
-                          <p>{cvState?.phoneNumber}</p>
+                          <p>{cvState?.personalInformation?.phoneNumber}</p>
                         </div>
                       </div>
                       <div className="flex gap-2 items-center">
                         <HiOutlineLocationMarker size={20} />
-                        <p>{cvState?.address}</p>
+                        <p>{cvState?.personalInformation?.address}</p>
                       </div>
                     </div>
                     <div className="w-full lg:flex lg:gap-4 lg:justify-between p-4">
@@ -128,7 +143,7 @@ export const BuildPage = () => {
                         </div>
                         <h1 className="font-bold text-lg">Education</h1>
                         <div className="lg:my-4 my-2">
-                          {cvState?.academy?.map((a, i) => (
+                          {cvState?.academic?.map((a, i) => (
                             <AcademyList academy={a} key={i} />
                           ))}
                         </div>

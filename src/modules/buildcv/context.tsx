@@ -11,12 +11,14 @@ import React, { createContext, useContext, useState } from "react";
 import { auth, db, storage } from "../../library";
 import { toastSvc } from "../../services/toast";
 import { ICV } from "./model";
+import { apiReqHandler } from "../../components";
 
 interface ICvState {
+  loading: boolean;
   imageFile: string;
   imageSource: string;
   cvState: ICV;
-  getCVDocument: () => void;
+  getCVDocument: (id: string) => void;
   displayImage: () => void;
   getImageFile: (imageUpload?: any) => void;
   uploadImageDocument: (image: any) => void;
@@ -24,6 +26,7 @@ interface ICvState {
   updateCVDocument: (response: any) => Promise<DocumentReference<DocumentData>>;
 }
 const CVContext = createContext<ICvState>({
+  loading: false,
   imageFile: "",
   imageSource: "",
   cvState: null as any,
@@ -54,20 +57,37 @@ export const CVContetxProvider: React.FC<IProps> = ({ children }) => {
   const [cvState, setCvState] = useState<ICV>() as any;
   const [imageFile, setImageFile] = useState("");
   const [imageSource, setImageSource] = useState("");
+  const [loading, setLoading] = useState<boolean>(false);
   // const [text, setText] = useState<string>('')
 
-  const getCVDocument = () => {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const cvDocRef = doc(db, "cv", user.uid);
-        const cvSnapShot = await getDoc(cvDocRef);
-        if (cvSnapShot.exists()) {
-          console.log(cvSnapShot.data(), "cv dataaaaaa");
-          setCvState(cvSnapShot.data() as any);
-        }
-        return cvDocRef;
+  const getCVDocument = async (id: string) => {
+    // onAuthStateChanged(auth, async (user) => {
+    //   if (user) {
+    //     const cvDocRef = doc(db, "cv", user.uid);
+    //     const cvSnapShot = await getDoc(cvDocRef);
+    //     if (cvSnapShot.exists()) {
+    //       console.log(cvSnapShot.data(), "cv dataaaaaa");
+    //       setCvState(cvSnapShot.data() as any);
+    //     }
+    //     return cvDocRef;
+    //   }
+    // });
+    try {
+      const res = await apiReqHandler({
+        endPoint: `${process.env.NEXT_PUBLIC_API_ROUTE}/cv/${id}`,
+        method: "GET",
+      });
+
+      setLoading(false);
+      if (res?.res?.data?.success === true) {
+        const data = res?.res?.data?.data;
+        console.log(data);
+        setCvState(data);
+        return data;
       }
-    });
+    } catch (error: any) {
+      toastSvc.error(error);
+    }
   };
 
   const updateCVDocument = async (response: any) => {
@@ -150,6 +170,7 @@ export const CVContetxProvider: React.FC<IProps> = ({ children }) => {
   return (
     <CVContext.Provider
       value={{
+        loading,
         imageFile,
         imageSource,
         cvState,

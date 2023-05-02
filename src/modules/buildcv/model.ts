@@ -1,16 +1,6 @@
 export interface ICV {
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  file: string;
-  address: string;
-  description: string;
-  profession: string;
-  country: string;
-  city: string;
-  state: string;
-  email: string;
-  academy: IAcademy[];
+  personalInformation: IPersonalInfo;
+  academic: IAcademy[];
   experience: IExperience[];
   skill: ISkill[];
   certificate: ICertificate[];
@@ -18,14 +8,14 @@ export interface ICV {
 
 interface IAcademy {
   course: string;
-  name: string;
+  school: string;
   fromDate: string;
   toDate: string;
 }
 
 interface IExperience {
   jobTitle: string;
-  organization: string;
+  company: string;
   fromDate: string;
   toDate: string;
   description: string;
@@ -33,8 +23,34 @@ interface IExperience {
 }
 
 interface ISkill {
-  skillName: string;
+  name: string;
 }
 interface ICertificate {
+  name: string;
+  year: string;
+}
+
+export interface ICV {
+  personalInfo: IPersonalInfo;
+}
+
+export interface IPersonalInfo {
+  firstName: string;
+  lastName: string;
+  description: string;
+  profession: string;
+  address: string;
+  phoneNumber: string;
+  country: string;
+  image: IFile;
+  city: string;
+  state: string;
+  email: string;
+}
+
+interface IFile {
+  _id: string;
+  uri: string;
+  type: string;
   name: string;
 }
