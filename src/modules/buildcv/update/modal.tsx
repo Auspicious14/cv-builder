@@ -62,18 +62,20 @@ export const UpdateCVModal: React.FC<IProps> = ({ update, onDissmiss }) => {
     <>
       <Formik
         initialValues={{
-          firstName: update?.firstName || "",
-          lastName: update?.lastName || "",
-          email: update?.email || "",
-          phoneNumber: update?.phoneNumber || "",
-          description: update?.description || "",
-          address: update?.address || "",
-          state: update?.state || "",
-          country: update?.country || "",
-          city: update?.city || "",
-          profession: update?.profession || "",
+          personalInformation: {
+            firstName: update?.personalInformation?.firstName || "",
+            lastName: update?.personalInformation?.lastName || "",
+            email: update?.personalInformation?.email || "",
+            phoneNumber: update?.personalInformation?.phoneNumber || "",
+            description: update?.personalInformation?.description || "",
+            address: update?.personalInformation?.address || "",
+            state: update?.personalInformation?.state || "",
+            country: update?.personalInformation?.country || "",
+            city: update?.personalInformation?.city || "",
+            profession: update?.personalInformation?.profession || "",
+          },
           skill: update?.skill || [],
-          academy: update?.academy || [],
+          academic: update?.academic || [],
           experience: update?.experience || [],
           certificate: update?.certificate || [],
         }}
@@ -98,62 +100,62 @@ export const UpdateCVModal: React.FC<IProps> = ({ update, onDissmiss }) => {
                 <ApTextInput
                   label="First Name"
                   type="text"
-                  name="firstName"
+                  name="personalInformation.firstName"
                   className="p-3 outline-blue-400"
                 />
                 <ApTextInput
                   label="Last Name"
                   type="text"
-                  name="lastName"
+                  name="personalInformation.lastName"
                   className="p-3 outline-blue-400"
                 />
                 <ApTextInput
                   label="Email"
                   type="email"
-                  name="email"
+                  name="personalInformation.email"
                   className="p-3 outline-blue-400"
                 />
 
                 <ApTextInput
                   label="Phone Number"
                   type="text"
-                  name="phoneNumber"
+                  name="personalInformation.phoneNumber"
                   className="p-3 outline-blue-400"
                 />
                 <ApTextInput
                   label="Description"
                   type="textarea"
-                  name="description"
+                  name="personalInformation.description"
                   className="p-3 outline-blue-400"
                 />
                 <ApTextInput
                   label="Profession"
                   type="text"
-                  name="profession"
+                  name="personalInformation.profession"
                   className="p-3 outline-blue-400"
                 />
                 <ApTextInput
                   label="Address"
                   type="text"
-                  name="address"
+                  name="personalInformation.address"
                   className="p-3 outline-blue-400"
                 />
                 <ApTextInput
                   label="State"
                   type="text"
-                  name="state"
+                  name="personalInformation.state"
                   className="p-3 outline-blue-400"
                 />
                 <ApTextInput
                   label="City"
                   type="text"
-                  name="city"
+                  name="personalInformation.city"
                   className="p-3 outline-blue-400"
                 />
                 <ApTextInput
                   label="Country"
                   type="text"
-                  name="country"
+                  name="personalInformation.country"
                   className="p-3 outline-blue-400"
                 />
               </div>
@@ -178,10 +180,10 @@ export const UpdateCVModal: React.FC<IProps> = ({ update, onDissmiss }) => {
 
             {modal.show && modal.type == "academy" ? (
               <Academy
-                academy={values.academy}
+                academy={values.academic}
                 onAdd={() =>
-                  setFieldValue("academy", [
-                    ...values.academy,
+                  setFieldValue("academic", [
+                    ...values.academic,
                     {
                       name: "",
                       course: "",
@@ -192,19 +194,19 @@ export const UpdateCVModal: React.FC<IProps> = ({ update, onDissmiss }) => {
                 }
                 onDelete={(index: number) =>
                   setFieldValue(
-                    "academy",
-                    values.academy.filter((a, i) => i !== index)
+                    "academic",
+                    values.academic.filter((a, i) => i !== index)
                   )
                 }
                 handleDate={(date: any, i: number) =>
                   setFieldValue(
-                    "experience",
-                    values.academy.map((e, index) => {
+                    "academic",
+                    values.academic.map((e, index) => {
                       if (i !== index) return e;
                       return {
                         ...e,
                         fromDate: date.fromDate,
-                        endDate: date.endDate,
+                        toDate: date.endDate,
                       };
                     })
                   )
@@ -257,7 +259,7 @@ export const UpdateCVModal: React.FC<IProps> = ({ update, onDissmiss }) => {
                       return {
                         ...e,
                         fromDate: date.fromDate,
-                        endDate: date.endDate,
+                        toDate: date.endDate,
                       };
                     })
                   )
@@ -293,7 +295,7 @@ export const UpdateCVModal: React.FC<IProps> = ({ update, onDissmiss }) => {
                 onAdd={() => {
                   setFieldValue("skill", [
                     ...values.skill,
-                    update?.skill[0].skillName,
+                    update?.skill[0].name,
                   ]),
                     console.log(values);
                 }}

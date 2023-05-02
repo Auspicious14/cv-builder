@@ -177,7 +177,7 @@ export const BlendTemplate = () => {
                     className="bg-red-900 px-4 py-2 mx-4 text-white border-none rounded-md outline-none "
                   />
                   <Pdf targetRef={ref} filename="resume.pdf">
-                    {({ toPdf }) => (
+                    {({ toPdf }: any) => (
                       <ApButton
                         name={"Download Resume"}
                         type={"button"}

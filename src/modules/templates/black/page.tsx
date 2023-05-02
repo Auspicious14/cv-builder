@@ -168,7 +168,7 @@ export const BlackTemplate = () => {
                     className="bg-neutral-800 mx-4 my-2 px-4 text-white border-none rounded-sm outline-none "
                   />
                   <Pdf targetRef={ref} filename="resume.pdf">
-                    {({ toPdf }) => (
+                    {({ toPdf }: any) => (
                       <ApButton
                         name={"Download Resume"}
                         type={"button"}

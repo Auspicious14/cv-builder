@@ -22,50 +22,21 @@ import Image from "next/image";
 
 export const BuildPage = () => {
   const ref = React.createRef<any>();
-  const {
-    getImageFile,
-    imageFile,
-    imageSource,
-    displayImage,
-    getCVDocument,
-    loading,
-    cvState,
-  } = useCvState();
-  // const [cvState, setCvState] = useState<ICV>({} as any);
+  const { getCVDocument, loading, cvState } = useCvState();
   const [modal, setModal] = useState<{ show: boolean; data?: any }>({
     show: false,
   });
-  // const [loading, setLoading] = useState<boolean>(false);
-  const [session, setSession] = useState({});
   const router = useRouter();
-  // const getCVDocument = () => {
-  //   onAuthStateChanged(auth, async (user) => {
-  //     if (user) {
-  //       setLoading(true);
-  //       setSession(user?.uid);
-  //       const cvDocRef = doc(db, "cv", user.uid);
-  //       const cvSnapShot = await getDoc(cvDocRef);
-  //       if (cvSnapShot.exists()) {
-  //         setLoading(false);
-  //         setCvState(cvSnapShot.data() as any | string);
-  //         // uploadFileDocument(cvSnapShot.data);
-  //       } else {
-  //         setLoading(false);
-  //       }
-  //     }
-  //   });
-  // };
+
+  const id = getCookie("user_id");
   useEffect(() => {
-    const id = getCookie("user_id");
     getCVDocument(id);
-    displayImage();
   }, []);
 
-  console.log(cvState);
   return (
     <>
       <div>
-        {session ? (
+        {id ? (
           <div>
             {loading && (
               <div className="w-screen h-screen flex justify-center items-center">
