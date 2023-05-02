@@ -7,6 +7,7 @@ import { toastSvc } from "../../../services/toast";
 import { useRouter } from "next/router";
 import { updateProfile } from "firebase/auth";
 import Link from "next/link";
+import { useSignUpState } from "./context";
 
 const FormSchema = Yup.object().shape({
   firstName: Yup.string().required("First Name is required"),
@@ -16,16 +17,13 @@ const FormSchema = Yup.object().shape({
 });
 
 export const SignUpPage = () => {
+  const { handleSignUp } = useSignUpState();
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
   const handleSubmit = (values: any) => {
     setLoading(true);
-    const response = signUpUser(values.email, values.password, {
-      displayName: values.firstName,
-      lastName: values.lastName,
-      profession: values.profession,
-    });
+    const response = handleSignUp(values);
     response.then((user) => {
       setLoading(false);
       console.log(user);
