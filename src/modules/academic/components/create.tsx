@@ -6,14 +6,14 @@ import { IAcademy } from "../model";
 
 interface IProps {
   onDelete: () => void;
-  academy: IAcademy;
+  academic: IAcademy;
   index: number;
   handleDate: (date: any, index: number) => void;
 }
 export const AcademyListItem: React.FC<IProps> = ({
   onDelete,
   index,
-  academy,
+  academic,
   handleDate,
 }) => {
   return (
@@ -21,21 +21,25 @@ export const AcademyListItem: React.FC<IProps> = ({
       <ApTextInput
         label="Name of School"
         type="text"
-        name={`academy[${index}].name`}
+        name={`academic[${index}].school`}
         className="p-3 outline-blue-400"
       />
       <ApTextInput
         label="course of study"
         type="text"
-        name={`academy[${index}].course`}
+        name={`academic[${index}].course`}
         className="p-3 outline-blue-400"
       />
       <ApDateRangePicker
-        onChange={(date) => handleDate(date, index)}
+        onChange={(date) => {
+          handleDate(date, index);
+          // console.log(date.startDate)
+        }}
         date={{
           startDate:
-            (academy.fromDate as Date) || moment().startOf("month").toDate(),
-          endDate: (academy.toDate as Date) || moment().endOf("month").toDate(),
+            (academic.fromDate as Date) || moment().startOf("month").toDate(),
+          endDate:
+            (academic.toDate as Date) || moment().endOf("month").toDate(),
         }}
       />
 
@@ -70,7 +74,7 @@ export const Academy: React.FC<IAcademyProps> = ({
       </div>
       {academy?.map((a, i) => (
         <AcademyListItem
-          academy={a}
+          academic={a}
           onDelete={() => onDelete(i)}
           index={i}
           key={i}

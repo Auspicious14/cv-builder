@@ -3,10 +3,10 @@ import { AcademyDetail } from "./detail";
 import { IAcademy } from "./model";
 
 export const AcademyPage = () => {
-  const [academy, setAcademy] = useState<IAcademy>();
+  const [academic, setAcademic] = useState<IAcademy>();
   return (
     <>
-      <AcademyDetail academy={academy as any} />
+      <AcademyDetail academic={academic as any} />
     </>
   );
 };
