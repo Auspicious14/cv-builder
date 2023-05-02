@@ -17,40 +17,26 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { FiDownload } from "react-icons/fi";
 import Pdf from "react-to-pdf";
+import { getCookie } from "../../../services/helper";
 export const BlackTemplate = () => {
   const ref = React.createRef<any>();
-  const { getImageFile, imageFile } = useCvState();
-  const [cvState, setCvState] = useState<ICV>({} as any);
+  const { getImageFile, getCVDocument, loading, cvState } = useCvState();
   const [modal, setModal] = useState<{ show: boolean; data?: any }>({
     show: false,
   });
-  const [loading, setLoading] = useState<boolean>(false);
-  const [session, setSession] = useState({});
   const router = useRouter();
-  const getCVDocument = () => {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        setSession(user?.uid);
-        setLoading(true);
-        const cvDocRef = doc(db, "cv", user.uid);
-        const cvSnapShot = await getDoc(cvDocRef);
-        if (cvSnapShot.exists()) {
-          setLoading(false);
-          setCvState(cvSnapShot.data() as any);
-        }
-      }
-    });
-  };
+
+  const id = getCookie("user_id");
 
   useEffect(() => {
-    getCVDocument();
+    getCVDocument(id);
     getImageFile();
   }, []);
 
   return (
     <>
       <div>
-        {session ? (
+        {id ? (
           <div>
             {loading ? (
               <div className="w-screen h-screen flex justify-center items-center">
@@ -66,16 +52,16 @@ export const BlackTemplate = () => {
                     <div className="text-center text-xl lg:text-2xl uppercase font-bold">
                       <div className="lg:block flex gap-2 items-center text-center justify-center">
                         <div>
-                          {`${cvState?.firstName
+                          {`${cvState?.personalInformation?.firstName
                             ?.charAt(0)
-                            ?.toLocaleUpperCase()}${cvState?.firstName?.slice(
+                            ?.toLocaleUpperCase()}${cvState?.personalInformation?.firstName?.slice(
                             1
                           )}`}
                         </div>
-                        <div>{cvState?.lastName}</div>
+                        <div>{cvState?.personalInformation?.lastName}</div>
                       </div>
                       <p className="text-sm font-normal lg:py-2 normal-case">
-                        {cvState?.profession}
+                        {cvState?.personalInformation?.profession}
                       </p>
                     </div>
                     <div className="lg:block hidden">
@@ -84,15 +70,15 @@ export const BlackTemplate = () => {
                     <div className="pt-4 ">
                       <div className="py-2 flex gap-2 items-center">
                         <MdOutlineMarkEmailUnread size={20} />
-                        <p>{cvState?.email}</p>
+                        <p>{cvState?.personalInformation?.email}</p>
                       </div>
                       <div className="flex gap-2 items-center">
                         <BsFillTelephoneFill size={20} />
-                        <p>{cvState?.phoneNumber}</p>
+                        <p>{cvState?.personalInformation?.phoneNumber}</p>
                       </div>
                       <div className="py-2 flex gap-2 items-center">
                         <HiOutlineLocationMarker size={20} />
-                        <p>{cvState?.address}</p>
+                        <p>{cvState?.personalInformation?.address}</p>
                       </div>
                     </div>
                   </div>
@@ -102,7 +88,9 @@ export const BlackTemplate = () => {
                         <p className=" font-bold text-lg uppercase pb-2">
                           profile
                         </p>
-                        <p className=" text-justify">{cvState?.description}</p>
+                        <p className=" text-justify">
+                          {cvState?.personalInformation?.description}
+                        </p>
                       </div>
                       <div className="mb-8">
                         <h1 className="uppercase font-bold lg:pb-2 text-lg">
@@ -134,7 +122,7 @@ export const BlackTemplate = () => {
                           Education
                         </h1>
                         <div className="my-4">
-                          {cvState?.academy?.map((a, i) => (
+                          {cvState?.academic?.map((a, i) => (
                             <AcademyList academy={a} key={i} />
                           ))}
                         </div>

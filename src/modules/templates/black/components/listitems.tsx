@@ -5,8 +5,9 @@ interface IProps {
   experience: IExperience;
 }
 export const BlackTemplateExperienceListItem = ({ experience }: IProps) => {
-  const fromDate = new Date(experience?.fromDate.toDate()).toDateString();
-  const toDate = new Date(experience?.toDate.toDate()).toDateString();
+  // const fromDate = new Date(experience?.fromDate.toDate()).toDateString();
+  // const toDate = new Date(experience?.toDate.toDate()).toDateString();
+  console.log(experience?.fromDate?.slice(0, 10));
   return (
     <>
       <div>
@@ -15,10 +16,11 @@ export const BlackTemplateExperienceListItem = ({ experience }: IProps) => {
           <div className="flex gap-2">
             <p className="font-bold">{experience?.jobTitle}</p>
             <span> - </span>
-            <p className="font-bold">{experience?.organization}</p>
+            <p className="font-bold">{experience?.company}</p>
           </div>
           <p className="text-sm pb-2 text-gray-300">
-            {fromDate} - {toDate}
+            {experience?.fromDate?.slice(0, 10)} -{" "}
+            {experience?.toDate?.slice(0, 10)}
           </p>
           <p className="text-justify">{experience?.description}</p>
         </div>
