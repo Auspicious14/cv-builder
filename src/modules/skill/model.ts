@@ -1,3 +1,3 @@
 export interface ISkill {
-  skillName: string;
+  name: string;
 }

@@ -11,7 +11,7 @@ export const SkillList: React.FC<IProps> = ({ skill }) => {
       <ul>
         <div className="flex gap-2 items-center">
           <CgLoadbar />
-          <li>{skill?.skillName}</li>
+          <li>{skill?.name}</li>
         </div>
       </ul>
     </div>

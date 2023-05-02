@@ -9,6 +9,7 @@ import { toastSvc } from "../../services/toast";
 import { Skill } from "./components/create";
 import { useSkillState } from "./context";
 import { ISkill } from "./model";
+import { getCookie } from "../../services/helper";
 interface IProps {
   skill: ISkill;
 }
@@ -18,15 +19,18 @@ export const SkillDetail: React.FC<IProps> = ({ skill }) => {
   const [modal, setModal] = useState<{ show: boolean }>({ show: false });
 
   const handleSubmit = (values: any, actions: any) => {
-    updateCVDocument(values).finally(() => {
-      toastSvc.success("CV created successfully!");
-      router.push("/cv");
-      actions.resetForm({
-        values: {
-          skill: [{ skillName: "" }],
-        },
+    const id = getCookie("user_id");
+    updateCVDocument(values, id)
+      .then((res) => console.log(res))
+      .finally(() => {
+        toastSvc.success("CV created successfully!");
+        router.push("/cv");
+        actions.resetForm({
+          values: {
+            skill: [{ skillName: "" }],
+          },
+        });
       });
-    });
   };
   return (
     <>
@@ -43,7 +47,7 @@ export const SkillDetail: React.FC<IProps> = ({ skill }) => {
           </div>
         </div>
         <Formik
-          initialValues={{ skill: [{ skillName: skill?.skillName || "" }] }}
+          initialValues={{ skill: [{ name: skill?.name || "" }] }}
           onSubmit={handleSubmit}
         >
           {({ values, setFieldValue }) => (
@@ -54,7 +58,7 @@ export const SkillDetail: React.FC<IProps> = ({ skill }) => {
                   setFieldValue("skill", [
                     ...values.skill,
                     {
-                      skillName: "",
+                      name: "",
                     },
                   ]);
                 }}

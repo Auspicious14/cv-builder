@@ -14,7 +14,7 @@ export const SkillListItem: React.FC<IProps> = ({ index, onDelete, skill }) => {
       <ApTextInput
         label="Name"
         type="text"
-        name={`skill[${index}].skillName`}
+        name={`skill[${index}].name`}
         className=" p-3 outline-blue-400 rounded-sm"
       />
 
