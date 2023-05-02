@@ -18,41 +18,26 @@ import Image from "next/image";
 import Link from "next/link";
 import Pdf from "react-to-pdf";
 import { FiDownload } from "react-icons/fi";
+import { getCookie } from "../../../services/helper";
 
 export const BlockTemplate = () => {
   const ref = React.createRef<any>();
-  const { getImageFile, imageFile } = useCvState();
-  const [cvState, setCvState] = useState<ICV>({} as any);
+  const { getImageFile, loading, cvState, getCVDocument } = useCvState();
   const [modal, setModal] = useState<{ show: boolean; data?: any }>({
     show: false,
   });
-  const [loading, setLoading] = useState<boolean>(false);
-  const [session, setSession] = useState({});
   const router = useRouter();
-  const getCVDocument = () => {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        setSession(user?.uid);
-        setLoading(true);
-        const cvDocRef = doc(db, "cv", user.uid);
-        const cvSnapShot = await getDoc(cvDocRef);
-        if (cvSnapShot.exists()) {
-          setLoading(false);
-          setCvState(cvSnapShot.data() as any);
-        }
-      }
-    });
-  };
+  const id = getCookie("user_id");
 
   useEffect(() => {
-    getCVDocument();
+    getCVDocument(id);
     getImageFile();
   }, []);
 
   return (
     <>
       <div>
-        {session ? (
+        {id ? (
           <div>
             {loading ? (
               <div className="w-screen h-screen flex justify-center items-center">
@@ -67,24 +52,28 @@ export const BlockTemplate = () => {
                   ref={ref}
                   className="p-4 m-auto  lg:w-[70%] h-auto bg-gray-200"
                 >
-                  <div className="lg:w-full lg:flex lg:gap-8 lg:justify-between lg:items-center w-full shadow-md mb-2 py-4  border rounded-lg px-2 bg-white">
-                    <div className="w-full flex gap-8 lg:justify-between items-center ">
-                      <img
-                        src={imageFile}
-                        alt="name"
-                        className="w-[5rem] border text-center lg:m-auto rounded-full"
-                      />
+                  <div className="lg:w-full lg:flex lg:gap-8 lg:items-center w-full shadow-md mb-2 py-4  border rounded-lg px-2 bg-white">
+                    <div className="w-full flex gap-8 items-center ">
+                      {cvState?.personalInformation?.image && (
+                        <div>
+                          <img
+                            src={cvState?.personalInformation?.image?.uri}
+                            alt={cvState?.personalInformation?.image?.name}
+                            className="w-[5rem] border text-center lg:m-auto rounded-full"
+                          />
+                        </div>
+                      )}
                       <div className="">
                         <div className="mb-2 lg:flex text-xl uppercase font-bold">
-                          <div>{`${cvState?.firstName} ${cvState?.lastName}`}</div>
+                          <div>{`${cvState?.personalInformation?.firstName} ${cvState?.personalInformation?.lastName}`}</div>
                         </div>
                         <p className="hidden lg:block text-justify">
-                          {cvState?.description}
+                          {cvState?.personalInformation?.description}
                         </p>
                       </div>
                     </div>
                     <p className=" block lg:hidden text-justify">
-                      {cvState?.description}
+                      {cvState?.personalInformation?.description}
                     </p>
                   </div>
 
@@ -111,15 +100,15 @@ export const BlockTemplate = () => {
                         </p>
                         <div className="py-2 flex gap-2 items-center">
                           <MdOutlineMarkEmailUnread size={20} />
-                          <p>{cvState?.email}</p>
+                          <p>{cvState?.personalInformation?.email}</p>
                         </div>
                         <div className="flex gap-2 items-center">
                           <BsFillTelephoneFill size={20} />
-                          <p>{cvState?.phoneNumber}</p>
+                          <p>{cvState?.personalInformation?.phoneNumber}</p>
                         </div>
                         <div className="py-2 flex gap-2 items-center">
                           <HiOutlineLocationMarker size={20} />
-                          <p>{cvState?.address}</p>
+                          <p>{cvState?.personalInformation?.address}</p>
                         </div>
                       </div>
                       <div className="bg-white shadow-md border rounded-lg p-4 mb-3">
@@ -137,7 +126,7 @@ export const BlockTemplate = () => {
                           Education
                         </h1>
                         <div className="my-4">
-                          {cvState?.academy?.map((a, i) => (
+                          {cvState?.academic?.map((a, i) => (
                             <AcademyList academy={a} key={i} />
                           ))}
                         </div>
