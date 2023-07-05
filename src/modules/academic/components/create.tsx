@@ -25,6 +25,12 @@ export const AcademyListItem: React.FC<IProps> = ({
         className="p-3 outline-blue-400"
       />
       <ApTextInput
+        label="Name of School"
+        type="text"
+        name={`academic[${index}].degree`}
+        className="p-3 outline-blue-400"
+      />
+      <ApTextInput
         label="course of study"
         type="text"
         name={`academic[${index}].course`}

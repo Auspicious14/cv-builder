@@ -88,11 +88,9 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
           type: file?.type,
         },
       },
-    })
-      .then((res) => {
+    }).then((res) => {
+      if (res) {
         router.push("/academy");
-      })
-      .finally(() => {
         actions.resetForm({
           values: {
             firstName: "",
@@ -105,7 +103,8 @@ export const PersonalInformationDetail: React.FC<IProps> = ({
             country: "",
           },
         });
-      });
+      }
+    });
   };
 
   return (

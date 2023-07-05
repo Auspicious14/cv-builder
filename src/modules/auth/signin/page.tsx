@@ -73,7 +73,7 @@ export const SignInPage = () => {
                 className="p-2 outline-blue-400"
               />
 
-              <div className="w-full rounded-md bg-blue-700 text-white font-extrabold  text-center py-1 ">
+              <div className="cursor-pointer w-full rounded-md bg-blue-700 text-white font-extrabold  text-center py-1 ">
                 <ApButton
                   name={loading ? <ApAuthLoader /> : "Sign in"}
                   type="submit"

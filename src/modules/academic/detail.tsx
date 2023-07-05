@@ -55,6 +55,7 @@ export const AcademyDetail: React.FC<IProps> = ({ academic }) => {
             academic: [
               {
                 school: academic?.school || "",
+                degree: academic?.degree || "",
                 course: academic?.course || "",
                 fromDate: academic?.fromDate || "",
                 toDate: academic?.toDate || "",
@@ -73,6 +74,7 @@ export const AcademyDetail: React.FC<IProps> = ({ academic }) => {
                     {
                       school: "",
                       course: "",
+                      degree: "",
                       fromDate: moment().startOf("month").toDate(),
                       toDate: moment().endOf("month").toDate(),
                     },

@@ -1,4 +1,5 @@
 export interface IExperience {
+  _id: string;
   jobTitle: string;
   company: string;
   fromDate?: Date | string | number | any;

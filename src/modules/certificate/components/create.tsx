@@ -22,9 +22,21 @@ export const CertificateListItem: React.FC<IProps> = ({
         className="p-3 outline-blue-400"
       />
       <ApTextInput
+        label="Name"
+        type="text"
+        name={`certificate[${index}].school`}
+        className="p-3 outline-blue-400"
+      />
+      <ApTextInput
         label="Year"
         type="text"
         name={`certificate[${index}].year`}
+        className="p-3 outline-blue-400"
+      />
+      <ApTextInput
+        label="Year"
+        type="text"
+        name={`certificate[${index}].description`}
         className="p-3 outline-blue-400"
       />
 

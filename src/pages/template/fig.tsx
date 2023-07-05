@@ -1,19 +1,16 @@
 import React from "react";
-import { ProfilePage } from "../modules/profile/page";
-import { getCookie } from "../services/helper";
+import { FiGPage } from "../../modules/templates/fig/fig";
+import { getCookie } from "../../services/helper";
 
-const Profile = () => {
-  return (
-    <>
-      <ProfilePage />
-    </>
-  );
+const Fig = () => {
+  return <FiGPage />;
 };
 
-export default Profile;
+export default Fig;
 
 export const getServerSideProps = ({ req }: any) => {
   const userId = req?.cookies?.user_id;
+  console.log(userId);
   if (!userId)
     return {
       redirect: {
