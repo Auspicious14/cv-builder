@@ -1,35 +1,30 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import Head from "next/head";
 import { ToastContainer } from "react-toastify";
-import { CVContetxProvider } from "../modules/buildcv/context";
+import "react-toastify/dist/ReactToastify.css";
+import { Layout } from "../modules/layout";
+import { ThemeProvider } from "../styles/theme";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <CVContetxProvider>
-        <Component {...pageProps} />
-        <Head>
-          <meta charSet="UTF-8" />
-          <meta
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
-          />
-        </Head>
+    <ThemeProvider>
+      <div className="min-h-screen bg-white dark:bg-dark-bg text-gray-900 dark:text-dark-text transition-colors duration-200">
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
         <ToastContainer
-          // className={" m-auto text-center"}
           position="top-right"
           autoClose={3000}
           hideProgressBar={false}
-          newestOnTop={true}
+          newestOnTop
           closeOnClick
           rtl={false}
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          theme="light"
+          theme="colored"
         />
-      </CVContetxProvider>
-    </>
+      </div>
+    </ThemeProvider>
   );
 }

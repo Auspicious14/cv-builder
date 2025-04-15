@@ -76,7 +76,7 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
           onSubmit={handleSubmit}
         >
           {({ values, setFieldValue }) => (
-            <Form>
+            <>
               <Experience
                 experience={values.experience}
                 onAdd={() =>
@@ -120,10 +120,12 @@ export const ExperienceDetail: React.FC<IProps> = ({ experience }) => {
               />
               <ApButton
                 type="submit"
-                name={loading ? <ApGenerateButtonLoader /> : "create"}
+                name={"create"}
+                isLoading={loading}
+                leftIcon={loading ? <ApGenerateButtonLoader /> : null}
                 className="px-4 py-2 uppercase lg:bg-blue-400 bg-blue-900 rounded-md border-none outline-none text-white font-bold"
               />
-            </Form>
+            </>
           )}
         </Formik>
       </div>

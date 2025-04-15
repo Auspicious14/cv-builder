@@ -61,7 +61,11 @@ export const CertificateDetail: React.FC<IProps> = ({ certificate }) => {
           onSubmit={handleSubmit}
         >
           {({ values, setFieldValue }) => (
-            <Form>
+            <Form
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            >
               <Certificate
                 certificate={values.certificate}
                 onAdd={() =>
@@ -82,7 +86,9 @@ export const CertificateDetail: React.FC<IProps> = ({ certificate }) => {
               />
               <ApButton
                 type="submit"
-                name={loading ? <ApGenerateButtonLoader /> : "create"}
+                name={"create"}
+                isLoading={loading}
+                leftIcon={loading ? <ApGenerateButtonLoader /> : null}
                 className="px-4 py-2 uppercase lg:bg-blue-400 bg-blue-900 rounded-md border-none outline-none text-white font-bold"
               />
             </Form>

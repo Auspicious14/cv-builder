@@ -52,7 +52,7 @@ export const SignInPage = () => {
             onSubmit={handleSubmit}
             validationSchema={FormSchema}
           >
-            <Form>
+            <>
               <h4 className=" text-center font-extrabold text-lg mb-5 ">
                 Sign In
               </h4>
@@ -75,7 +75,9 @@ export const SignInPage = () => {
 
               <div className="cursor-pointer w-full rounded-md bg-blue-700 text-white font-extrabold  text-center py-1 ">
                 <ApButton
-                  name={loading ? <ApAuthLoader /> : "Sign in"}
+                  name={"Sign In"}
+                  isLoading={loading}
+                  leftIcon={loading ? <ApAuthLoader /> : null}
                   type="submit"
                   className="  p-2"
                 />
@@ -121,7 +123,7 @@ export const SignInPage = () => {
                   </div>
                 </div>
               </div>
-            </Form>
+            </>
           </Formik>
         </div>
       </div>
